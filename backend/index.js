@@ -27,7 +27,7 @@ db.connect((err) => {
 // GET get all data from tblRoom
 app.get('/api/tblRoom', (req, res) => {
   db.query('SELECT * FROM tblRoom', (err, rows, fields) => {
-    if (err) throw err;
+    if (err) throw err.message;
     res.json(rows);
   });
 });
@@ -39,7 +39,7 @@ app.get('/api/tblRoom/:roomID', (req, res) => {
   db.query(
     `SELECT * FROM tblRoom WHERE roomID = ${roomID}`,
     (err, rows, fields) => {
-      if (err) throw err;
+      if (err) throw err.message;
 
       if (rows.length > 0) {
         res.json(rows);
@@ -59,24 +59,37 @@ app.post('/api/tblRoom', (req, res) => {
   db.query(
     `INSERT INTO tblRoom (roomNumber, amountRent, roomStatus) VALUES ('${roomNumber}', '${amountRent}', '${roomStatus}')`,
     (err, rows) => {
-      if (err) throw err;
+      if (err) throw err.message;
       res.json({ msg: `1 Added Successfully into tblRoom` });
     }
   );
 });
 
-// PUT update tblRoom
+// PUT update tblRoom no specific just all attributes
 app.put('/api/tblRoom', (req, res) => {
   let roomNumber = req.body.roomNumber;
   let amountRent = req.body.amountRent;
   let roomStatus = req.body.roomStatus;
-  let roomID = req.body.roomID; // iisue
+  let roomID = req.body.roomID;
 
   db.query(
     `UPDATE tblRoom SET roomNumber = '${roomNumber}', amountRent ='${amountRent}', roomStatus = '${roomStatus}' WHERE roomID = '${roomID}' `,
     (err, rows, fields) => {
-      if (err) throw err;
-      res.json({ msg: `Update was successfully` });
+      if (err) throw err.message;
+      res.json({ msg: `was Updated successfully` });
+    }
+  );
+});
+
+// Delete tblRoom data
+app.delete('/api/tblRoom', (req, res) => {
+  let roomID = req.body.roomID;
+
+  db.query(
+    `DELETE FROM tblRoom WHERE roomID = ${roomID}`,
+    (err, rows, fields) => {
+      if (err) throw err.message;
+      res.json({ msg: `Delete successfully` });
     }
   );
 });
