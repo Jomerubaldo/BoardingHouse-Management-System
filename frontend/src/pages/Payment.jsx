@@ -6,9 +6,61 @@ function Payment() {
           <div className="font-bold sm:text-sm md:text-md lg:text-lg xl:text-2xl">
             Payment Management
           </div>
-          <button className="badge badge-primary btn btn-xs sm:btn-sm md:btn-md sm:text-sm md:text-md">
-            Add Payment
+          <button
+            className="btn btn-primary"
+            onClick={() => document.getElementById('my_modal_5').showModal()}
+          >
+            Add Room
           </button>
+          <dialog
+            id="my_modal_5"
+            className="modal modal-middle sm:modal-middle"
+          >
+            <div className="modal-box">
+              <h3 className="font-bold text-lg">Create Payment</h3>
+              <p className="py-4">Fill out the payment information:</p>
+              <form className="space-y-4">
+                <div>
+                  <select defaultValue="Pick a color" className="select w-full">
+                    <option disabled={true}>Select tenant</option>
+                    <option>Jomer Ubaldo</option>
+                    <option>Jelly Ubaldo</option>
+                    <option>Mercy Ubaldo</option>
+                  </select>
+                </div>
+                <div>
+                  <select defaultValue="Pick a color" className="select w-full">
+                    <option disabled={true}>Select room</option>
+                    <option>Room 1</option>
+                    <option>Room 2</option>
+                    <option>Room 3</option>
+                  </select>
+                </div>
+                <div>
+                  <select defaultValue="Pick a color" className="select w-full">
+                    <option disabled={true}>Select rent</option>
+                    <option>1500.00</option>
+                    <option>2000.00</option>
+                    <option>5000.00</option>
+                  </select>
+                </div>
+                <div className="flex justify-end gap-2 pt-2">
+                  <button type="submit" className="btn btn-success">
+                    Save
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-error"
+                    onClick={() =>
+                      document.getElementById('my_modal_5').close()
+                    }
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </div>
+          </dialog>
         </di>
         <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
           <table className="table">
@@ -67,28 +119,6 @@ function Payment() {
                       <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
                     </svg>
                   </button>
-                </td>
-              </tr>
-              {/* row 2 */}
-              <tr>
-                <td>Jelly Ubaldo</td>
-                <td>Room 2</td>
-                <td>2026-05-07</td>
-                <td>2000</td>
-                <td>
-                  <button className="btn btn-xs">Edit</button>
-                  <button className="btn btn-xs">Delete</button>
-                </td>
-              </tr>
-              {/* row 3 */}
-              <tr>
-                <td>Mercy Ubaldo</td>
-                <td>Room 3</td>
-                <td>2026-07-09</td>
-                <td>5000</td>
-                <td>
-                  <button className="btn btn-xs">Edit</button>
-                  <button className="btn btn-xs">Delete</button>
                 </td>
               </tr>
             </tbody>

@@ -6,9 +6,62 @@ function Tenant() {
           <div className="font-bold sm:text-sm md:text-md lg:text-lg xl:text-2xl">
             Tenant Management
           </div>
-          <button className="badge badge-primary btn btn-xs sm:btn-sm md:btn-md">
+          {/* Open the modal using document.getElementById('ID').showModal() method */}
+          <button
+            className="btn btn-primary"
+            onClick={() => document.getElementById('my_modal_5').showModal()}
+          >
             Add Tenant
           </button>
+          <dialog
+            id="my_modal_5"
+            className="modal modal-middle sm:modal-middle"
+          >
+            <div className="modal-box">
+              <h3 className="font-bold text-lg">Create Tenant</h3>
+              <p className="py-4">Fill out the tenant information:</p>
+              <form className="space-y-4">
+                <div>
+                  <input
+                    required
+                    type="text"
+                    placeholder="First Name"
+                    className="input input-bordered w-full"
+                  />
+                </div>
+                <div>
+                  <input
+                    required
+                    type="text"
+                    placeholder="Last Name"
+                    className="input input-bordered w-full"
+                  />
+                </div>
+                <div>
+                  <input
+                    required
+                    type="text"
+                    placeholder="Contact"
+                    className="input input-bordered w-full"
+                  />
+                </div>
+                <div className="flex justify-end gap-2 pt-2">
+                  <button type="submit" className="btn btn-success">
+                    Save
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-error"
+                    onClick={() =>
+                      document.getElementById('my_modal_5').close()
+                    }
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </div>
+          </dialog>
         </di>
         <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
           <table className="table">
@@ -65,26 +118,6 @@ function Tenant() {
                       <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
                     </svg>
                   </button>
-                </td>
-              </tr>
-              {/* row 2 */}
-              <tr>
-                <td>Jelly</td>
-                <td>Ubaldo</td>
-                <td>09546154431</td>
-                <td>
-                  <button className="btn btn-xs">Edit</button>
-                  <button className="btn btn-xs">Delete</button>
-                </td>
-              </tr>
-              {/* row 3 */}
-              <tr>
-                <td>Mercy</td>
-                <td>Ubaldo</td>
-                <td>09589997884</td>
-                <td>
-                  <button className="btn btn-xs">Edit</button>
-                  <button className="btn btn-xs">Delete</button>
                 </td>
               </tr>
             </tbody>
