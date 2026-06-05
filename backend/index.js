@@ -12,7 +12,7 @@ const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: 'admin',
-  database: 'bhouse_management_system',
+  database: 'boarding_house_management_system',
 });
 
 db.connect((err) => {
@@ -23,75 +23,82 @@ db.connect((err) => {
   console.log('DB Connected to MySQL');
 });
 
-// API
-// GET get all data from tblRoom
+//View all data
 app.get('/api/tblRoom', (req, res) => {
-  db.query('SELECT * FROM tblRoom', (err, rows, fields) => {
-    if (err) throw err.message;
+  const sql = `SELECT * FROM tblRoom`;
+
+  db.query(sql, (err, rows) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: err.message });
+    }
     res.json(rows);
   });
 });
 
-// GET specific user from tblRoom
+//View specific data
 app.get('/api/tblRoom/:roomID', (req, res) => {
-  const roomID = req.params.roomID;
+  const { roomID } = req.body;
 
-  db.query(
-    `SELECT * FROM tblRoom WHERE roomID = ${roomID}`,
-    (err, rows, fields) => {
-      if (err) throw err.message;
+  const sql = `SELECT * FROM tblRoom WHERE roomID = ?`;
 
-      if (rows.length > 0) {
-        res.json(rows);
-      } else {
-        res.status(400).json({ msg: `No room with an id of ${roomID}` });
-      }
+  db.query(sql, [roomID], (err, rows) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: err.message });
     }
-  );
+
+    if (rows.length > 0) {
+      res.json(rows);
+    } else {
+      res.status(400).json({ msg: `No room with an id of ${roomID}` });
+    }
+  });
 });
 
-// POST insert data from tblRoom
+//Create
 app.post('/api/tblRoom', (req, res) => {
-  let roomNumber = req.body.roomNumber;
-  let amountRent = req.body.amountRent;
-  let roomStatus = req.body.roomStatus;
+  const { tenantID, roomNumber, amountRent, roomStatus } = req.body;
 
-  db.query(
-    `INSERT INTO tblRoom (roomNumber, amountRent, roomStatus) VALUES ('${roomNumber}', '${amountRent}', '${roomStatus}')`,
-    (err, rows) => {
-      if (err) throw err.message;
-      res.json({ msg: `1 Added Successfully into tblRoom` });
+  const sql = `INSERT INTO tblRoom (tenantID, roomNumber, amountRent, roomStatus) VALUES (?, ?, ?, ?)`;
+
+  db.query(sql, [tenantID, roomNumber, amountRent, roomStatus], (err, rows) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: err.message });
     }
-  );
+    res.json({ msg: `1 Added Successfully into tblRoom` });
+  });
 });
 
-// PUT update tblRoom no specific just all attributes
+//Update
 app.put('/api/tblRoom', (req, res) => {
-  let roomNumber = req.body.roomNumber;
-  let amountRent = req.body.amountRent;
-  let roomStatus = req.body.roomStatus;
-  let roomID = req.body.roomID;
+  const { roomNumber, amountRent, roomStatus, roomID } = req.body;
 
-  db.query(
-    `UPDATE tblRoom SET roomNumber = '${roomNumber}', amountRent ='${amountRent}', roomStatus = '${roomStatus}' WHERE roomID = '${roomID}' `,
-    (err, rows, fields) => {
-      if (err) throw err.message;
-      res.json({ msg: `was Updated successfully` });
+  const sql = `UPDATE tblRoom SET roomNumber = ?, amountRent = ?, roomStatus = ? WHERE roomID = ?`;
+
+  db.query(sql, [roomNumber, amountRent, roomStatus, roomID], (err) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: err.message });
     }
-  );
+    res.json({ msg: `was Updated successfully` });
+  });
 });
 
-// Delete tblRoom data
+//Delete
 app.delete('/api/tblRoom', (req, res) => {
-  let roomID = req.body.roomID;
+  const { roomID } = req.body;
 
-  db.query(
-    `DELETE FROM tblRoom WHERE roomID = ${roomID}`,
-    (err, rows, fields) => {
-      if (err) throw err.message;
-      res.json({ msg: `Delete successfully` });
+  const sql = `DELETE FROM tblRoom WHERE roomID = ?`;
+
+  db.query(sql, [roomID], (err) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: err.message });
     }
-  );
+    res.json({ msg: `Delete successfully` });
+  });
 });
 
 app.listen(PORT, console.log(`Backend running on http://localhost:${PORT}`));
