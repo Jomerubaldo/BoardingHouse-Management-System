@@ -42,7 +42,7 @@ function Room() {
                     <option disabled={true}>Select rent</option>
                     <option>1500.00</option>
                     <option>2000.00</option>
-                    <option>5000.00</option>
+                    <option>5000.00</option>  
                   </select>
                 </div>
                 <select defaultValue="Pick a color" className="select w-full">

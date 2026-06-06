@@ -1,4 +1,42 @@
+import { useState } from 'react';
+
 function Tenant() {
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    phoneNumber: '',
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch('http://localhost:8080/api/tblTenant', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        alert('Tenant saved successfully!');
+        // clear after submit form
+        setFormData({ firstName: '', lastName: '', phoneNumber: '' });
+        document.getElementById('my_modal_5').close();
+      } else {
+        console.error('Something went wrong:' + result.message);
+      }
+    } catch (err) {
+      console.error('Error:', err);
+      alert('Cannot connect to server. Please check your connection');
+    }
+  };
+
   return (
     <div className="@container">
       <div className="flex flex-col gap-5">
@@ -20,11 +58,14 @@ function Tenant() {
             <div className="modal-box">
               <h3 className="font-bold text-lg">Create Tenant</h3>
               <p className="py-4">Fill out the tenant information:</p>
-              <form className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                   <input
                     required
                     type="text"
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleChange}
                     placeholder="First Name"
                     className="input input-bordered w-full"
                   />
@@ -33,6 +74,9 @@ function Tenant() {
                   <input
                     required
                     type="text"
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleChange}
                     placeholder="Last Name"
                     className="input input-bordered w-full"
                   />
@@ -41,6 +85,9 @@ function Tenant() {
                   <input
                     required
                     type="text"
+                    name="phoneNumber"
+                    value={formData.phoneNumber}
+                    onChange={handleChange}
                     placeholder="Contact"
                     className="input input-bordered w-full"
                   />

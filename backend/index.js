@@ -8,6 +8,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// db connection
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
@@ -23,7 +24,7 @@ db.connect((err) => {
   console.log('DB Connected to MySQL');
 });
 
-//View all data
+//View all room
 app.get('/api/tblRoom', (req, res) => {
   const sql = `SELECT * FROM tblRoom`;
 
@@ -36,7 +37,7 @@ app.get('/api/tblRoom', (req, res) => {
   });
 });
 
-//View specific data
+//View specific room
 app.get('/api/tblRoom/:roomID', (req, res) => {
   const { roomID } = req.body;
 
@@ -56,7 +57,7 @@ app.get('/api/tblRoom/:roomID', (req, res) => {
   });
 });
 
-//Create
+//Create room
 app.post('/api/tblRoom', (req, res) => {
   const { tenantID, roomNumber, amountRent, roomStatus } = req.body;
 
@@ -71,7 +72,7 @@ app.post('/api/tblRoom', (req, res) => {
   });
 });
 
-//Update
+//Update room
 app.put('/api/tblRoom', (req, res) => {
   const { roomNumber, amountRent, roomStatus, roomID } = req.body;
 
@@ -86,7 +87,7 @@ app.put('/api/tblRoom', (req, res) => {
   });
 });
 
-//Delete
+//Delete room
 app.delete('/api/tblRoom', (req, res) => {
   const { roomID } = req.body;
 
@@ -98,6 +99,22 @@ app.delete('/api/tblRoom', (req, res) => {
       return res.status(500).json({ error: err.message });
     }
     res.json({ msg: `Delete successfully` });
+  });
+});
+
+// Add tenant
+app.post('/api/tblTenant', (req, res) => {
+  const { firstName, lastName, phoneNumber } = req.body;
+
+  const sql = `INSERT INTO tblTenant (firstName, lastName, phoneNumber) VALUES (?, ?, ?)`;
+
+  db.query(sql, [firstName, lastName, phoneNumber], (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: err.message });
+    }
+
+    res.json({ success: true, message: 'Tenant added', id: result.insertId });
   });
 });
 
