@@ -57,6 +57,7 @@ app.get('/api/tblRoom/:roomID', (req, res) => {
   });
 });
 
+
 //Create room
 app.post('/api/tblRoom', (req, res) => {
   const { tenantID, roomNumber, amountRent, roomStatus } = req.body;
@@ -115,6 +116,19 @@ app.post('/api/tblTenant', (req, res) => {
     }
 
     res.json({ success: true, message: 'Tenant added', id: result.insertId });
+  });
+});
+
+// View all tenant
+app.get('/api/tblTenant', (req, res) => {
+  const sql = `SELECT * FROM tblTenant`;
+
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: err.message });
+    }
+    res.json(result);
   });
 });
 

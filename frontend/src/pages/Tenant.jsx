@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function Tenant() {
+  const [tenants, setTenants] = useState([]);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -27,6 +28,7 @@ function Tenant() {
         alert('Tenant saved successfully!');
         // clear after submit form
         setFormData({ firstName: '', lastName: '', phoneNumber: '' });
+        fetchTenants(); // get all data tenants
         document.getElementById('my_modal_5').close();
       } else {
         console.error('Something went wrong:' + result.message);
@@ -36,6 +38,18 @@ function Tenant() {
       alert('Cannot connect to server. Please check your connection');
     }
   };
+
+  //get all data from tenants
+  const fetchTenants = () => {
+    fetch('http://localhost:8080/api/tblTenant')
+      .then((res) => res.json())
+      .then((data) => setTenants(data))
+      .catch((err) => console.error(err));
+  };
+
+  useEffect(() => {
+    fetchTenants();
+  }, []);
 
   return (
     <div className="@container">
@@ -110,8 +124,8 @@ function Tenant() {
             </div>
           </dialog>
         </di>
-        <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
-          <table className="table">
+        <div className="overflow-x-auto overflow-y-auto max-h-[610px] rounded-box border border-base-content/5 bg-base-100">
+          <table className="table table-pin-rows">
             {/* head */}
             <thead>
               <tr>
@@ -122,51 +136,52 @@ function Tenant() {
               </tr>
             </thead>
             <tbody>
-              {/* row 1 */}
-              <tr>
-                <td>Jomer</td>
-                <td>Ubaldo</td>
-                <td>09548665441</td>
-                <td className="flex gap-2">
-                  <button className="btn btn-accent btn-xs">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="12"
-                      height="12"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="lucide lucide-square-pen-icon lucide-square-pen"
-                    >
-                      <path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-                      <path d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z" />
-                    </svg>
-                  </button>
-                  <button className="btn btn-error btn-xs">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="12"
-                      height="12"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="lucide lucide-trash2-icon lucide-trash-2"
-                    >
-                      <path d="M10 11v6" />
-                      <path d="M14 11v6" />
-                      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
-                      <path d="M3 6h18" />
-                      <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-                    </svg>
-                  </button>
-                </td>
-              </tr>
+              {tenants.map((tenant) => (
+                <tr key={tenant.id}>
+                  <td>{tenant.firstName}</td>
+                  <td>{tenant.lastName}</td>
+                  <td>{tenant.phoneNumber}</td>
+                  <td className="flex gap-2">
+                    <button className="btn btn-accent btn-xs">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="12"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="lucide lucide-square-pen-icon lucide-square-pen"
+                      >
+                        <path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                        <path d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z" />
+                      </svg>
+                    </button>
+                    <button className="btn btn-error btn-xs">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="12"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="lucide lucide-trash2-icon lucide-trash-2"
+                      >
+                        <path d="M10 11v6" />
+                        <path d="M14 11v6" />
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
+                        <path d="M3 6h18" />
+                        <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                      </svg>
+                    </button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
