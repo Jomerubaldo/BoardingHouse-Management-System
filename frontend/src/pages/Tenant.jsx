@@ -28,7 +28,7 @@ function Tenant() {
         alert('Tenant saved successfully!');
         // clear after submit form
         setFormData({ firstName: '', lastName: '', phoneNumber: '' });
-        fetchTenants(); // get all data tenants
+        fetchTenants(); // ipakita agad ang data pagtapos ma clear at ma submit
         document.getElementById('my_modal_5').close();
       } else {
         console.error('Something went wrong:' + result.message);
@@ -124,7 +124,7 @@ function Tenant() {
             </div>
           </dialog>
         </di>
-        <div className="overflow-x-auto overflow-y-auto max-h-[610px] rounded-box border border-base-content/5 bg-base-100">
+        <div className="overflow-x-auto overflow-y-auto max-h-152.5 rounded-box border border-base-content/5 bg-base-100">
           <table className="table table-pin-rows">
             {/* head */}
             <thead>

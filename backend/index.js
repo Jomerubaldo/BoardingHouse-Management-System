@@ -8,7 +8,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// db connection
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
@@ -24,56 +23,40 @@ db.connect((err) => {
   console.log('DB Connected to MySQL');
 });
 
-//View all room
 app.get('/api/tblRoom', (req, res) => {
-  const sql = `SELECT * FROM tblRoom`;
+  const sql = `SELECT tenantID, roomNumber, amountRent, roomStatus FROM tblRoom`;
 
-  db.query(sql, (err, rows) => {
+  db.query(sql, (err, result) => {
     if (err) {
       console.error(err);
       return res.status(500).json({ error: err.message });
     }
-    res.json(rows);
+    res.json(result);
   });
 });
 
-//View specific room
-app.get('/api/tblRoom/:roomID', (req, res) => {
-  const { roomID } = req.body;
-
-  const sql = `SELECT * FROM tblRoom WHERE roomID = ?`;
-
-  db.query(sql, [roomID], (err, rows) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).json({ error: err.message });
-    }
-
-    if (rows.length > 0) {
-      res.json(rows);
-    } else {
-      res.status(400).json({ msg: `No room with an id of ${roomID}` });
-    }
-  });
-});
-
-
-//Create room
 app.post('/api/tblRoom', (req, res) => {
   const { tenantID, roomNumber, amountRent, roomStatus } = req.body;
 
   const sql = `INSERT INTO tblRoom (tenantID, roomNumber, amountRent, roomStatus) VALUES (?, ?, ?, ?)`;
 
-  db.query(sql, [tenantID, roomNumber, amountRent, roomStatus], (err, rows) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).json({ error: err.message });
+  db.query(
+    sql,
+    [tenantID, roomNumber, amountRent, roomStatus],
+    (err, result) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ error: err.message });
+      }
+      res.json({
+        success: true,
+        msg: `1 Added Successfully into tblRoom`,
+        roomID: result.insertId,
+      });
     }
-    res.json({ msg: `1 Added Successfully into tblRoom` });
-  });
+  );
 });
 
-//Update room
 app.put('/api/tblRoom', (req, res) => {
   const { roomNumber, amountRent, roomStatus, roomID } = req.body;
 
@@ -88,7 +71,6 @@ app.put('/api/tblRoom', (req, res) => {
   });
 });
 
-//Delete room
 app.delete('/api/tblRoom', (req, res) => {
   const { roomID } = req.body;
 
@@ -103,7 +85,6 @@ app.delete('/api/tblRoom', (req, res) => {
   });
 });
 
-// Add tenant
 app.post('/api/tblTenant', (req, res) => {
   const { firstName, lastName, phoneNumber } = req.body;
 
@@ -119,9 +100,8 @@ app.post('/api/tblTenant', (req, res) => {
   });
 });
 
-// View all tenant
 app.get('/api/tblTenant', (req, res) => {
-  const sql = `SELECT * FROM tblTenant`;
+  const sql = `SELECT tenantID, firstName, lastName, phoneNumber FROM tblTenant`;
 
   db.query(sql, (err, result) => {
     if (err) {
