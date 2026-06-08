@@ -1,10 +1,27 @@
 import { Outlet } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
+import {
+  BedSingle,
+  Wallet,
+  LayoutDashboardIcon,
+  Users,
+  PanelLeftOpen,
+  PanelLeftClose,
+} from 'lucide-react';
+import { useState } from 'react';
 
 function MainLayout() {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
   return (
     <div className="drawer lg:drawer-open">
-      <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
+      <input
+        id="my-drawer-4"
+        type="checkbox"
+        className="drawer-toggle"
+        checked={isDrawerOpen}
+        onChange={(e) => setIsDrawerOpen(e.target.checked)}
+      />
       <div className="drawer-content">
         {/* Navbar */}
         <nav className="navbar w-full bg-base-300">
@@ -14,20 +31,11 @@ function MainLayout() {
             className="btn btn-square btn-ghost"
           >
             {/* Sidebar toggle icon */}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              strokeLinejoin="round"
-              strokeLinecap="round"
-              strokeWidth="2"
-              fill="none"
-              stroke="currentColor"
-              className="my-1.5 inline-block size-4"
-            >
-              <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path>
-              <path d="M9 4v16"></path>
-              <path d="M14 10l2 2l-2 2"></path>
-            </svg>
+            {isDrawerOpen ? (
+              <PanelLeftClose color="red" size={16} />
+            ) : (
+              <PanelLeftOpen color="green" size={16} />
+            )}
           </label>
           <div className="px-4">Boarding House Management System</div>
         </nav>
@@ -52,23 +60,7 @@ function MainLayout() {
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center gap-2"
                   data-tip="Dashboard"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="lucide lucide-layout-dashboard-icon lucide-layout-dashboard"
-                  >
-                    <rect width="7" height="9" x="3" y="3" rx="1" />
-                    <rect width="7" height="5" x="14" y="3" rx="1" />
-                    <rect width="7" height="9" x="14" y="12" rx="1" />
-                    <rect width="7" height="5" x="3" y="16" rx="1" />
-                  </svg>
+                  <LayoutDashboardIcon color="blue" size={16} />
                   <span className="is-drawer-close:hidden">Dashboard</span>
                 </button>
               </NavLink>
@@ -80,23 +72,7 @@ function MainLayout() {
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center gap-2"
                   data-tip="Tenant"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="lucide lucide-users-icon lucide-users"
-                  >
-                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                    <path d="M16 3.128a4 4 0 0 1 0 7.744" />
-                    <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                    <circle cx="9" cy="7" r="4" />
-                  </svg>
+                  <Users size={16} color="blue" />
                   <span className="is-drawer-close:hidden">Tenant</span>
                 </button>
               </NavLink>
@@ -108,22 +84,7 @@ function MainLayout() {
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center gap-2"
                   data-tip="Room"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="lucide lucide-bed-single-icon lucide-bed-single"
-                  >
-                    <path d="M3 20v-8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v8" />
-                    <path d="M5 10V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v4" />
-                    <path d="M3 18h18" />
-                  </svg>
+                  <BedSingle color="blue" size={16} />
                   <span className="is-drawer-close:hidden">Room</span>
                 </button>
               </NavLink>
@@ -135,21 +96,7 @@ function MainLayout() {
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center gap-2"
                   data-tip="Payment"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="lucide lucide-wallet-icon lucide-wallet"
-                  >
-                    <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1" />
-                    <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4" />
-                  </svg>
+                  <Wallet color="blue" size={16} />
                   <span className="is-drawer-close:hidden">Payment</span>
                 </button>
               </NavLink>

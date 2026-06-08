@@ -23,8 +23,18 @@ db.connect((err) => {
   console.log('DB Connected to MySQL');
 });
 
+// APIS
 app.get('/api/tblRoom', (req, res) => {
-  const sql = `SELECT tenantID, roomNumber, amountRent, roomStatus FROM tblRoom`;
+  // to access tablelist tenantName remember AS tenantName this is an property to access in map method to render into tablelist
+  const sql = `SELECT
+    r.roomID,
+    r.roomNumber,
+    r.amountRent,
+    r.roomStatus,
+    CONCAT(t.firstName, ' ', t.lastName) AS tenantFullName
+    FROM tblRoom r
+    LEFT JOIN tblTenant t
+    ON r.tenantID = t.tenantID;`;
 
   db.query(sql, (err, result) => {
     if (err) {
@@ -85,6 +95,18 @@ app.delete('/api/tblRoom', (req, res) => {
   });
 });
 
+app.get('/api/tblTenant', (req, res) => {
+  const sql = `SELECT tenantID, firstName, lastName, phoneNumber FROM tblTenant`;
+
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: err.message });
+    }
+    res.json(result);
+  });
+});
+
 app.post('/api/tblTenant', (req, res) => {
   const { firstName, lastName, phoneNumber } = req.body;
 
@@ -97,18 +119,6 @@ app.post('/api/tblTenant', (req, res) => {
     }
 
     res.json({ success: true, message: 'Tenant added', id: result.insertId });
-  });
-});
-
-app.get('/api/tblTenant', (req, res) => {
-  const sql = `SELECT tenantID, firstName, lastName, phoneNumber FROM tblTenant`;
-
-  db.query(sql, (err, result) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).json({ error: err.message });
-    }
-    res.json(result);
   });
 });
 
