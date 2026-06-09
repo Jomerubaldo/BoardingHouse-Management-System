@@ -23,14 +23,12 @@ function MainLayout() {
         onChange={(e) => setIsDrawerOpen(e.target.checked)}
       />
       <div className="drawer-content">
-        {/* Navbar */}
         <nav className="navbar w-full bg-base-300">
           <label
             htmlFor="my-drawer-4"
             aria-label="open sidebar"
             className="btn btn-square btn-ghost"
           >
-            {/* Sidebar toggle icon */}
             {isDrawerOpen ? (
               <PanelLeftClose color="red" size={16} />
             ) : (
@@ -39,7 +37,6 @@ function MainLayout() {
           </label>
           <div className="px-4">Boarding House Management System</div>
         </nav>
-        {/* Page content here */}
         <div className="p-4">
           <Outlet />
         </div>
@@ -52,7 +49,6 @@ function MainLayout() {
           className="drawer-overlay"
         ></label>
         <div className="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-64">
-          {/* Sidebar content here */}
           <ul className="menu w-full grow gap-2 text-md">
             <li>
               <NavLink to="/">

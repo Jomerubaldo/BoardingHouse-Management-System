@@ -8,6 +8,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// DB Connection
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
@@ -23,7 +24,29 @@ db.connect((err) => {
   console.log('DB Connected to MySQL');
 });
 
-// APIS
+// API'S Room
+app.post('/api/tblRoom', (req, res) => {
+  const { tenantID, roomNumber, amountRent, roomStatus } = req.body;
+
+  const sql = `INSERT INTO tblRoom (tenantID, roomNumber, amountRent, roomStatus) VALUES (?, ?, ?, ?)`;
+
+  db.query(
+    sql,
+    [tenantID, roomNumber, amountRent, roomStatus],
+    (err, result) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ error: err.message });
+      }
+      res.json({
+        success: true,
+        message: `1 Added Successfully into tblRoom`,
+        roomID: result.insertId,
+      });
+    }
+  );
+});
+
 app.get('/api/tblRoom', (req, res) => {
   // to access tablelist tenantName remember AS tenantName this is an property to access in map method to render into tablelist
   const sql = `SELECT
@@ -45,28 +68,6 @@ app.get('/api/tblRoom', (req, res) => {
   });
 });
 
-app.post('/api/tblRoom', (req, res) => {
-  const { tenantID, roomNumber, amountRent, roomStatus } = req.body;
-
-  const sql = `INSERT INTO tblRoom (tenantID, roomNumber, amountRent, roomStatus) VALUES (?, ?, ?, ?)`;
-
-  db.query(
-    sql,
-    [tenantID, roomNumber, amountRent, roomStatus],
-    (err, result) => {
-      if (err) {
-        console.error(err);
-        return res.status(500).json({ error: err.message });
-      }
-      res.json({
-        success: true,
-        msg: `1 Added Successfully into tblRoom`,
-        roomID: result.insertId,
-      });
-    }
-  );
-});
-
 app.put('/api/tblRoom', (req, res) => {
   const { roomNumber, amountRent, roomStatus, roomID } = req.body;
 
@@ -77,7 +78,7 @@ app.put('/api/tblRoom', (req, res) => {
       console.error(err);
       return res.status(500).json({ error: err.message });
     }
-    res.json({ msg: `was Updated successfully` });
+    res.json({ message: `Updated successfully` });
   });
 });
 
@@ -91,7 +92,27 @@ app.delete('/api/tblRoom', (req, res) => {
       console.error(err);
       return res.status(500).json({ error: err.message });
     }
-    res.json({ msg: `Delete successfully` });
+    res.json({ message: `Delete successfully` });
+  });
+});
+
+// API'S Tenant
+app.post('/api/tblTenant', (req, res) => {
+  const { firstName, lastName, phoneNumber } = req.body;
+
+  const sql = `INSERT INTO tblTenant (firstName, lastName, phoneNumber) VALUES (?, ?, ?)`;
+
+  db.query(sql, [firstName, lastName, phoneNumber], (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: err.message });
+    }
+
+    res.json({
+      success: true,
+      message: 'Tenant added successfully',
+      id: result.insertId,
+    });
   });
 });
 
@@ -107,18 +128,38 @@ app.get('/api/tblTenant', (req, res) => {
   });
 });
 
-app.post('/api/tblTenant', (req, res) => {
-  const { firstName, lastName, phoneNumber } = req.body;
+app.put('/api/tblTenant', (req, res) => {
+  const { firstName, lastName, phoneNumber, tenantID } = req.body;
 
-  const sql = `INSERT INTO tblTenant (firstName, lastName, phoneNumber) VALUES (?, ?, ?)`;
+  const sql = `UPDATE tblTenant SET firstName = ?, lastName = ?, phoneNumber = ? WHERE tenantID = ?`;
 
-  db.query(sql, [firstName, lastName, phoneNumber], (err, result) => {
+  db.query(sql, [firstName, lastName, phoneNumber, tenantID], (err) => {
     if (err) {
       console.error(err);
       return res.status(500).json({ error: err.message });
     }
+    res.json({
+      success: true,
+      message: `Updated successfully`,
+    });
+  });
+});
 
-    res.json({ success: true, message: 'Tenant added', id: result.insertId });
+app.delete('/api/tblTenant', (req, res) => {
+  const { tenantID } = req.body;
+
+  const sql = `DELETE FROM tblTenant WHERE tenantID = ?`;
+
+  db.query(sql, [tenantID], (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: err.message });
+    }
+    res.json({
+      success: true,
+      message: `Delete tenant successfully`,
+      id: result.insertId,
+    });
   });
 });
 
