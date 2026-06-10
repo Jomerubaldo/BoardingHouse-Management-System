@@ -1,26 +1,72 @@
 import { useEffect, useState } from 'react';
 import { SquarePen, Trash2, Plus } from 'lucide-react';
+import {
+  getAllTenants,
+  createTenant,
+  updateTenant,
+  deleteTenant,
+} from '../api/tenantApi.js';
 
 function Tenant() {
-  const [getTenantsData, setGetTenantsData] = useState([]);
-  const [deleteTenantData, setDeleteTenantData] = useState(null);
-  const [editFormData, setEditFormData] = useState({
-    firstName: '',
-    lastName: '',
-    phoneNumber: '',
-  });
   const [createFormData, setCreateFormData] = useState({
     firstName: '',
     lastName: '',
     phoneNumber: '',
   });
+  const [getTenantsData, setGetTenantsData] = useState([]);
+  const [editFormData, setEditFormData] = useState({
+    firstName: '',
+    lastName: '',
+    phoneNumber: '',
+  });
+  const [deleteTenantData, setDeleteTenantData] = useState(null);
+
+  // para sa pag kuha ng e cre-create na value
+  const handleCreateChange = (e) => {
+    setCreateFormData({ ...createFormData, [e.target.name]: e.target.value });
+  };
+
+  // submit create
+  const handleSubmitCreate = async (e) => {
+    e.preventDefault();
+
+    try {
+      const result = await createTenant(createFormData);
+      if (result.success) {
+        alert('Tenant saved successfully!');
+        // clear after submit form
+        setCreateFormData({ firstName: '', lastName: '', phoneNumber: '' });
+        fetchViewTenants(); // ipakita agad ang data pagtapos ma clear at ma submit
+        document.getElementById('addModal').close();
+      } else {
+        console.error('Something went wrong:' + result.message);
+      }
+    } catch (err) {
+      console.error('Error:', err);
+      alert('Cannot connect to server. Please check your connection');
+    }
+  };
+
+  //get all data from tblTenant
+  const fetchViewTenants = async () => {
+    try {
+      const result = await getAllTenants();
+      setGetTenantsData(result);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  // para mag realod agad ang data pagkatapos mag create or update or delete parang live processing
+  useEffect(() => {
+    fetchViewTenants();
+  }, []);
 
   // para sa pagkuha ng bagong na edit na value
   const handleEditChange = (e) => {
     setEditFormData({ ...editFormData, [e.target.name]: e.target.value });
   };
 
-  // kapag nag click ng specific na edit table makukuha ang existing data
+  // kapag nag click ng specific na edit sa btn tablelist makukuha ang existing data
   const handleEditClick = (tenant) => {
     setEditFormData({
       tenantID: tenant.tenantID,
@@ -31,21 +77,14 @@ function Tenant() {
     document.getElementById('editModal').showModal();
   };
 
-  // form submit final action fetch
+  // submit update
   const handleSubmitEdit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`http://localhost:8080/api/tblTenant`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(editFormData),
-      });
-
-      const result = await response.json();
-
+      const result = await updateTenant(editFormData);
       if (result.success) {
-        alert('Tenant saved successfully!');
+        alert('Tenant Saved Successfully!');
         // clear after submit form
         // setEditFormData({ firstName: '', lastName: '', phoneNumber: '' });
         fetchViewTenants(); // ipakita agad ang data pagtapos ma clear at ma submit
@@ -59,70 +98,18 @@ function Tenant() {
     }
   };
 
-  // para sa pag kuha ng e cre-create na value
-  const handleCreateChange = (e) => {
-    setCreateFormData({ ...createFormData, [e.target.name]: e.target.value });
-  };
-
-  // final submit action fetch
-  const handleSubmitCreate = async (e) => {
-    e.preventDefault();
-
-    try {
-      const response = await fetch('http://localhost:8080/api/tblTenant', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(createFormData),
-      });
-
-      const result = await response.json();
-
-      if (result.success) {
-        alert('Tenant saved successfully!');
-        // clear after submit form
-        setCreateFormData({ firstName: '', lastName: '', phoneNumber: '' });
-        fetchViewTenants(); // ipakita agad ang data pagtapos ma clear at ma submit
-        document.getElementById('my_modal_5').close();
-      } else {
-        console.error('Something went wrong:' + result.message);
-      }
-    } catch (err) {
-      console.error('Error:', err);
-      alert('Cannot connect to server. Please check your connection');
-    }
-  };
-
-  //get all data from tenants
-  const fetchViewTenants = () => {
-    fetch('http://localhost:8080/api/tblTenant')
-      .then((res) => res.json())
-      .then((data) => setGetTenantsData(data))
-      .catch((err) => console.error(err));
-  };
-
-  // isang beses lang mag rurun
-  useEffect(() => {
-    fetchViewTenants();
-  }, []);
-
   // para kapag na click alam yung tenantID na e dedelete sa db
   const handleDeleteClick = (tenant) => {
     setDeleteTenantData(tenant);
     document.getElementById('deleteModal').showModal();
   };
 
-  // final submit action fetch delete
+  // submit delete
   const handleSubmitDelete = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:8080/api/tblTenant', {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ tenantID: deleteTenantData.tenantID }),
-      });
-
-      const result = await response.json();
+      const result = await deleteTenant(deleteTenantData.tenantID);
 
       if (result.success) {
         alert('Delete successfully');
@@ -146,15 +133,12 @@ function Tenant() {
           </div>
           <button
             className="btn btn-primary"
-            onClick={() => document.getElementById('my_modal_5').showModal()}
+            onClick={() => document.getElementById('addModal').showModal()}
           >
             <Plus size={18} />
             Add Tenant
           </button>
-          <dialog
-            id="my_modal_5"
-            className="modal modal-middle sm:modal-middle"
-          >
+          <dialog id="addModal" className="modal modal-middle sm:modal-middle">
             <div className="modal-box">
               <h3 className="font-bold text-lg">Create Tenant</h3>
               <p className="py-4">Fill out the tenant information:</p>
@@ -199,9 +183,7 @@ function Tenant() {
                   <button
                     type="button"
                     className="btn btn-info"
-                    onClick={() =>
-                      document.getElementById('my_modal_5').close()
-                    }
+                    onClick={() => document.getElementById('addModal').close()}
                   >
                     Cancel
                   </button>
@@ -310,7 +292,13 @@ function Tenant() {
                     <button type="submit" className="btn btn-error">
                       Yes, Delete it
                     </button>
-                    <button type="button" className="btn btn-info">
+                    <button
+                      onClick={() =>
+                        document.getElementById('deleteModal').close()
+                      }
+                      type="button"
+                      className="btn btn-info"
+                    >
                       Cancel
                     </button>
                   </div>
