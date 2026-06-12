@@ -20,7 +20,7 @@ export const createTenant = (req, res) => {
   });
 };
 
-// view
+// view specific
 export const getTenants = (req, res) => {
   const sql = `SELECT tenantID, firstName, lastName, phoneNumber FROM tblTenant`;
 
