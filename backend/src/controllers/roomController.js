@@ -17,7 +17,7 @@ export const createRoom = (req, res) => {
       res.json({
         success: true,
         message: `1 Added Successfully into tblRoom`,
-        roomID: result.insertId,
+        id: result.insertId,
       });
     }
   );
@@ -66,11 +66,15 @@ export const deleteRoom = (req, res) => {
 
   const sql = `DELETE FROM tblRoom WHERE roomID = ?`;
 
-  db.query(sql, [roomID], (err) => {
+  db.query(sql, [roomID], (err, result) => {
     if (err) {
       console.error(err);
       return res.status(500).json({ error: err.message });
     }
-    res.json({ message: `Delete successfully` });
+    res.json({
+      success: true,
+      message: `Delete successfully`,
+      id: result.insertId,
+    });
   });
 };
