@@ -7,7 +7,7 @@ function Dashboard() {
         <div className="font-bold sm:text-sm md:text-md lg:text-lg xl:text-2xl">
           Dashboard Overview
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4">
           <StatsCard title="Total Room" value="7" className="bg-primary" />
           <StatsCard title="Vacant Room" value="3" className="bg-warning" />
           <StatsCard title="Occupied Room" value="4" className="bg-success" />

@@ -6,23 +6,19 @@ import {
   updateTenant,
   deleteTenant,
 } from '../api/tenantApi.js';
-
 function Tenant() {
   const [createFormData, setCreateFormData] = useState({
     firstName: '',
     lastName: '',
     phoneNumber: '',
   });
-
   const [getTenantsData, setGetTenantsData] = useState([]); // gamitin nalang to kapag mag search filter same lang naman sila ng purpose
   const [editFormData, setEditFormData] = useState({
     firstName: '',
     lastName: '',
     phoneNumber: '',
   });
-
   const [deleteTenantData, setDeleteTenantData] = useState(null);
-
   // for search filter in tablelist
   const [search, setSearch] = useState('');
 
@@ -31,8 +27,7 @@ function Tenant() {
     setCreateFormData({ ...createFormData, [e.target.name]: e.target.value });
   };
 
-  // submit create
-  const handleSubmitCreateTenant = async (e) => {
+  const handleCreateSubmit = async (e) => {
     e.preventDefault();
 
     try {
@@ -41,7 +36,7 @@ function Tenant() {
         alert('Tenant saved successfully!');
         // clear after submit form
         setCreateFormData({ firstName: '', lastName: '', phoneNumber: '' });
-        fetchViewTenants(); // makikita agad ang na add na tenant pagkatapos mag submit
+        fetchTenants(); // makikita agad ang na add na tenant pagkatapos mag submit
         document.getElementById('addModal').close();
       } else {
         console.error('Something went wrong:' + result.message);
@@ -53,7 +48,7 @@ function Tenant() {
   };
 
   //get all data from tblTenant
-  const fetchViewTenants = async () => {
+  const fetchTenants = async () => {
     try {
       const result = await getAllTenants();
       setGetTenantsData(result);
@@ -64,13 +59,8 @@ function Tenant() {
 
   // para mag realod agad ang data pagkatapos mag create or update or delete parang live processing
   useEffect(() => {
-    fetchViewTenants(); // pwede i declared sa post,put,delete para every done ng process is makikita live value
+    fetchTenants(); // pwede i declared sa post,put,delete para every done ng process is makikita live value
   }, []);
-
-  // para sa pagkuha ng bagong na edit na value
-  const handleEditChange = (e) => {
-    setEditFormData({ ...editFormData, [e.target.name]: e.target.value });
-  };
 
   // kapag nag click ng specific na edit sa btn tablelist makukuha ang existing data
   const handleEditClick = (tenant) => {
@@ -83,8 +73,13 @@ function Tenant() {
     document.getElementById('editModal').showModal();
   };
 
+  // para sa pagkuha ng bagong na edit na value
+  const handleEditChange = (e) => {
+    setEditFormData({ ...editFormData, [e.target.name]: e.target.value });
+  };
+
   // submit update
-  const handleSubmitEdit = async (e) => {
+  const handleEditSubmit = async (e) => {
     e.preventDefault();
     try {
       const result = await updateTenant(editFormData);
@@ -92,7 +87,7 @@ function Tenant() {
         alert('Tenant Saved Successfully!');
         // clear after submit form
         // setEditFormData({ firstName: '', lastName: '', phoneNumber: '' });
-        fetchViewTenants(); // ipakita agad ang data pagtapos ma clear at ma submit
+        fetchTenants(); // ipakita agad ang data pagtapos ma clear at ma submit
         document.getElementById('editModal').close();
       } else {
         console.error('Something went wrong:' + result.message);
@@ -110,14 +105,14 @@ function Tenant() {
   };
 
   // submit delete
-  const handleSubmitDelete = async (e) => {
+  const handleDeleteSubmit = async (e) => {
     e.preventDefault();
     try {
       const result = await deleteTenant(deleteTenantData.tenantID);
 
       if (result.success) {
         alert('Delete successfully');
-        fetchViewTenants();
+        fetchTenants();
         document.getElementById('deleteModal').close();
       } else {
         console.error('Something went wrong:' + result.message);
@@ -129,10 +124,9 @@ function Tenant() {
   };
 
   // for searching filter tenant in tablelist
-  const tableSearchTenant = getTenantsData.filter(
-    (
-      tenant // confusing na part dito
-    ) => tenant.firstName.toLowerCase().includes(search.toLowerCase())
+  // confusing na part dito
+  const tableSearchTenant = getTenantsData.filter((tenant) =>
+    tenant.firstName.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
@@ -184,7 +178,7 @@ function Tenant() {
           <div className="modal-box">
             <h3 className="font-bold text-lg">Create Tenant</h3>
             <p className="py-4">Fill out the tenant information:</p>
-            <form onSubmit={handleSubmitCreateTenant} className="space-y-4">
+            <form onSubmit={handleCreateSubmit} className="space-y-4">
               <div>
                 <input
                   required
@@ -282,7 +276,7 @@ function Tenant() {
             <div className="modal-box">
               <h3 className="font-bold text-lg">Edit Tenant</h3>
               <p className="py-4">Edit tenant information:</p>
-              <form onSubmit={handleSubmitEdit} className="space-y-4">
+              <form onSubmit={handleEditSubmit} className="space-y-4">
                 <div>
                   <input
                     required
@@ -339,7 +333,7 @@ function Tenant() {
               <h3 className="font-bold text-lg">Delete Confirmation</h3>
               <p className="py-4">Are you sure you want to delete this?</p>
               <div className="modal-action">
-                <form onSubmit={handleSubmitDelete}>
+                <form onSubmit={handleDeleteSubmit}>
                   <div className="flex justify-end gap-2 pt-2">
                     <button type="submit" className="btn btn-error">
                       Yes, Delete it

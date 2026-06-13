@@ -5,12 +5,13 @@ import {
   getAllRooms,
   selectionTenants,
   updateRoom,
+  deleteRoom,
 } from '../api/roomApi.js';
 
 function Room() {
   const [showRooms, setShowRooms] = useState([]);
-  const [tenants, setTenants] = useState([]);
-  const [formData, setFormData] = useState({
+  const [tenants, setTenants] = useState([]); // state for selection tenant in room
+  const [createFormData, setCreateFormData] = useState({
     tenantID: '',
     roomNumber: '',
     amountRent: '',
@@ -22,8 +23,11 @@ function Room() {
     amountRent: '',
     roomStatus: '',
   });
+  const [deleteRoomData, setDeleteRoomData] = useState(null);
+  const [search, setSearch] = useState(''); // for filter tablelist
 
   // for creating room loop for tenant selections
+  // pinag sama useEffect at pag fetch kasi isang besesl ang gagamitin
   useEffect(() => {
     const fetchTenantSelection = async () => {
       try {
@@ -37,29 +41,34 @@ function Room() {
     fetchTenantSelection();
   }, []);
 
+  // para sa pag kuha ng e cre-create na value
+  const handleCreateChange = (e) => {
+    setCreateFormData({ ...createFormData, [e.target.name]: e.target.value });
+  };
+
   // final submit room created
   const handleSubmitCreateRoom = async (e) => {
     e.preventDefault();
 
     try {
-      const result = await createRoom(formData);
+      const result = await createRoom(createFormData);
       if (result.success) {
         alert('Room added successfully');
-        fetchViewRooms();
         // clear data dropdown after submit
-        setFormData({
+        setCreateFormData({
           tenantID: '',
           roomNumber: '',
           amountRent: '',
           roomStatus: '',
         });
-        document.getElementById('my_modal_5').close();
+        fetchViewRooms(); // refresh the table
+        document.getElementById('addModal').close();
       } else {
         console.error('Something wrong' + result.message);
       }
     } catch (err) {
-      console.error('Error', err);
-      alert('Cannot connect the server, Please check your connection');
+      console.error('Error:', err);
+      alert('Cannot connect the server. Please check your connection');
     }
   };
 
@@ -78,6 +87,8 @@ function Room() {
     fetchViewRooms();
   }, []);
 
+  // para makuha yung value na eedit
+  // yung .name is para sa name na attribute sa input at .value kung ano ipapalit na value
   const handleEditChange = (e) => {
     setEditFormData({ ...editFormData, [e.target.name]: e.target.value });
   };
@@ -88,7 +99,7 @@ function Room() {
       roomID: room.roomID,
       tenantFullName: room.tenantFullName,
       roomNumber: room.roomNumber,
-      amountRent: room.amountRent,
+      amountRent: Number(room.amountRent), //changed number from string // fixed it in edting
       roomStatus: room.roomStatus,
     });
     document.getElementById('editModal').showModal();
@@ -111,6 +122,34 @@ function Room() {
       alert('Cannot connect to server. Please check your internet');
     }
   };
+
+  // delete
+  const handleDeleteClick = (room) => {
+    setDeleteRoomData(room);
+    document.getElementById('deleteModal').showModal();
+  };
+
+  const handleSubmitDelete = async (e) => {
+    e.preventDefault();
+    try {
+      const result = await deleteRoom(deleteRoomData.roomID);
+
+      if (result.success) {
+        alert('Delete room successfully!');
+        fetchViewRooms();
+        document.getElementById('deleteModal').close();
+      } else {
+        console.error('Something went wrong:' + result.message);
+      }
+    } catch (err) {
+      console.error('Error:', err);
+      alert('Cannot connect to server, Please check your connection');
+    }
+  };
+
+  const tableSearchRoom = showRooms.filter((room) => {
+    return room.tenantFullName.toLowerCase().includes(search.toLowerCase());
+  });
 
   return (
     <div className="@container">
@@ -137,7 +176,13 @@ function Room() {
                   <path d="m21 21-4.3-4.3"></path>
                 </g>
               </svg>
-              <input type="search" className="grow" placeholder="Search" />
+              <input
+                type="search"
+                className="grow"
+                placeholder="Search"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
             </label>
             <button
               className="btn btn-primary"
@@ -158,10 +203,8 @@ function Room() {
               <div>
                 <select
                   name="tenantID"
-                  value={formData.tenantID}
-                  onChange={(e) =>
-                    setFormData({ ...formData, tenantID: e.target.value })
-                  }
+                  value={createFormData.tenantID}
+                  onChange={handleCreateChange}
                   className="select w-full"
                 >
                   <option disabled={false}>Select Tenant</option>
@@ -175,10 +218,8 @@ function Room() {
               <div>
                 <select
                   name="roomNumber"
-                  value={formData.roomNumber}
-                  onChange={(e) =>
-                    setFormData({ ...formData, roomNumber: e.target.value })
-                  }
+                  value={createFormData.roomNumber}
+                  onChange={handleCreateChange}
                   className="select w-full"
                 >
                   <option disabled={false}>Select Room</option>
@@ -195,10 +236,8 @@ function Room() {
               <div>
                 <select
                   name="amountRent"
-                  value={formData.amountRent}
-                  onChange={(e) =>
-                    setFormData({ ...formData, amountRent: e.target.value })
-                  }
+                  value={createFormData.amountRent}
+                  onChange={handleCreateChange}
                   className="select w-full"
                 >
                   <option disabled={false}>Select Rent</option>
@@ -211,10 +250,8 @@ function Room() {
               <div>
                 <select
                   name="roomStatus"
-                  value={formData.roomStatus}
-                  onChange={(e) =>
-                    setFormData({ ...formData, roomStatus: e.target.value })
-                  }
+                  value={createFormData.roomStatus}
+                  onChange={handleCreateChange}
                   className="select w-full"
                 >
                   <option disabled={false}>Select Status</option>
@@ -249,7 +286,7 @@ function Room() {
               </tr>
             </thead>
             <tbody>
-              {showRooms.length === 0 ? (
+              {tableSearchRoom.length === 0 ? (
                 <tr>
                   <td
                     colSpan={5}
@@ -260,7 +297,7 @@ function Room() {
                 </tr>
               ) : (
                 <>
-                  {showRooms.map((roomData, index) => (
+                  {tableSearchRoom.map((roomData, index) => (
                     <tr key={index}>
                       <td>{roomData.tenantFullName}</td>
                       <td>{roomData.roomNumber}</td>
@@ -273,7 +310,10 @@ function Room() {
                         >
                           <SquarePen size={15} />
                         </button>
-                        <button className="btn btn-error btn-xs">
+                        <button
+                          className="btn btn-error btn-xs"
+                          onClick={() => handleDeleteClick(roomData)}
+                        >
                           <Trash2 size={15} />
                         </button>
                       </td>
@@ -365,6 +405,33 @@ function Room() {
                   </button>
                 </div>
               </form>
+            </div>
+          </dialog>
+          <dialog
+            id="deleteModal"
+            className="modal modal-bottom sm:modal-middle"
+          >
+            <div className="modal-box">
+              <h3 className="font-bold text-lg">Delete Confirmation</h3>
+              <p className="py-4">Are you sure you want to delete this?</p>
+              <div className="modal-action">
+                <form onSubmit={handleSubmitDelete}>
+                  <div className="flex justify-end gap-2 pt-2">
+                    <button type="submit" className="btn btn-error">
+                      Yes, Delete it
+                    </button>
+                    <button
+                      onClick={() =>
+                        document.getElementById('deleteModal').close()
+                      }
+                      type="button"
+                      className="btn btn-info"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
           </dialog>
         </div>

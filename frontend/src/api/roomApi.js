@@ -32,3 +32,13 @@ export const updateRoom = async (roomData) => {
   });
   return await response.json();
 };
+
+// delete
+export const deleteRoom = async (roomID) => {
+  const response = await fetch(API_Room_URL, {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ roomID }),
+  });
+  return await response.json();
+};
