@@ -56,7 +56,7 @@ function MainLayout() {
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center gap-2"
                   data-tip="Dashboard"
                 >
-                  <LayoutDashboardIcon color="blue" size={16} />
+                  <LayoutDashboardIcon className='text-primary' size={16} />
                   <span className="is-drawer-close:hidden">Dashboard</span>
                 </button>
               </NavLink>
@@ -68,7 +68,7 @@ function MainLayout() {
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center gap-2"
                   data-tip="Tenant"
                 >
-                  <Users size={16} color="blue" />
+                  <Users className='text-primary' size={16} />
                   <span className="is-drawer-close:hidden">Tenant</span>
                 </button>
               </NavLink>
@@ -80,7 +80,7 @@ function MainLayout() {
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center gap-2"
                   data-tip="Room"
                 >
-                  <BedSingle color="blue" size={16} />
+                  <BedSingle className='text-primary' size={16} />
                   <span className="is-drawer-close:hidden">Room</span>
                 </button>
               </NavLink>
@@ -92,7 +92,7 @@ function MainLayout() {
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center gap-2"
                   data-tip="Payment"
                 >
-                  <Wallet color="blue" size={16} />
+                  <Wallet className='text-primary' size={16} />
                   <span className="is-drawer-close:hidden">Payment</span>
                 </button>
               </NavLink>
