@@ -239,19 +239,23 @@ function Tenant() {
             </thead>
             <tbody>
               {tableSearchTenant.length === 0 ? (
-                <td
-                  colSpan={4}
-                  className="text-center py-67 text-base-content/50"
-                >
-                  No tenants found. Click “Add Tenant” to create one.
-                </td>
+                <tr>
+                  <td
+                    colSpan={4}
+                    className="text-center py-63 text-base-content/50"
+                  >
+                    No tenants found. Click “Add Tenant” to create one.
+                  </td>
+                </tr>
               ) : (
                 <>
                   {tableSearchTenant.map((tenantData, index) => (
                     <tr key={index}>
-                      <td>{tenantData.firstName}</td>
-                      <td>{tenantData.lastName}</td>
-                      <td>{tenantData.phoneNumber}</td>
+                      <td className="font-semibold">{tenantData.firstName}</td>
+                      <td className="font-semibold">{tenantData.lastName}</td>
+                      <td className="font-semibold">
+                        {tenantData.phoneNumber}
+                      </td>
                       <td className="flex gap-2">
                         <button
                           className="btn btn-accent btn-xs"

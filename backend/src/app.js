@@ -13,5 +13,4 @@ app.use(express.urlencoded({ extended: false }));
 // routes
 app.use('/api/tblTenant', tenantRoutes);
 app.use('/api/tblRoom', roomRoutes);
-
 export default app;
