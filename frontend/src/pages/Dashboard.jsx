@@ -16,11 +16,6 @@ function Dashboard() {
     fetchTotalRoom();
   }, []);
 
-  // para mag realod agad ang data pagkatapos mag create or update or delete parang live processing
-  // useEffect(() => {
-  //   fetchTotalRoom(); // pwede i declared sa post,put,delete para every done ng process is makikita live value
-  // }, []);
-
   return (
     <div className="@container">
       <div className="flex flex-col gap-5">
@@ -28,21 +23,17 @@ function Dashboard() {
           Dashboard Overview
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4">
-          {/* <StatsCard title="Total Room" value="7" className="bg-primary" />
-          <StatsCard title="Vacant Room" value="3" className="bg-warning" />
-          <StatsCard title="Occupied Room" value="4" className="bg-success" />
-          <StatsCard title="Total Sales" value="8500" className="bg-info" /> */}
           <div className="card bg-primary text-primary-content w-auto md:card-md lg:card-lg xl:card-xl">
             <div className="card-body">
               <h2 className="card-title">Total Room</h2>
-              <p className='text-2xl font-semibold'>{getTotalRoom}</p>
+              <p className="text-2xl font-semibold">8</p>
             </div>
           </div>
 
           <div className="card bg-warning text-primary-content w-auto md:card-md lg:card-lg xl:card-xl">
             <div className="card-body">
               <h2 className="card-title">Occupied Room</h2>
-              <p>5</p>
+              <p className="text-2xl font-semibold">{getTotalRoom}</p>
             </div>
           </div>
 
