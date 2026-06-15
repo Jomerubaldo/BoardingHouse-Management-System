@@ -42,3 +42,10 @@ export const deleteRoom = async (roomID) => {
   });
   return await response.json();
 };
+
+// totalRoom
+
+export const totalRoom = async () => {
+  const response = await fetch(API_Room_URL);
+  return await response.json();
+};
