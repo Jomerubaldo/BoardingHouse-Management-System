@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { SquarePen, Trash2, Plus, CirclePlus } from 'lucide-react';
+import { SquarePen, Trash2, CirclePlus } from 'lucide-react';
 import {
   createRoom,
   getAllRooms,
@@ -14,13 +14,13 @@ function Room() {
   const [createFormData, setCreateFormData] = useState({
     tenantID: '',
     roomNumber: '',
-    amountRent: '',
+    amountRent: 0,
     roomStatus: '',
   });
   const [editFormData, setEditFormData] = useState({
     tenantFullName: '',
     roomNumber: '',
-    amountRent: '',
+    amountRent: 0,
     roomStatus: '',
   });
   const [deleteRoomData, setDeleteRoomData] = useState(null);
@@ -58,7 +58,7 @@ function Room() {
         setCreateFormData({
           tenantID: '',
           roomNumber: '',
-          amountRent: '',
+          amountRent: 0,
           roomStatus: '',
         });
         fetchViewRooms(); // refresh the table
@@ -99,7 +99,7 @@ function Room() {
       roomID: room.roomID,
       tenantFullName: room.tenantFullName,
       roomNumber: room.roomNumber,
-      amountRent: Number(room.amountRent), //changed number from string // fixed it in edting
+      amountRent: room.amountRent, //changed number from string // fixed it in edting
       roomStatus: room.roomStatus,
     });
     document.getElementById('editModal').showModal();
@@ -152,8 +152,8 @@ function Room() {
   });
 
   const statusColor = {
-    Occupied: 'bg-green-200 text-green-700 rounded-md',
-    Vacant: 'bg-yellow-200 text-yellow-700 rounded-md',
+    Occupied: 'badge badge-success',
+    Vacant: 'badge badge-warning',
   };
 
   return (
@@ -184,7 +184,7 @@ function Room() {
               <input
                 type="search"
                 className="grow"
-                placeholder="Search"
+                placeholder="Search name..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
@@ -286,7 +286,7 @@ function Room() {
           <table className="table">
             <thead>
               <tr className="bg-base-200">
-                <th>Name</th>
+                <th>Tenant Name</th>
                 <th>Room</th>
                 <th>Rent</th>
                 <th>Status</th>
@@ -300,7 +300,7 @@ function Room() {
                     colSpan={5}
                     className="text-center py-63 text-base-content/50"
                   >
-                    No rooms found. Click “Add Room” to create one.
+                    Not found. Click “Add Room” to create one.
                   </td>
                 </tr>
               ) : (
@@ -313,9 +313,7 @@ function Room() {
                       <td className="font-semibold">{roomData.roomNumber}</td>
                       <td className="font-semibold">{roomData.amountRent}</td>
                       <td>
-                        <span
-                          className={`px-2 py-1 text-sm font-bold ${statusColor[roomData.roomStatus]}`}
-                        >
+                        <span className={`${statusColor[roomData.roomStatus]}`}>
                           {roomData.roomStatus}
                         </span>
                       </td>
