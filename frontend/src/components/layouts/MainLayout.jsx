@@ -53,11 +53,13 @@ function MainLayout() {
             <li>
               <NavLink to="/">
                 <button
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center gap-2"
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center gap-3"
                   data-tip="Dashboard"
                 >
-                  <LayoutDashboardIcon className='text-primary' size={16} />
-                  <span className="is-drawer-close:hidden">Dashboard</span>
+                  <LayoutDashboardIcon className="text-primary" size={16} />
+                  <span className="is-drawer-close:hidden font-semibold">
+                    Dashboard
+                  </span>
                 </button>
               </NavLink>
             </li>
@@ -65,11 +67,13 @@ function MainLayout() {
             <li>
               <NavLink to="/tenant">
                 <button
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center gap-2"
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center gap-3"
                   data-tip="Tenant"
                 >
-                  <Users className='text-primary' size={16} />
-                  <span className="is-drawer-close:hidden">Tenant</span>
+                  <Users className="text-primary" size={16} />
+                  <span className="is-drawer-close:hidden font-semibold">
+                    Tenant
+                  </span>
                 </button>
               </NavLink>
             </li>
@@ -77,11 +81,13 @@ function MainLayout() {
             <li>
               <NavLink to="/room">
                 <button
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center gap-2"
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center gap-3"
                   data-tip="Room"
                 >
-                  <BedSingle className='text-primary' size={16} />
-                  <span className="is-drawer-close:hidden">Room</span>
+                  <BedSingle className="text-primary" size={16} />
+                  <span className="is-drawer-close:hidden font-semibold">
+                    Room
+                  </span>
                 </button>
               </NavLink>
             </li>
@@ -89,11 +95,13 @@ function MainLayout() {
             <li>
               <NavLink to="/payment">
                 <button
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center gap-2"
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center gap-3"
                   data-tip="Payment"
                 >
-                  <Wallet className='text-primary' size={16} />
-                  <span className="is-drawer-close:hidden">Payment</span>
+                  <Wallet className="text-primary" size={16} />
+                  <span className="is-drawer-close:hidden font-semibold">
+                    Payment
+                  </span>
                 </button>
               </NavLink>
             </li>
