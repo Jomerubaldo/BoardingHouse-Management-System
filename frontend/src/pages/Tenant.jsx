@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { SquarePen, Trash2, Plus, CirclePlus } from 'lucide-react';
+import { SquarePen, Trash2, CirclePlus } from 'lucide-react';
 import {
   getAllTenants,
   createTenant,
@@ -159,7 +159,7 @@ function Tenant() {
                 onChange={(e) => setSearch(e.target.value)}
                 type="search"
                 className="grow"
-                placeholder="Search"
+                placeholder="Search name..."
               />
             </label>
             <button
@@ -244,7 +244,7 @@ function Tenant() {
                     colSpan={4}
                     className="text-center py-63 text-base-content/50"
                   >
-                    No tenants found. Click “Add Tenant” to create one.
+                    Not found. Click “Add Tenant” to create one.
                   </td>
                 </tr>
               ) : (
