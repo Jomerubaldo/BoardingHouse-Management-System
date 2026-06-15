@@ -78,3 +78,16 @@ export const deleteRoom = (req, res) => {
     });
   });
 };
+
+// totalRoom
+export const totalRoom = (req, res) => {
+  const sql = `SELECT COUNT(roomNumber) AS totalRoom FROM tblRoom`;
+
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: err.message });
+    }
+    res.json(result);
+  });
+};
