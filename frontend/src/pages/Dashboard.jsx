@@ -1,4 +1,26 @@
+import { useState, useEffect } from 'react';
+import { totalRoom } from '../api/roomApi.js';
+
 function Dashboard() {
+  const [getTotalRoom, setGetTotalRoom] = useState(0);
+
+  useEffect(() => {
+    const fetchTotalRoom = async () => {
+      try {
+        const result = await totalRoom();
+        setGetTotalRoom(result.length); // length para alam kung ilan na array index ang laman
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchTotalRoom();
+  }, []);
+
+  // para mag realod agad ang data pagkatapos mag create or update or delete parang live processing
+  // useEffect(() => {
+  //   fetchTotalRoom(); // pwede i declared sa post,put,delete para every done ng process is makikita live value
+  // }, []);
+
   return (
     <div className="@container">
       <div className="flex flex-col gap-5">
@@ -13,7 +35,7 @@ function Dashboard() {
           <div className="card bg-primary text-primary-content w-auto md:card-md lg:card-lg xl:card-xl">
             <div className="card-body">
               <h2 className="card-title">Total Room</h2>
-              <p>8</p>
+              <p className='text-2xl font-semibold'>{getTotalRoom}</p>
             </div>
           </div>
 
