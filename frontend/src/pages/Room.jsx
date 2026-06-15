@@ -151,6 +151,11 @@ function Room() {
     return room.tenantFullName.toLowerCase().includes(search.toLowerCase());
   });
 
+  const statusColor = {
+    Occupied: 'bg-green-200 text-green-700 rounded-md',
+    Vacant: 'bg-yellow-200 text-yellow-700 rounded-md',
+  };
+
   return (
     <div className="@container">
       <div className="flex flex-col gap-5">
@@ -290,7 +295,7 @@ function Room() {
                 <tr>
                   <td
                     colSpan={5}
-                    className="text-center py-67 text-base-content/50"
+                    className="text-center py-63 text-base-content/50"
                   >
                     No rooms found. Click “Add Room” to create one.
                   </td>
@@ -299,10 +304,18 @@ function Room() {
                 <>
                   {tableSearchRoom.map((roomData, index) => (
                     <tr key={index}>
-                      <td>{roomData.tenantFullName}</td>
-                      <td>{roomData.roomNumber}</td>
-                      <td>{roomData.amountRent}</td>
-                      <td>{roomData.roomStatus}</td>
+                      <td className="font-semibold">
+                        {roomData.tenantFullName}
+                      </td>
+                      <td className="font-semibold">{roomData.roomNumber}</td>
+                      <td className="font-semibold">{roomData.amountRent}</td>
+                      <td>
+                        <span
+                          className={`px-2 py-1 text-sm font-bold ${statusColor[roomData.roomStatus]}`}
+                        >
+                          {roomData.roomStatus}
+                        </span>
+                      </td>
                       <td className="flex gap-2">
                         <button
                           className="btn btn-accent btn-xs"
