@@ -203,7 +203,7 @@ function Room() {
         </div>
         <dialog id="addModal" className="modal modal-middle sm:modal-middle">
           <div className="modal-box">
-            <h3 className="font-bold text-lg">Create Room</h3>
+            <h3 className="font-bold text-lg"><span>+</span>Create Room</h3>
             <p className="py-4">
               Choose the room information from the options below.
             </p>
@@ -339,7 +339,7 @@ function Room() {
           </table>
           <dialog id="editModal" className="modal modal-middle sm:modal-middle">
             <div className="modal-box">
-              <h3 className="font-bold text-lg">Create Room</h3>
+              <h3 className="font-bold text-lg">Update Room</h3>
               <p className="py-4">
                 Choose the room information from the options below.
               </p>
