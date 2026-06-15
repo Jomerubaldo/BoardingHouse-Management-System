@@ -35,7 +35,9 @@ function MainLayout() {
               <PanelLeftOpen color="green" size={16} />
             )}
           </label>
-          <div className="px-4">Boarding House Management System</div>
+          <div className="px-4 font-semibold text-lg">
+            Boarding House Management System
+          </div>
         </nav>
         <div className="p-4">
           <Outlet />
