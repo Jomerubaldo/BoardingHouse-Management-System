@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { SquarePen, Trash2, Plus } from 'lucide-react';
+import { SquarePen, Trash2, Plus, CirclePlus } from 'lucide-react';
 import {
   getAllTenants,
   createTenant,
@@ -166,7 +166,7 @@ function Tenant() {
               className="btn btn-xs btn-primary sm:btn-sm md:btn-md "
               onClick={() => document.getElementById('addModal').showModal()}
             >
-              <Plus
+              <CirclePlus
                 size={16}
                 className="sm:w-4 sm:h-4 md:w-5 md:h-5 lg:w-6 lg:h-6"
               />
