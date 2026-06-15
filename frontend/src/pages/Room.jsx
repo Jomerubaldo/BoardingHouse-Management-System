@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { SquarePen, Trash2, Plus } from 'lucide-react';
+import { SquarePen, Trash2, Plus, CirclePlus } from 'lucide-react';
 import {
   createRoom,
   getAllRooms,
@@ -193,8 +193,11 @@ function Room() {
               className="btn btn-primary"
               onClick={() => document.getElementById('addModal').showModal()}
             >
-              <Plus size={18} />
-              Add Room
+              <CirclePlus
+                size={18}
+                className="sm:w-4 sm:h-4 md:w-5 md:h-5 lg:w-6 lg:h-6"
+              />
+              <span className="sm:inline md:inline lg:inline">Add Room</span>
             </button>
           </div>
         </div>
@@ -283,7 +286,7 @@ function Room() {
           <table className="table">
             <thead>
               <tr className="bg-base-200">
-                <th>Tenant Name</th>
+                <th>Name</th>
                 <th>Room</th>
                 <th>Rent</th>
                 <th>Status</th>
