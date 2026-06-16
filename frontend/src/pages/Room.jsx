@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { SquarePen, Trash2, CirclePlus } from 'lucide-react';
+import { SquarePen, Trash2, CirclePlus, Plus } from 'lucide-react';
 import {
   createRoom,
   getAllRooms,
@@ -14,7 +14,7 @@ function Room() {
   const [createFormData, setCreateFormData] = useState({
     tenantID: '',
     roomNumber: '',
-    amountRent: 0,
+    amountRent: '',
     roomStatus: '',
   });
   const [editFormData, setEditFormData] = useState({
@@ -51,6 +51,7 @@ function Room() {
     e.preventDefault();
 
     try {
+
       const result = await createRoom(createFormData);
       if (result.success) {
         alert('Room added successfully');
@@ -58,7 +59,7 @@ function Room() {
         setCreateFormData({
           tenantID: '',
           roomNumber: '',
-          amountRent: 0,
+          amountRent: '',
           roomStatus: '',
         });
         fetchViewRooms(); // refresh the table
@@ -70,6 +71,18 @@ function Room() {
       console.error('Error:', err);
       alert('Cannot connect the server. Please check your connection');
     }
+  };
+
+  // if cancel the button to submit the value recent reset to empty again
+  const clearCreateButtonWhenClose = (e) => {
+    e.preventDefault();
+    setCreateFormData({
+      tenantID: '',
+      roomNumber: '',
+      amountRent: '',
+      roomStatus: '',
+    });
+    document.getElementById('addModal').close();
   };
 
   // Get all data from Rooms
@@ -147,6 +160,8 @@ function Room() {
     }
   };
 
+  // for searching filter room in tablelist
+  // confusing na part dito
   const tableSearchRoom = showRooms.filter((room) => {
     return room.tenantFullName.toLowerCase().includes(search.toLowerCase());
   });
@@ -203,19 +218,27 @@ function Room() {
         </div>
         <dialog id="addModal" className="modal modal-middle sm:modal-middle">
           <div className="modal-box">
-            <h3 className="font-bold text-lg"><span>+</span>Create Room</h3>
+            <div className="flex items-center gap-2">
+              <span className="bg-primary px-2 py-2 rounded-full">
+                <Plus color="#000" size={20} />
+              </span>
+              <h3 className="text-lg font-semibold">Create Room</h3>
+            </div>
             <p className="py-4">
-              Choose the room information from the options below.
+              Choose the room information from the options below:
             </p>
             <form onSubmit={handleSubmitCreateRoom} className="space-y-4">
               <div>
                 <select
+                  required
                   name="tenantID"
                   value={createFormData.tenantID}
                   onChange={handleCreateChange}
                   className="select w-full"
                 >
-                  <option disabled={false}>Select Tenant</option>
+                  <option disabled={true} value="">
+                    Select Tenant
+                  </option>
                   {tenants.map((tenant) => (
                     <option key={tenant.tenantID} value={tenant.tenantID}>
                       {tenant.firstName} {tenant.lastName}
@@ -225,12 +248,15 @@ function Room() {
               </div>
               <div>
                 <select
+                  required
                   name="roomNumber"
                   value={createFormData.roomNumber}
                   onChange={handleCreateChange}
                   className="select w-full"
                 >
-                  <option disabled={false}>Select Room</option>
+                  <option disabled={true} value="">
+                    Select Room
+                  </option>
                   <option value="Room 1">Room 1</option>
                   <option value="Room 2">Room 2</option>
                   <option value="Room 3">Room 3</option>
@@ -243,12 +269,15 @@ function Room() {
               </div>
               <div>
                 <select
+                  required
                   name="amountRent"
                   value={createFormData.amountRent}
                   onChange={handleCreateChange}
                   className="select w-full"
                 >
-                  <option disabled={false}>Select Rent</option>
+                  <option disabled={true} value="">
+                    Select Rent
+                  </option>
                   <option value="750.00">750.00</option>
                   <option value="1500.00">1500.00</option>
                   <option value="2000.00">2000.00</option>
@@ -257,12 +286,15 @@ function Room() {
               </div>
               <div>
                 <select
+                  required
                   name="roomStatus"
                   value={createFormData.roomStatus}
                   onChange={handleCreateChange}
                   className="select w-full"
                 >
-                  <option disabled={false}>Select Status</option>
+                  <option disabled={true} value="">
+                    Select Status
+                  </option>
                   <option value="Occupied">Occupied</option>
                   <option value="Vacant">Vacant</option>
                 </select>
@@ -274,7 +306,7 @@ function Room() {
                 <button
                   type="button"
                   className="btn btn-error"
-                  onClick={() => document.getElementById('addModal').close()}
+                  onClick={clearCreateButtonWhenClose}
                 >
                   Cancel
                 </button>
@@ -339,7 +371,12 @@ function Room() {
           </table>
           <dialog id="editModal" className="modal modal-middle sm:modal-middle">
             <div className="modal-box">
-              <h3 className="font-bold text-lg">Update Room</h3>
+              <div className="flex items-center gap-2">
+                <span className="bg-accent px-2 py-2 rounded-full">
+                  <SquarePen color="#000" size={20} />
+                </span>
+                <h3 className="text-lg font-semibold">Update Room</h3>
+              </div>
               <p className="py-4">
                 Choose the room information from the options below.
               </p>
@@ -426,7 +463,12 @@ function Room() {
             className="modal modal-bottom sm:modal-middle"
           >
             <div className="modal-box">
-              <h3 className="font-bold text-lg">Delete Confirmation</h3>
+              <div className="flex items-center gap-2">
+                <span className="bg-error px-2 py-2 rounded-full">
+                  <Trash2 color="#000" size={20} />
+                </span>
+                <h3 className="text-lg font-semibold">Delete Confirmation</h3>
+              </div>
               <p className="py-4">Are you sure you want to delete this?</p>
               <div className="modal-action">
                 <form onSubmit={handleSubmitDelete}>
