@@ -1,23 +1,26 @@
 import { useEffect, useState } from 'react';
-import { SquarePen, Trash2, CirclePlus } from 'lucide-react';
+import { SquarePen, Trash2, CirclePlus, Plus } from 'lucide-react';
 import {
   getAllTenants,
   createTenant,
   updateTenant,
   deleteTenant,
 } from '../api/tenantApi.js';
+
 function Tenant() {
   const [createFormData, setCreateFormData] = useState({
     firstName: '',
     lastName: '',
     phoneNumber: '',
   });
+
   const [getTenantsData, setGetTenantsData] = useState([]); // gamitin nalang to kapag mag search filter same lang naman sila ng purpose
   const [editFormData, setEditFormData] = useState({
     firstName: '',
     lastName: '',
     phoneNumber: '',
   });
+
   const [deleteTenantData, setDeleteTenantData] = useState(null);
   // for search filter in tablelist
   const [search, setSearch] = useState('');
@@ -45,6 +48,19 @@ function Tenant() {
       console.error('Error:', err);
       alert('Cannot connect to server. Please check your connection');
     }
+  };
+
+  // if cancel the button to submit the value reset to empty again
+
+  const clearCreateButtonWhenClose = (e) => {
+    e.preventDefault();
+    setCreateFormData({
+      firstName: '',
+      lastName: '',
+      phoneNumber: '',
+    });
+
+    document.getElementById('addModal').close();
   };
 
   //get all data from tblTenant
@@ -176,7 +192,12 @@ function Tenant() {
         </div>
         <dialog id="addModal" className="modal modal-middle sm:modal-middle">
           <div className="modal-box">
-            <h3 className="font-bold text-lg">Create Tenant</h3>
+            <div className="flex items-center gap-2">
+              <span className="bg-primary rounded-full px-2 py-2">
+                <Plus color="#000" size={20} />
+              </span>
+              <h3 className="text-lg font-semibold">Create tenant</h3>
+            </div>
             <p className="py-4">Fill out the tenant information:</p>
             <form onSubmit={handleCreateSubmit} className="space-y-4">
               <div>
@@ -219,7 +240,7 @@ function Tenant() {
                 <button
                   type="button"
                   className="btn btn-info"
-                  onClick={() => document.getElementById('addModal').close()}
+                  onClick={clearCreateButtonWhenClose}
                 >
                   Cancel
                 </button>
@@ -278,7 +299,12 @@ function Tenant() {
           </table>
           <dialog id="editModal" className="modal modal-middle sm:modal-middle">
             <div className="modal-box">
-              <h3 className="font-bold text-lg">Edit Tenant</h3>
+              <div className="flex items-center gap-2">
+                <span className="bg-accent rounded-full px-2 py-2">
+                  <SquarePen color="#000" size={20} />
+                </span>
+                <h3 className="text-lg font-semibold">Update Tenant</h3>
+              </div>
               <p className="py-4">Edit tenant information:</p>
               <form onSubmit={handleEditSubmit} className="space-y-4">
                 <div>
@@ -334,7 +360,12 @@ function Tenant() {
             className="modal modal-bottom sm:modal-middle"
           >
             <div className="modal-box">
-              <h3 className="font-bold text-lg">Delete Confirmation</h3>
+              <div className="flex items-center gap-2">
+                <span className="bg-error px-2 py-2 rounded-full">
+                  <Trash2 color="#000" size={20} />
+                </span>
+                <h3 className="text-lg font-semibold">Delete Confirmation</h3>
+              </div>
               <p className="py-4">Are you sure you want to delete this?</p>
               <div className="modal-action">
                 <form onSubmit={handleDeleteSubmit}>
