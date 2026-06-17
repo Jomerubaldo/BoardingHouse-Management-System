@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Dashboard from './pages/Dashboard';
-import Payment from './pages/Payment';
-import Room from './pages/Room';
-import Tenant from './pages/Tenant';
+import DashboardPage from './pages/dashboard/DashboardPage';
+import PaymentHistoryPage from './pages/payment/PaymentHistoryPage';
+import RoomPage from './pages/room/RoomPage';
+import TenantPage from './pages/tenant/TenantPage';
 import MainLayout from './components/layouts/MainLayout';
 
 function App() {
@@ -10,10 +10,10 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<MainLayout />}>
-          <Route index element={<Dashboard />} />
-          <Route path="/payment" element={<Payment />} />
-          <Route path="/room" element={<Room />} />
-          <Route path="tenant" element={<Tenant />} />
+          <Route index element={<DashboardPage />} />
+          <Route path="/payment" element={<PaymentHistoryPage />} />
+          <Route path="/room" element={<RoomPage />} />
+          <Route path="tenant" element={<TenantPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

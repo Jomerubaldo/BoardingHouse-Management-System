@@ -14,6 +14,7 @@ export const createTenant = async (tenantData) => {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(tenantData),
   });
+  
   return await response.json();
 };
 

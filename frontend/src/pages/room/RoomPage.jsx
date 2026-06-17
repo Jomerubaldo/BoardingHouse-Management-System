@@ -6,9 +6,9 @@ import {
   selectionTenants,
   updateRoom,
   deleteRoom,
-} from '../api/roomApi.js';
+} from '../../api/roomApi.js';
 
-function Room() {
+function RoomPage() {
   const [showRooms, setShowRooms] = useState([]);
   const [tenants, setTenants] = useState([]); // state for selection tenant in room
   const [createFormData, setCreateFormData] = useState({
@@ -51,7 +51,6 @@ function Room() {
     e.preventDefault();
 
     try {
-
       const result = await createRoom(createFormData);
       if (result.success) {
         alert('Room added successfully');
@@ -167,8 +166,8 @@ function Room() {
   });
 
   const statusColor = {
-    Occupied: 'badge badge-success',
-    Vacant: 'badge badge-warning',
+    Occupied: 'badge badge-sm badge-success font-semibold text-xs',
+    Vacant: 'badge badge-sm badge-warning font-semibold text-xs',
   };
 
   return (
@@ -495,7 +494,4 @@ function Room() {
     </div>
   );
 }
-export default Room;
-
-// update - change fromData from editFormData
-// update - change onChange to onClick for edit button
+export default RoomPage;

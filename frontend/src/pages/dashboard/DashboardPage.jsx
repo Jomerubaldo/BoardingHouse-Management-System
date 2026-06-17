@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { totalRoom } from '../api/roomApi.js';
+import { totalRoom } from '../../api/roomApi.js';
 
-function Dashboard() {
+function DashboardPage() {
   const [getTotalRoom, setGetTotalRoom] = useState(0);
 
   useEffect(() => {
@@ -131,4 +131,4 @@ function Dashboard() {
     </div>
   );
 }
-export default Dashboard;
+export default DashboardPage;

@@ -25,7 +25,7 @@ export const createRoom = (req, res) => {
 
 // view
 export const getRooms = (req, res) => {
-  // to access tablelist tenantName remember AS tenantName this is an property to access in map method to render into tablelist
+  // to access tablelist tenantName remember AS tenantFullName this is an property to access in map method to render into tablelist
   const sql = `SELECT
     r.roomID,
     r.roomNumber,

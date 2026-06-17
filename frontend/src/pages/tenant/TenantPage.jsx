@@ -5,9 +5,9 @@ import {
   createTenant,
   updateTenant,
   deleteTenant,
-} from '../api/tenantApi.js';
+} from '../../api/tenantApi.js';
 
-function Tenant() {
+function TenantPage() {
   const [createFormData, setCreateFormData] = useState({
     firstName: '',
     lastName: '',
@@ -196,7 +196,7 @@ function Tenant() {
               <span className="bg-primary rounded-full px-2 py-2">
                 <Plus color="#000" size={20} />
               </span>
-              <h3 className="text-lg font-semibold">Create tenant</h3>
+              <h3 className="text-lg font-semibold">Create Tenant</h3>
             </div>
             <p className="py-4">Fill out the tenant information:</p>
             <form onSubmit={handleCreateSubmit} className="space-y-4">
@@ -225,7 +225,7 @@ function Tenant() {
               <div>
                 <input
                   required
-                  type="text"
+                  type="number"
                   name="phoneNumber"
                   value={createFormData.phoneNumber}
                   onChange={handleCreateChange}
@@ -332,7 +332,7 @@ function Tenant() {
                 <div>
                   <input
                     required
-                    type="text"
+                    type="number"
                     name="phoneNumber"
                     value={editFormData.phoneNumber}
                     onChange={handleEditChange}
@@ -392,4 +392,4 @@ function Tenant() {
     </div>
   );
 }
-export default Tenant;
+export default TenantPage;
