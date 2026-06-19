@@ -1,19 +1,14 @@
 import { useEffect, useState } from 'react';
-import { SquarePen, Trash2, CirclePlus, Plus } from 'lucide-react';
 import {
   getAllTenants,
-  createTenant,
   updateTenant,
   deleteTenant,
+  createTenant,
 } from '../../api/tenantApi.js';
 
-function TenantPage() {
-  const [createFormData, setCreateFormData] = useState({
-    firstName: '',
-    lastName: '',
-    phoneNumber: '',
-  });
+import { CirclePlus, Plus, SquarePen, Trash2 } from 'lucide-react';
 
+function TenantPage() {
   const [getTenantsData, setGetTenantsData] = useState([]); // gamitin nalang to kapag mag search filter same lang naman sila ng purpose
   const [editFormData, setEditFormData] = useState({
     firstName: '',
@@ -24,6 +19,12 @@ function TenantPage() {
   const [deleteTenantData, setDeleteTenantData] = useState(null);
   // for search filter in tablelist
   const [search, setSearch] = useState('');
+
+  const [createFormData, setCreateFormData] = useState({
+    firstName: '',
+    lastName: '',
+    phoneNumber: '',
+  });
 
   // para sa pag kuha ng e cre-create na value
   const handleCreateChange = (e) => {
@@ -51,7 +52,6 @@ function TenantPage() {
   };
 
   // if cancel the button to submit the value reset to empty again
-
   const clearCreateButtonWhenClose = (e) => {
     e.preventDefault();
     setCreateFormData({
@@ -190,64 +190,6 @@ function TenantPage() {
             </button>
           </div>
         </div>
-        <dialog id="addModal" className="modal modal-middle sm:modal-middle">
-          <div className="modal-box">
-            <div className="flex items-center gap-2">
-              <span className="bg-primary rounded-full px-2 py-2">
-                <Plus color="#000" size={20} />
-              </span>
-              <h3 className="text-lg font-semibold">Create Tenant</h3>
-            </div>
-            <p className="py-4">Fill out the tenant information:</p>
-            <form onSubmit={handleCreateSubmit} className="space-y-4">
-              <div>
-                <input
-                  required
-                  type="text"
-                  name="firstName"
-                  value={createFormData.firstName}
-                  onChange={handleCreateChange}
-                  placeholder="First Name"
-                  className="input input-bordered w-full"
-                />
-              </div>
-              <div>
-                <input
-                  required
-                  type="text"
-                  name="lastName"
-                  value={createFormData.lastName}
-                  onChange={handleCreateChange}
-                  placeholder="Last Name"
-                  className="input input-bordered w-full"
-                />
-              </div>
-              <div>
-                <input
-                  required
-                  type="number"
-                  name="phoneNumber"
-                  value={createFormData.phoneNumber}
-                  onChange={handleCreateChange}
-                  placeholder="Contact"
-                  className="input input-bordered w-full"
-                />
-              </div>
-              <div className="flex justify-end gap-2 pt-2">
-                <button type="submit" className="btn btn-success">
-                  Save
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-info"
-                  onClick={clearCreateButtonWhenClose}
-                >
-                  Cancel
-                </button>
-              </div>
-            </form>
-          </div>
-        </dialog>
         <div className="overflow-x-auto overflow-y-auto max-h-152.5 rounded-box border border-base-content/5 bg-base-100">
           <table className="table table-pin-rows">
             <thead>
@@ -270,8 +212,8 @@ function TenantPage() {
                 </tr>
               ) : (
                 <>
-                  {tableSearchTenant.map((tenantData, index) => (
-                    <tr key={index}>
+                  {tableSearchTenant.map((tenantData) => (
+                    <tr key={tenantData.tenantID}>
                       <td className="font-semibold">{tenantData.firstName}</td>
                       <td className="font-semibold">{tenantData.lastName}</td>
                       <td className="font-semibold">
@@ -297,98 +239,151 @@ function TenantPage() {
               )}
             </tbody>
           </table>
-          <dialog id="editModal" className="modal modal-middle sm:modal-middle">
-            <div className="modal-box">
-              <div className="flex items-center gap-2">
-                <span className="bg-accent rounded-full px-2 py-2">
-                  <SquarePen color="#000" size={20} />
-                </span>
-                <h3 className="text-lg font-semibold">Update Tenant</h3>
-              </div>
-              <p className="py-4">Edit tenant information:</p>
-              <form onSubmit={handleEditSubmit} className="space-y-4">
-                <div>
-                  <input
-                    required
-                    type="text"
-                    name="firstName"
-                    value={editFormData.firstName}
-                    onChange={handleEditChange}
-                    placeholder="First Name"
-                    className="input input-bordered w-full"
-                  />
-                </div>
-                <div>
-                  <input
-                    required
-                    type="text"
-                    name="lastName"
-                    value={editFormData.lastName}
-                    onChange={handleEditChange}
-                    placeholder="Last Name"
-                    className="input input-bordered w-full"
-                  />
-                </div>
-                <div>
-                  <input
-                    required
-                    type="number"
-                    name="phoneNumber"
-                    value={editFormData.phoneNumber}
-                    onChange={handleEditChange}
-                    placeholder="Contact"
-                    className="input input-bordered w-full"
-                  />
-                </div>
-                <div className="flex justify-end gap-2 pt-2">
-                  <button type="submit" className="btn btn-success">
-                    Save Changes
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-info"
-                    onClick={() => document.getElementById('editModal').close()}
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </form>
-            </div>
-          </dialog>
-          <dialog
-            id="deleteModal"
-            className="modal modal-bottom sm:modal-middle"
-          >
-            <div className="modal-box">
-              <div className="flex items-center gap-2">
-                <span className="bg-error px-2 py-2 rounded-full">
-                  <Trash2 color="#000" size={20} />
-                </span>
-                <h3 className="text-lg font-semibold">Delete Confirmation</h3>
-              </div>
-              <p className="py-4">Are you sure you want to delete this?</p>
-              <div className="modal-action">
-                <form onSubmit={handleDeleteSubmit}>
-                  <div className="flex justify-end gap-2 pt-2">
-                    <button type="submit" className="btn btn-error">
-                      Yes, Delete it
-                    </button>
-                    <button
-                      onClick={() =>
-                        document.getElementById('deleteModal').close()
-                      }
-                      type="button"
-                      className="btn btn-info"
-                    >
-                      Cancel
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </dialog>
         </div>
       </div>
+      <dialog id="addModal" className="modal modal-middle sm:modal-middle">
+        <div className="modal-box">
+          <div className="flex items-center gap-2">
+            <span className="bg-primary rounded-full px-2 py-2">
+              <Plus color="#000" size={20} />
+            </span>
+            <h3 className="text-lg font-semibold">Create Tenant</h3>
+          </div>
+          <p className="py-4">Fill out the tenant information:</p>
+          <form onSubmit={handleCreateSubmit} className="space-y-4">
+            <div>
+              <input
+                required
+                type="text"
+                name="firstName"
+                value={createFormData.firstName}
+                onChange={handleCreateChange}
+                placeholder="First Name"
+                className="input input-bordered w-full"
+              />
+            </div>
+            <div>
+              <input
+                required
+                type="text"
+                name="lastName"
+                value={createFormData.lastName}
+                onChange={handleCreateChange}
+                placeholder="Last Name"
+                className="input input-bordered w-full"
+              />
+            </div>
+            <div>
+              <input
+                required
+                type="number"
+                name="phoneNumber"
+                value={createFormData.phoneNumber}
+                onChange={handleCreateChange}
+                placeholder="Contact"
+                className="input input-bordered w-full"
+              />
+            </div>
+            <div className="flex justify-end gap-2 pt-2">
+              <button type="submit" className="btn btn-success">
+                Save
+              </button>
+              <button
+                type="button"
+                className="btn btn-info"
+                onClick={clearCreateButtonWhenClose}
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </dialog>
+      <dialog id="editModal" className="modal modal-middle sm:modal-middle">
+        <div className="modal-box">
+          <div className="flex items-center gap-2">
+            <span className="bg-accent rounded-full px-2 py-2">
+              <SquarePen color="#000" size={20} />
+            </span>
+            <h3 className="text-lg font-semibold">Update Tenant</h3>
+          </div>
+          <p className="py-4">Edit tenant information:</p>
+          <form onSubmit={handleEditSubmit} className="space-y-4">
+            <div>
+              <input
+                required
+                type="text"
+                name="firstName"
+                value={editFormData.firstName}
+                onChange={handleEditChange}
+                placeholder="First Name"
+                className="input input-bordered w-full"
+              />
+            </div>
+            <div>
+              <input
+                required
+                type="text"
+                name="lastName"
+                value={editFormData.lastName}
+                onChange={handleEditChange}
+                placeholder="Last Name"
+                className="input input-bordered w-full"
+              />
+            </div>
+            <div>
+              <input
+                required
+                type="number"
+                name="phoneNumber"
+                value={editFormData.phoneNumber}
+                onChange={handleEditChange}
+                placeholder="Contact"
+                className="input input-bordered w-full"
+              />
+            </div>
+            <div className="flex justify-end gap-2 pt-2">
+              <button type="submit" className="btn btn-success">
+                Save Changes
+              </button>
+              <button
+                type="button"
+                className="btn btn-info"
+                onClick={() => document.getElementById('editModal').close()}
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </dialog>
+      <dialog id="deleteModal" className="modal modal-bottom sm:modal-middle">
+        <div className="modal-box">
+          <div className="flex items-center gap-2">
+            <span className="bg-error px-2 py-2 rounded-full">
+              <Trash2 color="#000" size={20} />
+            </span>
+            <h3 className="text-lg font-semibold">Delete Confirmation</h3>
+          </div>
+          <p className="py-4">Are you sure you want to delete this?</p>
+          <div className="modal-action">
+            <form onSubmit={handleDeleteSubmit}>
+              <div className="flex justify-end gap-2 pt-2">
+                <button type="submit" className="btn btn-error">
+                  Yes, Delete it
+                </button>
+                <button
+                  onClick={() => document.getElementById('deleteModal').close()}
+                  type="button"
+                  className="btn btn-info"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </div>
   );
 }

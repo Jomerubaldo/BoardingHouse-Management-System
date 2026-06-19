@@ -16,3 +16,9 @@ export const selectionRooms = async () => {
   const response = await fetch(API_Room_URL);
   return await response.json();
 };
+
+// showPaymentHistory
+export const getAllPaymentsHistory = async () => {
+  const response = await fetch(API_Payment_URL);
+  return await response.json();
+};

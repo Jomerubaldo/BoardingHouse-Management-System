@@ -18,3 +18,15 @@ export const createPayment = (req, res) => {
     });
   });
 };
+
+export const getAllPaymentHistory = (req, res) => {
+  const sql = `SELECT * FROM tblPayment`;
+
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: err.message });
+    }
+    res.json(result);
+  });
+};

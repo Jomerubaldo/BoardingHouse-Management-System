@@ -7,6 +7,7 @@ import {
   updateRoom,
   deleteRoom,
 } from '../../api/roomApi.js';
+import AddPaymentButton from './components/AddPaymentButton.jsx';
 
 function RoomPage() {
   const [showRooms, setShowRooms] = useState([]);
@@ -203,16 +204,19 @@ function RoomPage() {
                 onChange={(e) => setSearch(e.target.value)}
               />
             </label>
-            <button
-              className="btn btn-primary"
-              onClick={() => document.getElementById('addModal').showModal()}
-            >
-              <CirclePlus
-                size={18}
-                className="sm:w-4 sm:h-4 md:w-5 md:h-5 lg:w-6 lg:h-6"
-              />
-              <span className="sm:inline md:inline lg:inline">Add Room</span>
-            </button>
+            <div className="flex gap-2">
+              <button
+                className="btn btn-primary"
+                onClick={() => document.getElementById('addModal').showModal()}
+              >
+                <CirclePlus
+                  size={18}
+                  className="sm:w-4 sm:h-4 md:w-5 md:h-5 lg:w-6 lg:h-6"
+                />
+                <span className="sm:inline md:inline lg:inline">Add Room</span>
+              </button>
+              <AddPaymentButton />
+            </div>
           </div>
         </div>
         <dialog id="addModal" className="modal modal-middle sm:modal-middle">
