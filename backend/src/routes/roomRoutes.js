@@ -12,7 +12,7 @@ const router = express.Router();
 router.post('/', createRoom);
 router.get('/', getRooms);
 router.put('/', updateRoom);
-router.delete('/', deleteRoom);
-router.get('/', totalRoom);
+router.delete('/:roomID', deleteRoom);
+router.get('/total-room', totalRoom);
 
 export default router;

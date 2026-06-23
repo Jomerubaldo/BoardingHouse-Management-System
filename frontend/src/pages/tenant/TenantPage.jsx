@@ -146,7 +146,7 @@ function TenantPage() {
   );
 
   return (
-    <div className="@container">
+    <div className="@container px-5 h-auto">
       <div className="flex flex-col gap-5">
         <div className="flex flex-col gap-5">
           <div className="font-bold sm:text-md md:text-lg lg:text-lg xl:text-2xl">
@@ -180,7 +180,11 @@ function TenantPage() {
             </label>
             <button
               className="btn btn-xs btn-primary sm:btn-sm md:btn-md "
-              onClick={() => document.getElementById('addModal').showModal()}
+              onClick={() => {
+                getTenantsData < 8
+                  ? document.getElementById('addModal').showModal()
+                  : alert('Sorry, Cannot add tenant, Room is Full!');
+              }}
             >
               <CirclePlus
                 size={16}
@@ -190,7 +194,7 @@ function TenantPage() {
             </button>
           </div>
         </div>
-        <div className="overflow-x-auto overflow-y-auto max-h-152.5 rounded-box border border-base-content/5 bg-base-100">
+        <div className="overflow-x-auto overflow-y-auto max-h-[535px] rounded-box border border-base-content/5 bg-base-100">
           <table className="table table-pin-rows">
             <thead>
               <tr className="bg-base-200">
@@ -205,7 +209,7 @@ function TenantPage() {
                 <tr>
                   <td
                     colSpan={4}
-                    className="text-center py-63 text-base-content/50"
+                    className="text-center py-58 text-base-content/50"
                   >
                     Not found. Click “Add Tenant” to create one.
                   </td>

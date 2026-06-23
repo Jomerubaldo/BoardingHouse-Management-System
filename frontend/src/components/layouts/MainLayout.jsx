@@ -25,7 +25,7 @@ function MainLayout() {
       <div className="drawer-content">
         <nav className="navbar w-full bg-base-300">
           <label
-            htmlFor="my-drawer-4"
+            htmlFor="my-drawer-4" 
             aria-label="open sidebar"
             className="btn btn-square btn-ghost"
           >
@@ -35,11 +35,11 @@ function MainLayout() {
               <PanelLeftOpen color="green" size={16} />
             )}
           </label>
-          <div className="px-4 font-semibold text-lg">
+          <div className="font-semibold text-lg">
             Boarding House Management System
           </div>
         </nav>
-        <div className="p-4">
+        <div className='py-4'>
           <Outlet />
         </div>
       </div>

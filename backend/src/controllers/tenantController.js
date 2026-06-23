@@ -4,6 +4,26 @@ import db from '../config/db.js';
 export const createTenant = (req, res) => {
   const { firstName, lastName, phoneNumber } = req.body;
 
+  const MAX_TENANTS = 8;
+
+  const countSql = `SELECT COUNT(*) AS totalTenants FROM tblTenant`;
+
+  db.query(countSql, (err, countResult) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: err.message });
+    }
+
+    const totalTenants = countResult[0].totalTenants;
+
+    if (totalTenants >= MAX_TENANTS) {
+      return res.status(400).json({
+        success: false,
+        message: `Cannot add tenant its limited to ${MAX_TENANTS}`,
+      });
+    }
+  });
+
   const sql = `INSERT INTO tblTenant (firstName, lastName, phoneNumber) VALUES (?, ?, ?)`;
 
   db.query(sql, [firstName, lastName, phoneNumber], (err, result) => {
@@ -22,7 +42,7 @@ export const createTenant = (req, res) => {
 
 // view specific
 export const getTenants = (req, res) => {
-  const sql = `SELECT tenantID, firstName, lastName, phoneNumber FROM tblTenant`;
+  const sql = `SELECT tenantID, firstName, lastName, phoneNumber FROM tblTenant ORDER BY tenantID DESC`;
 
   db.query(sql, (err, result) => {
     if (err) {
@@ -51,7 +71,7 @@ export const updateTenant = (req, res) => {
   });
 };
 
-// delete
+// deletesa
 export const deleteTenant = (req, res) => {
   const { tenantID } = req.body;
 

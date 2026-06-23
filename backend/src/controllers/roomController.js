@@ -4,23 +4,43 @@ import db from '../config/db.js';
 export const createRoom = (req, res) => {
   const { tenantID, roomNumber, amountRent, roomStatus } = req.body;
 
-  const sql = `INSERT INTO tblRoom (tenantID, roomNumber, amountRent, roomStatus) VALUES (?, ?, ?, ?)`;
+  const MAX_ROOMS = 8;
 
-  db.query(
-    sql,
-    [tenantID, roomNumber, amountRent, roomStatus],
-    (err, result) => {
-      if (err) {
-        console.error(err);
-        return res.status(500).json({ error: err.message });
-      }
-      res.json({
-        success: true,
-        message: `1 Added Successfully into tblRoom`,
-        id: result.insertId,
+  const countSql = `SELECT COUNT(*) AS totalRooms FROM tblRoom`;
+
+  db.query(countSql, (err, countResult) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: err.message });
+    }
+
+    const totalRooms = countResult[0].totalRooms;
+
+    if (totalRooms >= MAX_ROOMS) {
+      return res.status(400).json({
+        success: false,
+        message: `Cannot add more rooms. Maximum limit of ${MAX_ROOMS} rooms reached`,
       });
     }
-  );
+
+    const sql = `INSERT INTO tblRoom (tenantID, roomNumber, amountRent, roomStatus) VALUES (?, ?, ?, ?)`;
+
+    db.query(
+      sql,
+      [tenantID, roomNumber, amountRent, roomStatus],
+      (err, result) => {
+        if (err) {
+          console.error(err);
+          return res.status(500).json({ error: err.message });
+        }
+        res.json({
+          success: true,
+          message: `1 Added Successfully into tblRoom`,
+          id: result.insertId,
+        });
+      }
+    );
+  });
 };
 
 // view
@@ -34,7 +54,8 @@ export const getRooms = (req, res) => {
     CONCAT(t.firstName, ' ', t.lastName) AS tenantFullName
     FROM tblRoom r
     LEFT JOIN tblTenant t
-    ON r.tenantID = t.tenantID;`;
+    ON r.tenantID = t.tenantID
+    ORDER BY r.roomID DESC`;
 
   db.query(sql, (err, result) => {
     if (err) {
@@ -62,11 +83,11 @@ export const updateRoom = (req, res) => {
 
 // delete
 export const deleteRoom = (req, res) => {
-  const { roomID } = req.body;
+  const { roomID } = req.params;
 
   const sql = `DELETE FROM tblRoom WHERE roomID = ?`;
 
-  db.query(sql, [roomID], (err, result) => {
+  db.query(sql, [roomID], (err) => {
     if (err) {
       console.error(err);
       return res.status(500).json({ error: err.message });
@@ -74,7 +95,6 @@ export const deleteRoom = (req, res) => {
     res.json({
       success: true,
       message: `Delete successfully`,
-      id: result.insertId,
     });
   });
 };
@@ -88,6 +108,6 @@ export const totalRoom = (req, res) => {
       console.error(err);
       return res.status(500).json({ error: err.message });
     }
-    res.json(result);
+    res.json(result[0]);
   });
 };

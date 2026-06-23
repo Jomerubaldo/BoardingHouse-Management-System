@@ -65,7 +65,7 @@ function RoomPage() {
         fetchViewRooms(); // refresh the table
         document.getElementById('addModal').close();
       } else {
-        console.error('Something wrong' + result.message);
+        alert(result.message);
       }
     } catch (err) {
       console.error('Error:', err);
@@ -172,7 +172,7 @@ function RoomPage() {
   };
 
   return (
-    <div className="@container">
+    <div className="@container px-5 h-auto">
       <div className="flex flex-col gap-5">
         <div className="flex flex-col gap-5">
           <div className="font-bold sm:text-sm md:text-md lg:text-lg xl:text-2xl">
@@ -207,7 +207,8 @@ function RoomPage() {
             <div className="flex gap-2">
               <button
                 className="btn btn-primary"
-                onClick={() => document.getElementById('addModal').showModal()}
+                disabled={showRooms || 0}
+                onClick={() => document.getElementById('addModal').show()}
               >
                 <CirclePlus
                   size={18}
@@ -317,8 +318,8 @@ function RoomPage() {
             </form>
           </div>
         </dialog>
-        <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
-          <table className="table">
+        <div className="overflow-x-auto rounded-box border max-h-[535px] border-base-content/5 bg-base-100">
+          <table className="table table-pin-rows">
             <thead>
               <tr className="bg-base-200">
                 <th>Tenant Name</th>
@@ -333,15 +334,15 @@ function RoomPage() {
                 <tr>
                   <td
                     colSpan={5}
-                    className="text-center py-63 text-base-content/50"
+                    className="text-center py-58 text-base-content/50"
                   >
                     Not found. Click “Add Room” to create one.
                   </td>
                 </tr>
               ) : (
                 <>
-                  {tableSearchRoom.map((roomData, index) => (
-                    <tr key={index}>
+                  {tableSearchRoom.map((roomData) => (
+                    <tr key={roomData.roomID}>
                       <td className="font-semibold">
                         {roomData.tenantFullName}
                       </td>

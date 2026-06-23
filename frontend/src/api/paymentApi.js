@@ -17,8 +17,14 @@ export const selectionRooms = async () => {
   return await response.json();
 };
 
-// showPaymentHistory
+// showPaymentHistoryTableList
 export const getAllPaymentsHistory = async () => {
   const response = await fetch(API_Payment_URL);
+  return await response.json();
+};
+
+// totalSales dashboard need ng /path para alam ng kung ano lang kukunin niya
+export const totalSales = async () => {
+  const response = await fetch(`${API_Payment_URL}/total-sales`);
   return await response.json();
 };

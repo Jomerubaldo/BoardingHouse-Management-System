@@ -35,16 +35,14 @@ export const updateRoom = async (roomData) => {
 
 // delete
 export const deleteRoom = async (roomID) => {
-  const response = await fetch(API_Room_URL, {
+  const response = await fetch(`${API_Room_URL}/${roomID}`, {
     method: 'DELETE',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ roomID }),
   });
-  return await response.json();
+  return response.json();
 };
 
-// totalRoom
+// totalRoom dashboard
 export const totalRoom = async () => {
-  const response = await fetch(API_Room_URL);
+  const response = await fetch(`${API_Room_URL}/total-room`);
   return await response.json();
 };
