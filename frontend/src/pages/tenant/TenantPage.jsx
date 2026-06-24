@@ -145,6 +145,8 @@ function TenantPage() {
     tenant.firstName.toLowerCase().includes(search.toLowerCase())
   );
 
+  console.log(getTenantsData);
+
   return (
     <div className="@container px-5 h-auto">
       <div className="flex flex-col gap-5">
@@ -181,7 +183,7 @@ function TenantPage() {
             <button
               className="btn btn-xs btn-primary sm:btn-sm md:btn-md "
               onClick={() => {
-                getTenantsData < 8
+                getTenantsData.length < 8
                   ? document.getElementById('addModal').showModal()
                   : alert('Sorry, Cannot add tenant, Room is Full!');
               }}

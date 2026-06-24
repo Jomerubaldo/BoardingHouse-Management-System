@@ -24,7 +24,7 @@ function DashboardPage() {
     const fetchTotalSales = async () => {
       try {
         const result = await totalSales();
-        setGetTotalSales(result);
+        setGetTotalSales(result.totalSales || 0);
       } catch (err) {
         console.error(err);
       }
@@ -139,9 +139,7 @@ function DashboardPage() {
                 </svg>
               </div>
               <div className="stat-title text-xl">Total Sales</div>
-              <div className="stat-value text-primary">
-                {getTotalSales.totalSales}
-              </div>
+              <div className="stat-value text-primary">{getTotalSales}</div>
               <div className="stat-desc">Overall sales amount</div>
             </div>
           </div>

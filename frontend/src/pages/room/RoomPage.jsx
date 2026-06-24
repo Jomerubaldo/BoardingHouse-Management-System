@@ -1,17 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { SquarePen, Trash2, CirclePlus, Plus } from 'lucide-react';
-import {
-  createRoom,
-  getAllRooms,
-  selectionTenants,
-  updateRoom,
-  deleteRoom,
-} from '../../api/roomApi.js';
 import AddPaymentButton from './components/AddPaymentButton.jsx';
+import { useTenantSelection } from '../../hooks/useTenantSelection.js';
+import { useRooms } from '../../hooks/useRooms.js';
 
 function RoomPage() {
-  const [showRooms, setShowRooms] = useState([]);
-  const [tenants, setTenants] = useState([]); // state for selection tenant in room
+  const { tenants } = useTenantSelection();
+  const { rooms, addRoom, editRoom, removeRoom } = useRooms();
   const [createFormData, setCreateFormData] = useState({
     tenantID: '',
     roomNumber: '',
@@ -27,21 +22,6 @@ function RoomPage() {
   const [deleteRoomData, setDeleteRoomData] = useState(null);
   const [search, setSearch] = useState(''); // for filter tablelist
 
-  // for creating room loop for tenant selections
-  // pinag sama useEffect at pag fetch kasi isang besesl ang gagamitin
-  useEffect(() => {
-    const fetchTenantSelection = async () => {
-      try {
-        const result = await selectionTenants();
-        setTenants(result);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    fetchTenantSelection();
-  }, []);
-
   // para sa pag kuha ng e cre-create na value
   const handleCreateChange = (e) => {
     setCreateFormData({ ...createFormData, [e.target.name]: e.target.value });
@@ -50,26 +30,19 @@ function RoomPage() {
   // final submit room created
   const handleSubmitCreateRoom = async (e) => {
     e.preventDefault();
-
-    try {
-      const result = await createRoom(createFormData);
-      if (result.success) {
-        alert('Room added successfully');
-        // clear data dropdown after submit
-        setCreateFormData({
-          tenantID: '',
-          roomNumber: '',
-          amountRent: '',
-          roomStatus: '',
-        });
-        fetchViewRooms(); // refresh the table
-        document.getElementById('addModal').close();
-      } else {
-        alert(result.message);
-      }
-    } catch (err) {
-      console.error('Error:', err);
-      alert('Cannot connect the server. Please check your connection');
+    const result = await addRoom(createFormData);
+    if (result.success) {
+      alert('Room added successfully');
+      // clear data dropdown after submit
+      setCreateFormData({
+        tenantID: '',
+        roomNumber: '',
+        amountRent: '',
+        roomStatus: '',
+      });
+      document.getElementById('addModal').close();
+    } else {
+      alert('Something went wrong:' + result.message);
     }
   };
 
@@ -84,21 +57,6 @@ function RoomPage() {
     });
     document.getElementById('addModal').close();
   };
-
-  // Get all data from Rooms
-  const fetchViewRooms = async () => {
-    try {
-      const result = await getAllRooms();
-      setShowRooms(result);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  // sa labas lang para magamit sa handleSubmitCreateRoom
-  useEffect(() => {
-    fetchViewRooms();
-  }, []);
 
   // para makuha yung value na eedit
   // yung .name is para sa name na attribute sa input at .value kung ano ipapalit na value
@@ -120,19 +78,12 @@ function RoomPage() {
 
   const handleSubmitEdit = async (e) => {
     e.preventDefault();
-
-    try {
-      const result = await updateRoom(editFormData);
-      if (result.success) {
-        alert('Room update successfully!');
-        fetchViewRooms();
-        document.getElementById('editModal').close();
-      } else {
-        console.error('Something went wrong:' + result.message);
-      }
-    } catch (err) {
-      console.error(err);
-      alert('Cannot connect to server. Please check your internet');
+    const result = await editRoom(editFormData);
+    if (result.success) {
+      alert('Room update successfully!');
+      document.getElementById('editModal').close();
+    } else {
+      alert('Something went wrong:' + result.message);
     }
   };
 
@@ -144,25 +95,18 @@ function RoomPage() {
 
   const handleSubmitDelete = async (e) => {
     e.preventDefault();
-    try {
-      const result = await deleteRoom(deleteRoomData.roomID);
-
-      if (result.success) {
-        alert('Delete room successfully!');
-        fetchViewRooms();
-        document.getElementById('deleteModal').close();
-      } else {
-        console.error('Something went wrong:' + result.message);
-      }
-    } catch (err) {
-      console.error('Error:', err);
-      alert('Cannot connect to server, Please check your connection');
+    const result = await removeRoom(deleteRoomData.roomID);
+    if (result.success) {
+      alert('Delete room successfully!');
+      document.getElementById('deleteModal').close();
+    } else {
+      alert('Something went wrong:' + result.message);
     }
   };
 
   // for searching filter room in tablelist
   // confusing na part dito
-  const tableSearchRoom = showRooms.filter((room) => {
+  const tableSearchRoom = rooms.filter((room) => {
     return room.tenantFullName.toLowerCase().includes(search.toLowerCase());
   });
 
@@ -207,8 +151,11 @@ function RoomPage() {
             <div className="flex gap-2">
               <button
                 className="btn btn-primary"
-                disabled={showRooms || 0}
-                onClick={() => document.getElementById('addModal').show()}
+                onClick={() => {
+                  rooms.length < 8
+                    ? document.getElementById('addModal').show()
+                    : alert('Sorry, cannot add Room is full!');
+                }}
               >
                 <CirclePlus
                   size={18}
