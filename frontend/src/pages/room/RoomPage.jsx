@@ -1,8 +1,12 @@
 import { useState } from 'react';
-import { SquarePen, Trash2, CirclePlus, Plus } from 'lucide-react';
+import { CirclePlus } from 'lucide-react';
 import AddPaymentButton from './components/AddPaymentButton.jsx';
 import { useTenantSelection } from '../../hooks/useTenantSelection.js';
 import { useRooms } from '../../hooks/useRooms.js';
+import RoomTable from '../../components/ui/RoomTable.jsx';
+import AddRoomModal from '../../components/ui/AddRoomModal.jsx';
+import EditRoomModal from '../../components/ui/EditRoomModal.jsx';
+import DeleteRoomModal from '../../components/ui/DeleteRoomModal.jsx';
 
 function RoomPage() {
   const { tenants } = useTenantSelection();
@@ -167,281 +171,28 @@ function RoomPage() {
             </div>
           </div>
         </div>
-        <dialog id="addModal" className="modal modal-middle sm:modal-middle">
-          <div className="modal-box">
-            <div className="flex items-center gap-2">
-              <span className="bg-primary px-2 py-2 rounded-full">
-                <Plus color="#000" size={20} />
-              </span>
-              <h3 className="text-lg font-semibold">Create Room</h3>
-            </div>
-            <p className="py-4">
-              Choose the room information from the options below:
-            </p>
-            <form onSubmit={handleSubmitCreateRoom} className="space-y-4">
-              <div>
-                <select
-                  required
-                  name="tenantID"
-                  value={createFormData.tenantID}
-                  onChange={handleCreateChange}
-                  className="select w-full"
-                >
-                  <option disabled={true} value="">
-                    Select Tenant
-                  </option>
-                  {tenants.map((tenant) => (
-                    <option key={tenant.tenantID} value={tenant.tenantID}>
-                      {tenant.firstName} {tenant.lastName}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <select
-                  required
-                  name="roomNumber"
-                  value={createFormData.roomNumber}
-                  onChange={handleCreateChange}
-                  className="select w-full"
-                >
-                  <option disabled={true} value="">
-                    Select Room
-                  </option>
-                  <option value="Room 1">Room 1</option>
-                  <option value="Room 2">Room 2</option>
-                  <option value="Room 3">Room 3</option>
-                  <option value="Room 4">Room 4</option>
-                  <option value="Room 5">Room 5</option>
-                  <option value="Room 6">Room 6</option>
-                  <option value="Room 7">Room 7</option>
-                  <option value="Room 8">Room 8</option>
-                </select>
-              </div>
-              <div>
-                <select
-                  required
-                  name="amountRent"
-                  value={createFormData.amountRent}
-                  onChange={handleCreateChange}
-                  className="select w-full"
-                >
-                  <option disabled={true} value="">
-                    Select Rent
-                  </option>
-                  <option value="750.00">750.00</option>
-                  <option value="1500.00">1500.00</option>
-                  <option value="2000.00">2000.00</option>
-                  <option value="5000.00">5000.00</option>
-                </select>
-              </div>
-              <div>
-                <select
-                  required
-                  name="roomStatus"
-                  value={createFormData.roomStatus}
-                  onChange={handleCreateChange}
-                  className="select w-full"
-                >
-                  <option disabled={true} value="">
-                    Select Status
-                  </option>
-                  <option value="Occupied">Occupied</option>
-                  <option value="Vacant">Vacant</option>
-                </select>
-              </div>
-              <div className="flex justify-end gap-2 pt-2">
-                <button type="submit" className="btn btn-success">
-                  Save
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-error"
-                  onClick={clearCreateButtonWhenClose}
-                >
-                  Cancel
-                </button>
-              </div>
-            </form>
-          </div>
-        </dialog>
-        <div className="overflow-x-auto rounded-box border max-h-[535px] border-base-content/5 bg-base-100">
-          <table className="table table-pin-rows">
-            <thead>
-              <tr className="bg-base-200">
-                <th>Tenant Name</th>
-                <th>Room</th>
-                <th>Rent</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {tableSearchRoom.length === 0 ? (
-                <tr>
-                  <td
-                    colSpan={5}
-                    className="text-center py-58 text-base-content/50"
-                  >
-                    Not found. Click “Add Room” to create one.
-                  </td>
-                </tr>
-              ) : (
-                <>
-                  {tableSearchRoom.map((roomData) => (
-                    <tr key={roomData.roomID}>
-                      <td className="font-semibold">
-                        {roomData.tenantFullName}
-                      </td>
-                      <td className="font-semibold">{roomData.roomNumber}</td>
-                      <td className="font-semibold">{roomData.amountRent}</td>
-                      <td>
-                        <span className={`${statusColor[roomData.roomStatus]}`}>
-                          {roomData.roomStatus}
-                        </span>
-                      </td>
-                      <td className="flex gap-2">
-                        <button
-                          className="btn btn-accent btn-xs"
-                          onClick={() => handleEditClick(roomData)}
-                        >
-                          <SquarePen size={15} />
-                        </button>
-                        <button
-                          className="btn btn-error btn-xs"
-                          onClick={() => handleDeleteClick(roomData)}
-                        >
-                          <Trash2 size={15} />
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </>
-              )}
-            </tbody>
-          </table>
-          <dialog id="editModal" className="modal modal-middle sm:modal-middle">
-            <div className="modal-box">
-              <div className="flex items-center gap-2">
-                <span className="bg-accent px-2 py-2 rounded-full">
-                  <SquarePen color="#000" size={20} />
-                </span>
-                <h3 className="text-lg font-semibold">Update Room</h3>
-              </div>
-              <p className="py-4">
-                Choose the room information from the options below.
-              </p>
-              <form onSubmit={handleSubmitEdit} className="space-y-4">
-                <div>
-                  <select
-                    name="tenantFullName"
-                    value={editFormData.tenantFullName}
-                    onChange={handleEditChange}
-                    className="select w-full"
-                  >
-                    <option disabled={false}>Select Tenant</option>
-                    {tenants.map((tenant) => (
-                      <option
-                        key={tenant.tenantID}
-                        value={tenant.tenantFullName}
-                      >
-                        {tenant.firstName} {tenant.lastName}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <select
-                    name="roomNumber"
-                    value={editFormData.roomNumber}
-                    onChange={handleEditChange}
-                    className="select w-full"
-                  >
-                    <option disabled={false}>Select Room</option>
-                    <option value="Room 1">Room 1</option>
-                    <option value="Room 2">Room 2</option>
-                    <option value="Room 3">Room 3</option>
-                    <option value="Room 4">Room 4</option>
-                    <option value="Room 5">Room 5</option>
-                    <option value="Room 6">Room 6</option>
-                    <option value="Room 7">Room 7</option>
-                    <option value="Room 8">Room 8</option>
-                  </select>
-                </div>
-                <div>
-                  <select
-                    name="amountRent"
-                    value={editFormData.amountRent}
-                    onChange={handleEditChange}
-                    className="select w-full"
-                  >
-                    <option disabled={false}>Select Rent</option>
-                    <option value="750.00">750.00</option>
-                    <option value="1500.00">1500.00</option>
-                    <option value="2000.00">2000.00</option>
-                    <option value="5000.00">5000.00</option>
-                  </select>
-                </div>
-                <div>
-                  <select
-                    name="roomStatus"
-                    value={editFormData.roomStatus}
-                    onChange={handleEditChange}
-                    className="select w-full"
-                  >
-                    <option disabled={false}>Select Status</option>
-                    <option value="Occupied">Occupied</option>
-                    <option value="Vacant">Vacant</option>
-                  </select>
-                </div>
-                <div className="flex justify-end gap-2 pt-2">
-                  <button type="submit" className="btn btn-success">
-                    Save
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-error"
-                    onClick={() => document.getElementById('editModal').close()}
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </form>
-            </div>
-          </dialog>
-          <dialog
-            id="deleteModal"
-            className="modal modal-bottom sm:modal-middle"
-          >
-            <div className="modal-box">
-              <div className="flex items-center gap-2">
-                <span className="bg-error px-2 py-2 rounded-full">
-                  <Trash2 color="#000" size={20} />
-                </span>
-                <h3 className="text-lg font-semibold">Delete Confirmation</h3>
-              </div>
-              <p className="py-4">Are you sure you want to delete this?</p>
-              <div className="modal-action">
-                <form onSubmit={handleSubmitDelete}>
-                  <div className="flex justify-end gap-2 pt-2">
-                    <button type="submit" className="btn btn-error">
-                      Yes, Delete it
-                    </button>
-                    <button
-                      onClick={() =>
-                        document.getElementById('deleteModal').close()
-                      }
-                      type="button"
-                      className="btn btn-info"
-                    >
-                      Cancel
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </dialog>
+        <div className="overflow-x-auto rounded-box border max-h-133.75 border-base-content/5 bg-base-100">
+          <RoomTable
+            tableSearchRoom={tableSearchRoom}
+            statusColor={statusColor}
+            handleEditClick={handleEditClick}
+            handleDeleteClick={handleDeleteClick}
+          />
         </div>
+        <AddRoomModal
+          handleSubmitCreateRoom={handleSubmitCreateRoom}
+          createFormData={createFormData}
+          handleCreateChange={handleCreateChange}
+          tenants={tenants}
+          clearCreateButtonWhenClose={clearCreateButtonWhenClose}
+        />
+        <EditRoomModal
+          handleSubmitEdit={handleSubmitEdit}
+          editFormData={editFormData}
+          handleEditChange={handleEditChange}
+          tenants={tenants}
+        />
+        <DeleteRoomModal handleSubmitDelete={handleSubmitDelete} />
       </div>
     </div>
   );
