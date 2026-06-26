@@ -4,23 +4,41 @@ import db from '../config/db.js';
 export const createPayment = (req, res) => {
   const { roomID, datePayment, amountPayment } = req.body;
 
-  const sql = `INSERT INTO tblPayment (roomID, amountPayment) VALUES (?, ?)`;
+  const sqlSelectTenant = `SELECT tenantID FROM tblRoom WHERE roomID = ?`;
 
-  db.query(sql, [roomID, amountPayment], (err, result) => {
+  db.query(sqlSelectTenant, [roomID], (err, result) => {
     if (err) {
       console.error(err);
       return res.status(500).json({ error: err.message });
     }
-    res.json({
-      success: true,
-      message: `Payment added successfully`,
-      id: result.insertId,
+
+    if (result.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: 'Room not found',
+      });
+    }
+
+    const tenantID = result[0].tenantID;
+
+    const sql = `INSERT INTO tblPayment (roomID, tenantID, amountPayment) VALUES (?, ?, ?)`;
+
+    db.query(sql, [roomID, tenantID, amountPayment], (err, result) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ error: err.message });
+      }
+      res.json({
+        success: true,
+        message: `Payment added successfully`,
+        id: result.insertId,
+      });
     });
   });
 };
 
 export const getAllPaymentHistory = (req, res) => {
-  const sql = `SELECT r.paymentID, r.roomID, r.datePayment, r.amountPayment,
+  const sql = `SELECT r.paymentID, r.roomID, r.datePayment, r.amountPayment, r.tenantID,
   t.roomNumber AS roomNumber FROM tblPayment r INNER JOIN tblRoom t ON r.roomID = t.roomID ORDER BY r.paymentID DESC; `;
 
   db.query(sql, (err, result) => {
