@@ -181,7 +181,7 @@ function TenantPage() {
             </button>
           </div>
         </div>
-        <div className="overflow-x-auto overflow-y-auto max-h-[535px] rounded-box border border-base-content/5 bg-base-100">
+        <div className="overflow-x-auto overflow-y-auto max-h-133.75 rounded-box border border-base-content/5 bg-base-100">
           <table className="table table-pin-rows">
             <thead>
               <tr className="bg-base-200">
