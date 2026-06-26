@@ -14,7 +14,7 @@ function MainLayout() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   return (
-    <div className="drawer lg:drawer-open">
+    <div className="drawer lg:drawer-open bg-[#212529]">
       <input
         id="my-drawer-4"
         type="checkbox"
@@ -23,23 +23,23 @@ function MainLayout() {
         onChange={(e) => setIsDrawerOpen(e.target.checked)}
       />
       <div className="drawer-content">
-        <nav className="navbar w-full bg-base-300">
+        <nav className="navbar w-full border-b border-gray-600 bg-[#212529]">
           <label
-            htmlFor="my-drawer-4" 
+            htmlFor="my-drawer-4"
             aria-label="open sidebar"
             className="btn btn-square btn-ghost"
           >
             {isDrawerOpen ? (
-              <PanelLeftClose color="red" size={16} />
+              <PanelLeftClose color="#DC2626" size={16} />
             ) : (
-              <PanelLeftOpen color="green" size={16} />
+              <PanelLeftOpen color="#2cb67d" size={16} />
             )}
           </label>
-          <div className="font-semibold text-lg">
-            Boarding House Management System
-          </div>
+          <h2 className="text-[#FFFFFF] text-lg font-semibold">
+            HouseMate Boarding House Management System
+          </h2>
         </nav>
-        <div className='py-4'>
+        <div className="py-4">
           <Outlet />
         </div>
       </div>
@@ -50,7 +50,7 @@ function MainLayout() {
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <div className="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-64">
+        <div className="flex min-h-full flex-col items-start border-r border-gray-600 bg-[#212529] is-drawer-close:w-14 is-drawer-open:w-64">
           <ul className="menu w-full grow gap-2 text-md">
             <li>
               <NavLink to="/">
@@ -58,7 +58,7 @@ function MainLayout() {
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center gap-3"
                   data-tip="Dashboard"
                 >
-                  <LayoutDashboardIcon className="text-primary" size={16} />
+                  <LayoutDashboardIcon color="#6F2CF3" size={16} />
                   <span className="is-drawer-close:hidden font-semibold">
                     Dashboard
                   </span>
@@ -72,7 +72,7 @@ function MainLayout() {
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center gap-3"
                   data-tip="Tenant"
                 >
-                  <Users className="text-primary" size={16} />
+                  <Users color="#6F2CF3" size={16} />
                   <span className="is-drawer-close:hidden font-semibold">
                     Tenant
                   </span>
@@ -86,7 +86,7 @@ function MainLayout() {
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center gap-3"
                   data-tip="Room"
                 >
-                  <BedSingle className="text-primary" size={16} />
+                  <BedSingle color="#6F2CF3" size={16} />
                   <span className="is-drawer-close:hidden font-semibold">
                     Room
                   </span>
@@ -100,7 +100,7 @@ function MainLayout() {
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center gap-3"
                   data-tip="Payment"
                 >
-                  <Wallet className="text-primary" size={16} />
+                  <Wallet color="#6F2CF3" size={16} />
                   <span className="is-drawer-close:hidden font-semibold">
                     Payment
                   </span>

@@ -46,34 +46,34 @@ function DashboardPage() {
   return (
     <div className="@container px-5">
       <div className="flex flex-col gap-5">
-        <div className="font-bold sm:text-sm md:text-md lg:text-lg xl:text-2xl">
-          Dashboard Overview
+        <div className="sm:text-sm md:text-md lg:text-lg xl:text-2xl">
+          <h1 className="text-[#FFFFFF] font-bold">Dashboard</h1>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4">
           <StatsCard
             title="Total Room"
             value={Max_Room}
             subTitle="Number or rooms in the property"
-            icon={<House size={24} />}
+            icon={<House color="#3B82F6" size={54} />}
           />
           <StatsCard
             title="Occupied Room"
             s
             value={countOccupiedRoom}
             subTitle="Rooms currently in used"
-            icon={<DoorClosedLocked size={24} />}
+            icon={<DoorClosedLocked color="#DC2626" size={54} />}
           />
           <StatsCard
             title="Vacant Room"
             value={countVacantRoom}
             subTitle="Rooms available for rent"
-            icon={<DoorOpen size={24} />}
+            icon={<DoorOpen color="#2cb67d" size={54} />}
           />
           <StatsCard
             title="Total Sales"
             value={getTotalSales}
             subTitle="Overall sales amount"
-            icon={<PhilippinePeso size={24} />}
+            icon={<PhilippinePeso color="#F59E0B" size={54} />}
           />
         </div>
       </div>

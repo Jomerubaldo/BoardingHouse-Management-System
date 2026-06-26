@@ -10,12 +10,12 @@ function RoomTable({
     <>
       <table className="table table-pin-rows">
         <thead>
-          <tr className="bg-base-200">
-            <th>Tenant Name</th>
-            <th>Room</th>
-            <th>Rent</th>
-            <th>Status</th>
-            <th>Actions</th>
+          <tr className="bg-[#6F2CF3]">
+            <th className="text-[#FFFFFF]">Tenant Name</th>
+            <th className="text-[#FFFFFF]">Room</th>
+            <th className="text-[#FFFFFF]">Rent</th>
+            <th className="text-[#FFFFFF]">Status</th>
+            <th className="text-[#FFFFFF]">Actions</th>
           </tr>
         </thead>
         <tbody>

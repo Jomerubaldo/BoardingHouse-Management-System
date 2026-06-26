@@ -123,12 +123,12 @@ function RoomPage() {
     <div className="@container px-5 h-auto">
       <div className="flex flex-col gap-5">
         <div className="flex flex-col gap-5">
-          <div className="font-bold sm:text-sm md:text-md lg:text-lg xl:text-2xl">
-            Room Management
+          <div className="sm:text-sm md:text-md lg:text-lg xl:text-2xl">
+            <h1 className="font-bold">Room Management</h1>
           </div>
           <div className="flex justify-between items-center">
-            <label className="input">
-              <Search size={14} color="#A9A9A9" />
+            <label className="input outline-none bg-[#495057]">
+              <Search size={14} color="#FFFFFF" />
               <input
                 type="search"
                 className="grow"
@@ -137,9 +137,9 @@ function RoomPage() {
                 onChange={(e) => setSearch(e.target.value)}
               />
             </label>
-            <div className="flex gap-2">
+            <div className="flex gap-3">
               <button
-                className="btn btn-primary"
+                className="btn bg-[#6F2CF3]"
                 onClick={() => {
                   rooms.length < 8
                     ? document.getElementById('addModal').show()
@@ -150,13 +150,15 @@ function RoomPage() {
                   size={18}
                   className="sm:w-4 sm:h-4 md:w-5 md:h-5 lg:w-6 lg:h-6"
                 />
-                <span className="sm:inline md:inline lg:inline">Add Room</span>
+                <span className="sm:inline md:inline lg:inline font-bold">
+                  Add Room
+                </span>
               </button>
               <AddPaymentButton />
             </div>
           </div>
         </div>
-        <div className="overflow-x-auto rounded-box border max-h-133.75 border-base-content/5 bg-base-100">
+        <div className="overflow-x-auto rounded-box border max-h-133.75 border-base-content/20 bg-[#212529]">
           <RoomTable
             tableSearchRoom={tableSearchRoom}
             statusColor={statusColor}

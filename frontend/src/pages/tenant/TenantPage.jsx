@@ -151,12 +151,12 @@ function TenantPage() {
     <div className="@container px-5 h-auto">
       <div className="flex flex-col gap-5">
         <div className="flex flex-col gap-5">
-          <div className="font-bold sm:text-md md:text-lg lg:text-lg xl:text-2xl">
-            <h1>Tenant Management</h1>
+          <div className=" sm:text-md md:text-lg lg:text-lg xl:text-2xl">
+            <h1 className="font-bold text-[#FFFFFF]">Tenant Management</h1>
           </div>
           <div className="flex justify-between items-center sm:flex gap-30">
-            <label className="input input-sm md:input-sm lg:input-md">
-              <Search size={14} color="#A9A9A9" />
+            <label className="input outline-none input-sm md:input-sm lg:input-md bg-[#495057]">
+              <Search size={14} color="#FFFFFF" />
               <input
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
@@ -166,7 +166,7 @@ function TenantPage() {
               />
             </label>
             <button
-              className="btn btn-xs btn-primary sm:btn-sm md:btn-md "
+              className="btn btn-xs bg-[#6F2CF3] sm:btn-sm md:btn-md border border-base-content/20"
               onClick={() => {
                 getTenantsData.length < 8
                   ? document.getElementById('addModal').showModal()
@@ -177,18 +177,20 @@ function TenantPage() {
                 size={16}
                 className="sm:w-4 sm:h-4 md:w-5 md:h-5 lg:w-6 lg:h-6"
               />
-              <span className="sm:inline md:inline lg:inline">Add Tenant</span>
+              <span className="sm:inline md:inline lg:inline text-[#FFFFFF] font-bold">
+                Add Tenant
+              </span>
             </button>
           </div>
         </div>
-        <div className="overflow-x-auto overflow-y-auto max-h-133.75 rounded-box border border-base-content/5 bg-base-100">
+        <div className="overflow-x-auto overflow-y-auto max-h-133.75 rounded-box border border-base-content/20 bg-[#212529]">
           <table className="table table-pin-rows">
             <thead>
-              <tr className="bg-base-200">
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Contact</th>
-                <th>Actions</th>
+              <tr className="bg-[#6F2CF3]">
+                <th className="text-[#FFFFFE]">First Name</th>
+                <th className="text-[#FFFFFE]">Last Name</th>
+                <th className="text-[#FFFFFE]">Contact</th>
+                <th className="text-[#FFFFFE]">Actions</th>
               </tr>
             </thead>
             <tbody>

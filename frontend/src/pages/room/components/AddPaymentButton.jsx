@@ -57,7 +57,7 @@ function AddPaymentButton() {
   return (
     <>
       <button
-        className="btn btn-primary"
+        className="btn bg-[#6F2CF3] font-bold"
         onClick={() => document.getElementById('addPaymentModal').showModal()}
       >
         <CirclePlus
