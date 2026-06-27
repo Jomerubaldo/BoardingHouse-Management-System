@@ -3,10 +3,10 @@ import { CirclePlus, Search } from 'lucide-react';
 import AddPaymentButton from './components/AddPaymentButton.jsx';
 import { useTenantSelection } from '../../hooks/useTenantSelection.js';
 import { useRooms } from '../../hooks/useRooms.js';
-import RoomTable from '../../components/ui/RoomTable.jsx';
-import AddRoomModal from '../../components/ui/AddRoomModal.jsx';
-import EditRoomModal from '../../components/ui/EditRoomModal.jsx';
-import DeleteRoomModal from '../../components/ui/DeleteRoomModal.jsx';
+import RoomTable from './components/RoomTable.jsx';
+import AddRoomModal from './components/AddRoomModal.jsx';
+import EditRoomModal from './components/EditRoomModal.jsx';
+import DeleteRoomModal from './components/DeleteRoomModal.jsx';
 
 function RoomPage() {
   const { tenants } = useTenantSelection();
@@ -116,7 +116,7 @@ function RoomPage() {
 
   const statusColor = {
     Occupied: 'badge badge-sm badge-success font-semibold text-xs',
-    Vacant: 'badge badge-sm badge-warning font-semibold text-xs',
+    Repairing: 'badge badge-sm badge-warning font-semibold text-xs',
   };
 
   return (

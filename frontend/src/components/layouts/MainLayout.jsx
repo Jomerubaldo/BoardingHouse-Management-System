@@ -59,7 +59,7 @@ function MainLayout() {
                   data-tip="Dashboard"
                 >
                   <LayoutDashboardIcon color="#6F2CF3" size={16} />
-                  <span className="is-drawer-close:hidden font-semibold">
+                  <span className="is-drawer-close:hidden font-semibold text-[#94a1b2]">
                     Dashboard
                   </span>
                 </button>
@@ -73,7 +73,7 @@ function MainLayout() {
                   data-tip="Tenant"
                 >
                   <Users color="#6F2CF3" size={16} />
-                  <span className="is-drawer-close:hidden font-semibold">
+                  <span className="is-drawer-close:hidden font-semibold text-[#94a1b2]">
                     Tenant
                   </span>
                 </button>
@@ -87,7 +87,7 @@ function MainLayout() {
                   data-tip="Room"
                 >
                   <BedSingle color="#6F2CF3" size={16} />
-                  <span className="is-drawer-close:hidden font-semibold">
+                  <span className="is-drawer-close:hidden font-semibold text-[#94a1b2]">
                     Room
                   </span>
                 </button>
@@ -101,7 +101,7 @@ function MainLayout() {
                   data-tip="Payment"
                 >
                   <Wallet color="#6F2CF3" size={16} />
-                  <span className="is-drawer-close:hidden font-semibold">
+                  <span className="is-drawer-close:hidden font-semibold text-[#94a1b2]">
                     Payment
                   </span>
                 </button>

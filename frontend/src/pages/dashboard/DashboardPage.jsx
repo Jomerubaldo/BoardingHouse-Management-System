@@ -1,19 +1,12 @@
 import { useState, useEffect } from 'react';
 import { totalRoom } from '../../api/roomApi.js';
-import { totalSales } from '../../api/paymentApi.js';
 import StatsCard from '../../components/ui/StatsCard.jsx';
-import {
-  DoorClosedLocked,
-  DoorOpen,
-  House,
-  PhilippinePeso,
-} from 'lucide-react';
+import { Construction, DoorClosedLocked, DoorOpen, House } from 'lucide-react';
 
 const Max_Room = 8;
 
 function DashboardPage() {
   const [getTotalRoom, setGetTotalRoom] = useState(0);
-  const [getTotalSales, setGetTotalSales] = useState(0);
 
   useEffect(() => {
     const fetchTotalRoom = async () => {
@@ -25,18 +18,6 @@ function DashboardPage() {
       }
     };
     fetchTotalRoom();
-  }, []);
-
-  useEffect(() => {
-    const fetchTotalSales = async () => {
-      try {
-        const result = await totalSales();
-        setGetTotalSales(result.totalSales || 0);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    fetchTotalSales();
   }, []);
 
   // occupied/vacant
@@ -51,29 +32,33 @@ function DashboardPage() {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4">
           <StatsCard
+            valueColor="#3B82F6"
             title="Total Room"
             value={Max_Room}
             subTitle="Number or rooms in the property"
-            icon={<House color="#3B82F6" size={54} />}
+            icon={<House color="#3B82F6" size={44} />}
           />
           <StatsCard
+            valueColor="#DC2626"
             title="Occupied Room"
             s
             value={countOccupiedRoom}
             subTitle="Rooms currently in used"
-            icon={<DoorClosedLocked color="#DC2626" size={54} />}
+            icon={<DoorClosedLocked color="#DC2626" size={44} />}
           />
           <StatsCard
+            valueColor="#2cb67d"
             title="Vacant Room"
             value={countVacantRoom}
             subTitle="Rooms available for rent"
-            icon={<DoorOpen color="#2cb67d" size={54} />}
+            icon={<DoorOpen color="#2cb67d" size={44} />}
           />
           <StatsCard
-            title="Total Sales"
-            value={getTotalSales}
-            subTitle="Overall sales amount"
-            icon={<PhilippinePeso color="#F59E0B" size={54} />}
+            valueColor="#f2c94c"
+            title="Repairing Room"
+            value={countVacantRoom}
+            subTitle="Rooms currently repairing"
+            icon={<Construction color="#f2c94c" size={44} />}
           />
         </div>
       </div>

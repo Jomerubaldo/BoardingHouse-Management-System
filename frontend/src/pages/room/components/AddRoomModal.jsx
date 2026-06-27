@@ -88,7 +88,7 @@ function AddRoomModal({
                 Select Status
               </option>
               <option value="Occupied">Occupied</option>
-              <option value="Vacant">Vacant</option>
+              <option value="Repairing">Repair</option>
             </select>
           </div>
           <div className="flex justify-end gap-2 pt-2">
