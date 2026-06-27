@@ -38,13 +38,24 @@ export const createPayment = (req, res) => {
 };
 
 export const getAllPaymentHistory = (req, res) => {
-  const sql = `SELECT r.paymentID, r.roomID, r.datePayment, r.amountPayment, r.tenantID,
-  t.roomNumber AS roomNumber FROM tblPayment r INNER JOIN tblRoom t ON r.roomID = t.roomID ORDER BY r.paymentID DESC; `;
+  const sql = `SELECT
+   p.paymentID, 
+   p.roomID, 
+   p.datePayment, 
+   p.amountPayment, 
+   rm.tenantID, 
+   rm.roomNumber,
+   t.firstName
+   FROM tblPayment p
+   INNER JOIN tblRoom rm ON p.roomID = rm.roomID
+   LEFT JOIN tblTenant t ON rm.tenantID = t.tenantID
+   ORDER BY p.paymentID DESC;`;
 
   db.query(sql, (err, result) => {
     if (err) {
       console.error(err);
       return res.status(500).json({ error: err.message });
+      as;
     }
     res.json(result);
   });
