@@ -54,6 +54,7 @@ function AddPaymentButton() {
     });
     document.getElementById('addPaymentModal').close();
   };
+  
   return (
     <>
       <button

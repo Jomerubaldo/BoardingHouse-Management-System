@@ -3,14 +3,14 @@ import { getAllPaymentsHistory } from '../../api/paymentApi';
 import { Search } from 'lucide-react';
 
 function PaymentHistoryPage() {
-  const [paymentShow, setPaymentShow] = useState([]);
+  const [showPayment, setShowPayment] = useState([]);
   const [search, setSearch] = useState('');
 
   useEffect(() => {
     const fetchViewPayment = async () => {
       try {
         const result = await getAllPaymentsHistory();
-        setPaymentShow(result);
+        setShowPayment(result);
       } catch (err) {
         console.error(err);
       }
@@ -19,9 +19,9 @@ function PaymentHistoryPage() {
   }, []);
 
   // searching filter tablePayment
-  // const tableSearchPayment = paymentShow.filter((payment) => {
-  //   return paymentShow.
-  // })
+  const tableSearchPayment = showPayment.filter((payment) => {
+    return payment.tenantFullName.toLowerCase().includes(search.toLowerCase());
+  });
 
   return (
     <div className="@container px-5 h-auto">
@@ -50,7 +50,7 @@ function PaymentHistoryPage() {
               </tr>
             </thead>
             <tbody>
-              {paymentShow.map((payment) => (
+              {tableSearchPayment.map((payment) => (
                 <tr key={payment.paymentID}>
                   <td>{payment.tenantFullName}</td>
                   <td>{payment.roomNumber}</td>
