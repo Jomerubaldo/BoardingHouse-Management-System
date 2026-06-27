@@ -45,7 +45,7 @@ export const getAllPaymentHistory = (req, res) => {
    p.amountPayment, 
    rm.tenantID, 
    rm.roomNumber,
-   t.firstName
+   CONCAT(t.firstName, ' ', t.lastName) AS tenantFullName
    FROM tblPayment p
    INNER JOIN tblRoom rm ON p.roomID = rm.roomID
    LEFT JOIN tblTenant t ON rm.tenantID = t.tenantID

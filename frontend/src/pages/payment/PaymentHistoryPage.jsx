@@ -52,7 +52,7 @@ function PaymentHistoryPage() {
             <tbody>
               {paymentShow.map((payment) => (
                 <tr key={payment.paymentID}>
-                  <td>{payment.firstName}</td>
+                  <td>{payment.tenantFullName}</td>
                   <td>{payment.roomNumber}</td>
                   <td>{payment.amountPayment}</td>
                   <td>

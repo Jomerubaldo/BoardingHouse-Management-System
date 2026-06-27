@@ -3,7 +3,6 @@ import { selectionRooms, createPayment } from '../../../api/paymentApi';
 import { useEffect, useState } from 'react';
 
 function AddPaymentButton() {
-
   const [showSelectedRoom, setShowSelectedRoom] = useState([]);
   const [createFormData, setCreateFormData] = useState({
     roomID: '',
