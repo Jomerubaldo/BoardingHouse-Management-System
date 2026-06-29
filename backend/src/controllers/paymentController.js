@@ -37,6 +37,7 @@ export const createPayment = (req, res) => {
   });
 };
 
+// getAllHistory
 export const getAllPaymentHistory = (req, res) => {
   const sql = `SELECT
    p.paymentID, 
@@ -73,5 +74,18 @@ export const totalSales = (req, res) => {
       });
     }
     res.json(result[0]);
+  });
+};
+
+//dashboard chart
+export const dashboardChart = (req, res) => {
+  const sql = `SELECT DATE_FORMAT(datePayment, '%Y-%m') AS month, SUM(amountPayment) AS total FROM tblPayment GROUP BY month ORDER BY month ASC;`;
+
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: err.message });
+    }
+    res.json(result);
   });
 };

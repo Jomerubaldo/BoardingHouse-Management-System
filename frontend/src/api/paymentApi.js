@@ -28,3 +28,9 @@ export const totalSales = async () => {
   const response = await fetch(`${API_Payment_URL}/total-sales`);
   return await response.json();
 };
+
+// dashboardChart
+export const dashboardChart = async () => {
+  const response = await fetch(`${API_Payment_URL}/dashboardChart`);
+  return await response.json();
+};

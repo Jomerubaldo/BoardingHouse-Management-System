@@ -43,10 +43,12 @@ function PaymentHistoryPage() {
       <div className="flex flex-col gap-5">
         <div className="flex justify-between items-center">
           <div className="flex flex-col gap-14">
-            <h1 className=" sm:text-sm md:text-md lg:text-lg xl:text-2xl font-bold">
-              Payment History
-            </h1>
-            <label className="input outline-none bg-[#495057]">
+            <div className=" sm:text-sm md:text-md lg:text-lg xl:text-2xl">
+              <h1 className="text-3xl text-[#404244] font-bold">
+                Payment History
+              </h1>
+            </div>
+            <label className="input outline-none bg-[#2C3038]">
               <Search size={14} color="#FFFFFF" />
               <input
                 type="search"
@@ -65,23 +67,23 @@ function PaymentHistoryPage() {
             icon={<PhilippinePeso color="#F59E0B" size={44} />}
           />
         </div>
-        <div className="overflow-x-auto rounded-box max-h-133.75 border border-base-content/20 bg-[#212529]">
+        <div className="overflow-x-auto rounded-box max-h-133.75 border border-base-content/20 bg-[#F4F4F5]">
           <table className="table table-pin-rows">
             <thead>
-              <tr className="bg-[#6F2CF3]">
-                <th className="text-[#FFFFFF]">Tenant</th>
-                <th className="text-[#FFFFFF]">Room</th>
-                <th className="text-[#FFFFFF]">Amount</th>
-                <th className="text-[#FFFFFF]">Date</th>
+              <tr className="bg-[#2C3038]">
+                <th className="text-[#FFFFFF]">TENANT</th>
+                <th className="text-[#FFFFFF]">ROOM</th>
+                <th className="text-[#FFFFFF]">AMOUNT</th>
+                <th className="text-[#FFFFFF]">DATE</th>
               </tr>
             </thead>
             <tbody>
               {tableSearchPayment.map((payment) => (
                 <tr key={payment.paymentID}>
-                  <td>{payment.tenantFullName}</td>
-                  <td>{payment.roomNumber}</td>
-                  <td>{payment.amountPayment}</td>
-                  <td>
+                  <td className="text-black">{payment.tenantFullName}</td>
+                  <td className="text-black">{payment.roomNumber}</td>
+                  <td className="text-black">{payment.amountPayment}</td>
+                  <td className="text-black">
                     {new Date(payment.datePayment).toLocaleDateString('en-PH', {
                       year: 'numeric',
                       month: 'long',

@@ -13,14 +13,14 @@ function DeleteRoomModal({ handleSubmitDelete }) {
         <p className="py-4">Are you sure you want to delete this?</p>
         <div className="modal-action">
           <form onSubmit={handleSubmitDelete}>
-            <div className="flex justify-end gap-2 pt-2">
+            <div className="flex justify-end gap-3 pt-2">
               <button type="submit" className="btn btn-error">
                 Yes, Delete it
               </button>
               <button
                 onClick={() => document.getElementById('deleteModal').close()}
                 type="button"
-                className="btn btn-info"
+                className="btn btn-soft"
               >
                 Cancel
               </button>

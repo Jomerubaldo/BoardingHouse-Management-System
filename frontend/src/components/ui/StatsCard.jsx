@@ -1,8 +1,8 @@
 function StatsCard({ title, value, subTitle, icon, valueColor }) {
   return (
-    <div className="card border border-base-content/20 bg-[#495057] text-primary-content w-auto md:card-md lg:card-lg xl:card-xl">
+    <div className="card border border-base-content/20 bg-[#282C34] text-primary-content w-auto md:card-md lg:card-lg xl:card-xl">
       <div className="stat">
-        <div className="stat-title text-[#fffffe] font-bold text-2xl">
+        <div className="stat-title text-[#FFFFFF] font-bold text-2xl">
           {title}
         </div>
         <div className="stat-value font-bold" style={{ color: valueColor }}>

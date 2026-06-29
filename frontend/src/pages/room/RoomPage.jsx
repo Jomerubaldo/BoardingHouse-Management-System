@@ -115,8 +115,8 @@ function RoomPage() {
   });
 
   const statusColor = {
-    Occupied: 'badge badge-sm badge-success font-semibold text-xs',
-    Repairing: 'badge badge-sm badge-warning font-semibold text-xs',
+    Occupied: 'badge badge-success text-xs text-black',
+    Repairing: 'badge badge-warning text-xs text-black',
   };
 
   return (
@@ -124,10 +124,12 @@ function RoomPage() {
       <div className="flex flex-col gap-5">
         <div className="flex flex-col gap-5">
           <div className="sm:text-sm md:text-md lg:text-lg xl:text-2xl">
-            <h1 className="font-bold">Room Management</h1>
+            <h1 className="font-bold text-3xl text-[#404244]">
+              Room Management
+            </h1>
           </div>
           <div className="flex justify-between items-center">
-            <label className="input outline-none bg-[#495057]">
+            <label className="input outline-none bg-[#2C3038]">
               <Search size={14} color="#FFFFFF" />
               <input
                 type="search"
@@ -139,7 +141,7 @@ function RoomPage() {
             </label>
             <div className="flex gap-3">
               <button
-                className="btn bg-[#6F2CF3]"
+                className="btn bg-[#2C3038]"
                 onClick={() => {
                   rooms.length < 8
                     ? document.getElementById('addModal').show()
@@ -158,7 +160,7 @@ function RoomPage() {
             </div>
           </div>
         </div>
-        <div className="overflow-x-auto rounded-box border max-h-133.75 border-base-content/20 bg-[#212529]">
+        <div className="overflow-x-auto rounded-box border max-h-133.75 border-base-content/20 bg-[#F4F4F5]">
           <RoomTable
             tableSearchRoom={tableSearchRoom}
             statusColor={statusColor}

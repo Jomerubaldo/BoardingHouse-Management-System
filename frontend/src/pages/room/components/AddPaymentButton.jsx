@@ -54,11 +54,11 @@ function AddPaymentButton() {
     });
     document.getElementById('addPaymentModal').close();
   };
-  
+
   return (
     <>
       <button
-        className="btn bg-[#6F2CF3] font-bold"
+        className="btn bg-[#2C3038] font-bold"
         onClick={() => document.getElementById('addPaymentModal').showModal()}
       >
         <CirclePlus
@@ -73,7 +73,7 @@ function AddPaymentButton() {
       >
         <div className="modal-box">
           <div className="flex items-center gap-2">
-            <span className="bg-primary px-2 py-2 rounded-full">
+            <span className="bg-info px-2 py-2 rounded-full">
               <Plus color="black" size={20} />
             </span>
             <h3 className="text-lg font-semibold">Create Payment</h3>
@@ -110,13 +110,13 @@ function AddPaymentButton() {
                 className="input input-bordered w-full"
               />
             </div>
-            <div className="flex justify-end gap-2 pt-2">
+            <div className="flex justify-end gap-3 pt-2">
               <button type="submit" className="btn btn-success">
                 Save
               </button>
               <button
                 type="button"
-                className="btn btn-error"
+                className="btn btn-soft"
                 onClick={clearCreateButtonWhenClose}
               >
                 Cancel

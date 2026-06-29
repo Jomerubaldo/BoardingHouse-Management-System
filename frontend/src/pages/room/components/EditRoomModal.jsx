@@ -10,7 +10,7 @@ function EditRoomModal({
     <dialog id="editModal" className="modal modal-middle sm:modal-middle">
       <div className="modal-box">
         <div className="flex items-center gap-2">
-          <span className="bg-accent px-2 py-2 rounded-full">
+          <span className="bg-info px-2 py-2 rounded-full">
             <SquarePen color="#000" size={20} />
           </span>
           <h3 className="text-lg font-semibold">Update Room</h3>
@@ -78,13 +78,13 @@ function EditRoomModal({
               <option value="Repairing">Repair</option>
             </select>
           </div>
-          <div className="flex justify-end gap-2 pt-2">
+          <div className="flex justify-end gap-3 pt-2">
             <button type="submit" className="btn btn-success">
               Save
             </button>
             <button
               type="button"
-              className="btn btn-error"
+              className="btn btn-soft"
               onClick={() => document.getElementById('editModal').close()}
             >
               Cancel

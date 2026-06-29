@@ -145,17 +145,17 @@ function TenantPage() {
     tenant.firstName.toLowerCase().includes(search.toLowerCase())
   );
 
-  console.log(getTenantsData);
-
   return (
     <div className="@container px-5 h-auto">
       <div className="flex flex-col gap-5">
         <div className="flex flex-col gap-5">
           <div className=" sm:text-md md:text-lg lg:text-lg xl:text-2xl">
-            <h1 className="font-bold text-[#FFFFFF]">Tenant Management</h1>
+            <h1 className="font-bold text-[#404244] text-3xl">
+              Tenant Management
+            </h1>
           </div>
           <div className="flex justify-between items-center sm:flex gap-30">
-            <label className="input outline-none input-sm md:input-sm lg:input-md bg-[#495057]">
+            <label className="input outline-none input-sm md:input-sm lg:input-md bg-[#2C3038]">
               <Search size={14} color="#FFFFFF" />
               <input
                 value={search}
@@ -166,7 +166,7 @@ function TenantPage() {
               />
             </label>
             <button
-              className="btn btn-xs bg-[#6F2CF3] sm:btn-sm md:btn-md border border-base-content/20"
+              className="btn btn-xs bg-[#2C3038] sm:btn-sm md:btn-md"
               onClick={() => {
                 getTenantsData.length < 8
                   ? document.getElementById('addModal').showModal()
@@ -183,14 +183,14 @@ function TenantPage() {
             </button>
           </div>
         </div>
-        <div className="overflow-x-auto overflow-y-auto max-h-133.75 rounded-box border border-base-content/20 bg-[#212529]">
+        <div className="overflow-x-auto overflow-y-auto max-h-133.75 rounded-box border border-base-content/20 bg-[#F4F4F5]">
           <table className="table table-pin-rows">
             <thead>
-              <tr className="bg-[#6F2CF3]">
-                <th className="text-[#FFFFFE]">First Name</th>
-                <th className="text-[#FFFFFE]">Last Name</th>
-                <th className="text-[#FFFFFE]">Contact</th>
-                <th className="text-[#FFFFFE]">Actions</th>
+              <tr className="bg-[#2C3038]">
+                <th className="text-[#FFFFFE]">FIRST NAME</th>
+                <th className="text-[#FFFFFE]">LAST NAME</th>
+                <th className="text-[#FFFFFE]">CONTACT</th>
+                <th className="text-[#FFFFFE]">ACTIONS</th>
               </tr>
             </thead>
             <tbody>
@@ -207,14 +207,12 @@ function TenantPage() {
                 <>
                   {tableSearchTenant.map((tenantData) => (
                     <tr key={tenantData.tenantID}>
-                      <td className="font-semibold">{tenantData.firstName}</td>
-                      <td className="font-semibold">{tenantData.lastName}</td>
-                      <td className="font-semibold">
-                        {tenantData.phoneNumber}
-                      </td>
+                      <td className="text-black">{tenantData.firstName}</td>
+                      <td className="text-black">{tenantData.lastName}</td>
+                      <td className="text-black">{tenantData.phoneNumber}</td>
                       <td className="flex gap-2">
                         <button
-                          className="btn btn-accent btn-xs"
+                          className="btn bg-[#2C3038] btn-xs"
                           onClick={() => handleEditClick(tenantData)}
                         >
                           <SquarePen size={15} />
@@ -237,7 +235,7 @@ function TenantPage() {
       <dialog id="addModal" className="modal modal-middle sm:modal-middle">
         <div className="modal-box">
           <div className="flex items-center gap-2">
-            <span className="bg-primary rounded-full px-2 py-2">
+            <span className="bg-info rounded-full px-2 py-2">
               <Plus color="#000" size={20} />
             </span>
             <h3 className="text-lg font-semibold">Create Tenant</h3>
@@ -277,13 +275,13 @@ function TenantPage() {
                 className="input input-bordered w-full"
               />
             </div>
-            <div className="flex justify-end gap-2 pt-2">
+            <div className="flex justify-end gap-3 pt-2">
               <button type="submit" className="btn btn-success">
                 Save
               </button>
               <button
                 type="button"
-                className="btn btn-info"
+                className="btn btn-soft"
                 onClick={clearCreateButtonWhenClose}
               >
                 Cancel
@@ -295,7 +293,7 @@ function TenantPage() {
       <dialog id="editModal" className="modal modal-middle sm:modal-middle">
         <div className="modal-box">
           <div className="flex items-center gap-2">
-            <span className="bg-accent rounded-full px-2 py-2">
+            <span className="bg-info rounded-full px-2 py-2">
               <SquarePen color="#000" size={20} />
             </span>
             <h3 className="text-lg font-semibold">Update Tenant</h3>
@@ -335,13 +333,13 @@ function TenantPage() {
                 className="input input-bordered w-full"
               />
             </div>
-            <div className="flex justify-end gap-2 pt-2">
+            <div className="flex justify-end gap-3 pt-2">
               <button type="submit" className="btn btn-success">
                 Save Changes
               </button>
               <button
                 type="button"
-                className="btn btn-info"
+                className="btn btn-soft"
                 onClick={() => document.getElementById('editModal').close()}
               >
                 Cancel
@@ -361,14 +359,14 @@ function TenantPage() {
           <p className="py-4">Are you sure you want to delete this?</p>
           <div className="modal-action">
             <form onSubmit={handleDeleteSubmit}>
-              <div className="flex justify-end gap-2 pt-2">
+              <div className="flex justify-end gap-3 pt-2">
                 <button type="submit" className="btn btn-error">
                   Yes, Delete it
                 </button>
                 <button
                   onClick={() => document.getElementById('deleteModal').close()}
                   type="button"
-                  className="btn btn-info"
+                  className="btn btn-soft"
                 >
                   Cancel
                 </button>

@@ -10,12 +10,12 @@ function RoomTable({
     <>
       <table className="table table-pin-rows">
         <thead>
-          <tr className="bg-[#6F2CF3]">
-            <th className="text-[#FFFFFF]">Tenant Name</th>
-            <th className="text-[#FFFFFF]">Room</th>
-            <th className="text-[#FFFFFF]">Rent</th>
-            <th className="text-[#FFFFFF]">Status</th>
-            <th className="text-[#FFFFFF]">Actions</th>
+          <tr className="bg-[#2C3038]">
+            <th className="text-[#FFFFFF]">TENANT NAME</th>
+            <th className="text-[#FFFFFF]">ROOM</th>
+            <th className="text-[#FFFFFF]">RENT</th>
+            <th className="text-[#FFFFFF]">STATUS</th>
+            <th className="text-[#FFFFFF]">ACTIONS</th>
           </tr>
         </thead>
         <tbody>
@@ -32,9 +32,9 @@ function RoomTable({
             <>
               {tableSearchRoom.map((roomData) => (
                 <tr key={roomData.roomID}>
-                  <td className="font-semibold">{roomData.tenantFullName}</td>
-                  <td className="font-semibold">{roomData.roomNumber}</td>
-                  <td className="font-semibold">{roomData.amountRent}</td>
+                  <td className="text-black">{roomData.tenantFullName}</td>
+                  <td className="text-black">{roomData.roomNumber}</td>
+                  <td className="text-black">{roomData.amountRent}</td>
                   <td>
                     <span className={`${statusColor[roomData.roomStatus]}`}>
                       {roomData.roomStatus}
@@ -42,7 +42,7 @@ function RoomTable({
                   </td>
                   <td className="flex gap-2">
                     <button
-                      className="btn btn-accent btn-xs"
+                      className="btn btn-[#2C3038] btn-xs"
                       onClick={() => handleEditClick(roomData)}
                     >
                       <SquarePen size={15} />
