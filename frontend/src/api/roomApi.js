@@ -46,3 +46,9 @@ export const totalRoom = async () => {
   const response = await fetch(`${API_Room_URL}/total-room`);
   return await response.json();
 };
+
+// totalRepairRoom
+export const totalRepairRoom = async () => {
+  const response = await fetch(`${API_Room_URL}/totalRepairingRoom`);
+  return await response.json();
+};

@@ -5,6 +5,7 @@ import {
   updateRoom,
   deleteRoom,
   totalRoom,
+  totalRepairRoom,
 } from '../controllers/roomController.js';
 
 const router = express.Router();
@@ -14,5 +15,6 @@ router.get('/', getRooms);
 router.put('/', updateRoom);
 router.delete('/:roomID', deleteRoom);
 router.get('/total-room', totalRoom);
+router.get('/totalRepairingRoom', totalRepairRoom);
 
 export default router;

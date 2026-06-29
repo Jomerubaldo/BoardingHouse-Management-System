@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
-import { totalRoom } from '../../api/roomApi.js';
+import { totalRepairRoom, totalRoom } from '../../api/roomApi.js';
 import StatsCard from '../../components/ui/StatsCard.jsx';
 import { Construction, DoorClosedLocked, DoorOpen, House } from 'lucide-react';
 
 const Max_Room = 8;
 
 function DashboardPage() {
+  const [repairRoom, setRepairRoom] = useState(0);
   const [getTotalRoom, setGetTotalRoom] = useState(0);
 
   useEffect(() => {
@@ -19,6 +20,20 @@ function DashboardPage() {
     };
     fetchTotalRoom();
   }, []);
+
+  useEffect(() => {
+    const fetchRepairRoom = async () => {
+      try {
+        const result = await totalRepairRoom();
+        setRepairRoom(result.totalRepairingRoom);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchRepairRoom();
+  }, []);
+
+  console.log(repairRoom);
 
   // occupied/vacant
   const countOccupiedRoom = getTotalRoom.totalRoom || 0;
@@ -56,7 +71,7 @@ function DashboardPage() {
           <StatsCard
             valueColor="#f2c94c"
             title="Repairing Room"
-            value={countVacantRoom}
+            value={repairRoom}
             subTitle="Rooms currently repairing"
             icon={<Construction color="#f2c94c" size={44} />}
           />

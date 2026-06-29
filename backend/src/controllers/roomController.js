@@ -111,3 +111,16 @@ export const totalRoom = (req, res) => {
     res.json(result[0]);
   });
 };
+
+// totalRepairing room
+export const totalRepairRoom = (req, res) => {
+  const sql = `SELECT COUNT(roomStatus) AS totalRepairingRoom FROM tblRoom WHERE roomStatus = 'Repairing';`;
+
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ err: err.message });
+    }
+    res.json(result[0]);
+  });
+};
