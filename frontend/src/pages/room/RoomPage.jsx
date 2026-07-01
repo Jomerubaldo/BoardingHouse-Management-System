@@ -1,30 +1,45 @@
 import { useState } from 'react';
-import { CirclePlus, Search } from 'lucide-react';
-import AddPaymentButton from './components/AddPaymentButton.jsx';
+import { CirclePlus } from 'lucide-react';
 import { useTenantSelection } from '../../hooks/useTenantSelection.js';
 import { useRooms } from '../../hooks/useRooms.js';
 import RoomTable from './components/RoomTable.jsx';
 import AddRoomModal from './components/AddRoomModal.jsx';
 import EditRoomModal from './components/EditRoomModal.jsx';
 import DeleteRoomModal from './components/DeleteRoomModal.jsx';
+import AddPaymentModal from './components/AddPaymentModal.jsx';
+import { useAddPayment } from '../../hooks/useAddPayment.js';
+import RoomSearchFilter from './components/RoomSearchFilter.jsx';
 
 function RoomPage() {
   const { tenants } = useTenantSelection();
+
   const { rooms, addRoom, editRoom, removeRoom } = useRooms();
+
   const [createFormData, setCreateFormData] = useState({
     tenantID: '',
     roomNumber: '',
     amountRent: '',
     roomStatus: '',
   });
+
   const [editFormData, setEditFormData] = useState({
     tenantFullName: '',
     roomNumber: '',
     amountRent: 0,
     roomStatus: '',
   });
+
   const [deleteRoomData, setDeleteRoomData] = useState(null);
   const [search, setSearch] = useState(''); // for filter tablelist
+
+  // for payment useHook
+  const {
+    showSelectedRoom,
+    handlePaymenthange,
+    handleCreateSubmit,
+    clearPaymentButtonWhenClose,
+    createPaymentFormData,
+  } = useAddPayment();
 
   // para sa pag kuha ng e cre-create na value
   const handleCreateChange = (e) => {
@@ -129,16 +144,7 @@ function RoomPage() {
             </h1>
           </div>
           <div className="flex justify-between items-center">
-            <label className="input outline-none bg-[#2C3038]">
-              <Search size={14} color="#FFFFFF" />
-              <input
-                type="search"
-                className="grow"
-                placeholder="Search name..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-              />
-            </label>
+            <RoomSearchFilter search={search} setSearch={setSearch} />
             <div className="flex gap-3">
               <button
                 className="btn bg-[#2C3038]"
@@ -156,7 +162,18 @@ function RoomPage() {
                   Add Room
                 </span>
               </button>
-              <AddPaymentButton />
+              <button
+                className="btn bg-[#2C3038] font-bold"
+                onClick={() =>
+                  document.getElementById('addPaymentModal').showModal()
+                }
+              >
+                <CirclePlus
+                  size={18}
+                  className="sm:w-4 sm:h-4 md:w-5 md:h-5 lg:w-6 lg:h-6"
+                />
+                Add Payment
+              </button>
             </div>
           </div>
         </div>
@@ -182,6 +199,13 @@ function RoomPage() {
           tenants={tenants}
         />
         <DeleteRoomModal handleSubmitDelete={handleSubmitDelete} />
+        <AddPaymentModal
+          showSelectedRoom={showSelectedRoom}
+          handlePaymenthange={handlePaymenthange}
+          handleCreateSubmit={handleCreateSubmit}
+          clearPaymentButtonWhenClose={clearPaymentButtonWhenClose}
+          createPaymentFormData={createPaymentFormData}
+        />
       </div>
     </div>
   );

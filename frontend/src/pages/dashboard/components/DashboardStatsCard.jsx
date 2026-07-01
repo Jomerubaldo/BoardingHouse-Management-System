@@ -1,4 +1,4 @@
-function StatsCard({ title, value, subTitle, icon, valueColor }) {
+function DashboardStatsCard({ title, value, subTitle, icon, valueColor }) {
   return (
     <div className="card border border-base-content/20 bg-[#282C34] text-primary-content w-auto md:card-md lg:card-lg xl:card-xl">
       <div className="stat">
@@ -14,4 +14,4 @@ function StatsCard({ title, value, subTitle, icon, valueColor }) {
     </div>
   );
 }
-export default StatsCard;
+export default DashboardStatsCard;

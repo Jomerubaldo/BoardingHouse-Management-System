@@ -14,7 +14,7 @@ export const createTenant = async (tenantData) => {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(tenantData),
   });
-  
+
   return await response.json();
 };
 
@@ -30,10 +30,8 @@ export const updateTenant = async (tenantData) => {
 
 // delete fetch
 export const deleteTenant = async (tenantID) => {
-  const response = await fetch(API_Tenant_URL, {
+  const response = await fetch(`${API_Tenant_URL}/${tenantID}`, {
     method: 'DELETE',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ tenantID }),
   });
   return await response.json();
 };

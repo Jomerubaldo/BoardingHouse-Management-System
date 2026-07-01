@@ -11,6 +11,6 @@ const router = express.Router();
 router.post('/', createTenant);
 router.get('/', getTenants);
 router.put('/', updateTenant);
-router.delete('/', deleteTenant);
+router.delete('/:tenantID', deleteTenant);
 
 export default router;

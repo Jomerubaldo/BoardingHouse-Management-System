@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { totalRepairRoom, totalRoom } from '../../api/roomApi.js';
-import StatsCard from '../../components/ui/StatsCard.jsx';
 import { Construction, DoorClosedLocked, DoorOpen, House } from 'lucide-react';
 import MonthlyPaymentChart from './components/MonthlyPaymentChart.jsx';
+import DashboardStatsCard from './components/DashboardStatsCard.jsx';
 
 const Max_Room = 8;
 
@@ -45,28 +45,28 @@ function DashboardPage() {
           <h1 className="text-[#404244] font-bold text-3xl">Dashboard</h1>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4">
-          <StatsCard
+          <DashboardStatsCard
             valueColor="#3B82F6"
             title="Total Room"
             value={Max_Room}
             subTitle="Rooms in the property"
             icon={<House color="#3B82F6" size={44} />}
           />
-          <StatsCard
+          <DashboardStatsCard
             valueColor="#DC2626"
             title="Occupied Room"
             value={countOccupiedRoom}
             subTitle="Rooms currently in used"
             icon={<DoorClosedLocked color="#DC2626" size={44} />}
           />
-          <StatsCard
+          <DashboardStatsCard
             valueColor="#2cb67d"
             title="Vacant Room"
             value={countVacantRoom}
             subTitle="Rooms available for rent"
             icon={<DoorOpen color="#2cb67d" size={44} />}
           />
-          <StatsCard
+          <DashboardStatsCard
             valueColor="#f2c94c"
             title="Repairing Room"
             value={repairRoom}

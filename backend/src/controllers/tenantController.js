@@ -73,7 +73,7 @@ export const updateTenant = (req, res) => {
 
 // deletesa
 export const deleteTenant = (req, res) => {
-  const { tenantID } = req.body;
+  const { tenantID } = req.params;
 
   const sql = `DELETE FROM tblTenant WHERE tenantID = ?`;
 
@@ -85,7 +85,6 @@ export const deleteTenant = (req, res) => {
     res.json({
       success: true,
       message: `Tenant Deleted Successfully`,
-      id: result.insertId,
     });
   });
 };

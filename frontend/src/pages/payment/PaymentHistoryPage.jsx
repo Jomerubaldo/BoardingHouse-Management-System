@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import { getAllPaymentsHistory } from '../../api/paymentApi';
-import { Search } from 'lucide-react';
 import { totalRevenue } from '../../api/paymentApi.js';
+import TableSearchFilter from './components/TableSearchFilter.jsx';
+import TotalRevenueDashCard from './components/TotalRevenueDashCard.jsx';
+import PaymentHistoryTable from './components/PaymentHistoryTable.jsx';
 
 function PaymentHistoryPage() {
   const [showPayment, setShowPayment] = useState([]);
@@ -39,7 +41,7 @@ function PaymentHistoryPage() {
 
   return (
     <div className="@container px-5 h-auto">
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-4">
         <div className="flex justify-between items-center">
           <div className="flex flex-col gap-5">
             <div className=" sm:text-sm md:text-md lg:text-lg xl:text-2xl">
@@ -47,56 +49,12 @@ function PaymentHistoryPage() {
                 Payment History
               </h1>
             </div>
-            <label className="input w-76 outline-none bg-[#2C3038]">
-              <Search size={14} color="#FFFFFF" />
-              <input
-                type="search"
-                className="grow"
-                placeholder="Search name..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-              />
-            </label>
+            <TableSearchFilter search={search} setSearch={setSearch} />
           </div>
-          <div className="card-xs border rounded-lg px-10 border-base-content/20 bg-[#282C34] text-primary-content w-auto md:card-md lg:card-lg xl:card-xl">
-            <div className="stat">
-              <p className="stat-title text-[#FFFFFF] font-bold text-md">
-                Total Revenue
-              </p>
-              <div className="stat-value font-bold">
-                <span className='text-amber-300'>₱</span>
-                {getTotalRevenue}
-              </div>
-            </div>
-          </div>
+          <TotalRevenueDashCard getTotalRevenue={getTotalRevenue} />
         </div>
         <div className="overflow-x-auto rounded-box max-h-133.75 border border-base-content/20 bg-[#F4F4F5]">
-          <table className="table table-pin-rows">
-            <thead>
-              <tr className="bg-[#2C3038]">
-                <th className="text-[#FFFFFF]">TENANT</th>
-                <th className="text-[#FFFFFF]">ROOM</th>
-                <th className="text-[#FFFFFF]">AMOUNT</th>
-                <th className="text-[#FFFFFF]">DATE</th>
-              </tr>
-            </thead>
-            <tbody>
-              {tableSearchPayment.map((payment) => (
-                <tr key={payment.paymentID}>
-                  <td className="text-black">{payment.tenantFullName}</td>
-                  <td className="text-black">{payment.roomNumber}</td>
-                  <td className="text-black">{payment.amountPayment}</td>
-                  <td className="text-black">
-                    {new Date(payment.datePayment).toLocaleDateString('en-PH', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric',
-                    })}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <PaymentHistoryTable tableSearchPayment={tableSearchPayment} />
         </div>
       </div>
     </div>
