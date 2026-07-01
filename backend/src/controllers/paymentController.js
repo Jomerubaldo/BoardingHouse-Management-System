@@ -63,8 +63,8 @@ export const getAllPaymentHistory = (req, res) => {
 };
 
 // totalSales
-export const totalSales = (req, res) => {
-  const sql = `SELECT SUM(amountPayment) AS totalSales FROM tblPayment;`;
+export const totalRevenue = (req, res) => {
+  const sql = `SELECT SUM(amountPayment) AS totalRevenue FROM tblPayment;`;
 
   db.query(sql, (err, result) => {
     if (err) {

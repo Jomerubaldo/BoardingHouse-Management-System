@@ -37,8 +37,8 @@ function MonthlyPaymentChart() {
             {
               label: 'Total Payments',
               data: totals,
-              backgroundColor: 'rgba(54, 162, 235, 0.6)',
-              borderColor: 'rgba(54, 162, 235, 1)',
+              backgroundColor: 'rgba(40, 44, 52, 1)',
+              borderColor: 'rgba(40, 44, 52, 1)',
               borderWidth: 1,
             },
           ],
@@ -54,7 +54,7 @@ function MonthlyPaymentChart() {
     responsive: true,
     plugins: {
       legend: { position: 'top' },
-      title: { display: true, text: 'Monthly Payment Totals' },
+      title: { display: true, text: 'Monthly Total Payments' },
     },
   };
 

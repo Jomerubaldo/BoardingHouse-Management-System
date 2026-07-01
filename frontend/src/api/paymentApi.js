@@ -24,8 +24,8 @@ export const getAllPaymentsHistory = async () => {
 };
 
 // totalSales dashboard need ng /path para alam ng kung ano lang kukunin niya
-export const totalSales = async () => {
-  const response = await fetch(`${API_Payment_URL}/total-sales`);
+export const totalRevenue = async () => {
+  const response = await fetch(`${API_Payment_URL}/total-revenue`);
   return await response.json();
 };
 

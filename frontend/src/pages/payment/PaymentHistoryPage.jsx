@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
 import { getAllPaymentsHistory } from '../../api/paymentApi';
-import { PhilippinePeso, Search } from 'lucide-react';
-import { totalSales } from '../../api/paymentApi.js';
-import StatsCard from '../../components/ui/StatsCard.jsx';
+import { Search } from 'lucide-react';
+import { totalRevenue } from '../../api/paymentApi.js';
 
 function PaymentHistoryPage() {
   const [showPayment, setShowPayment] = useState([]);
   const [search, setSearch] = useState('');
-  const [getTotalSales, setGetTotalSales] = useState(0);
+  const [getTotalRevenue, setGetTotalRevenue] = useState(0);
 
   useEffect(() => {
     const fetchViewPayment = async () => {
@@ -27,28 +26,28 @@ function PaymentHistoryPage() {
   });
 
   useEffect(() => {
-    const fetchTotalSales = async () => {
+    const fetchTotalRevenue = async () => {
       try {
-        const result = await totalSales();
-        setGetTotalSales(result.totalSales || 0);
+        const result = await totalRevenue();
+        setGetTotalRevenue(result.totalRevenue || 0);
       } catch (err) {
         console.error(err);
       }
     };
-    fetchTotalSales();
+    fetchTotalRevenue();
   }, []);
 
   return (
     <div className="@container px-5 h-auto">
       <div className="flex flex-col gap-5">
         <div className="flex justify-between items-center">
-          <div className="flex flex-col gap-14">
+          <div className="flex flex-col gap-5">
             <div className=" sm:text-sm md:text-md lg:text-lg xl:text-2xl">
               <h1 className="text-3xl text-[#404244] font-bold">
                 Payment History
               </h1>
             </div>
-            <label className="input outline-none bg-[#2C3038]">
+            <label className="input w-76 outline-none bg-[#2C3038]">
               <Search size={14} color="#FFFFFF" />
               <input
                 type="search"
@@ -59,13 +58,17 @@ function PaymentHistoryPage() {
               />
             </label>
           </div>
-          <StatsCard
-            valueColor="#F59E0B"
-            title="Total Sales"
-            value={getTotalSales}
-            subTitle="Overall sales amount"
-            icon={<PhilippinePeso color="#F59E0B" size={44} />}
-          />
+          <div className="card-xs border rounded-lg px-10 border-base-content/20 bg-[#282C34] text-primary-content w-auto md:card-md lg:card-lg xl:card-xl">
+            <div className="stat">
+              <p className="stat-title text-[#FFFFFF] font-bold text-md">
+                Total Revenue
+              </p>
+              <div className="stat-value font-bold">
+                <span className='text-amber-300'>₱</span>
+                {getTotalRevenue}
+              </div>
+            </div>
+          </div>
         </div>
         <div className="overflow-x-auto rounded-box max-h-133.75 border border-base-content/20 bg-[#F4F4F5]">
           <table className="table table-pin-rows">
