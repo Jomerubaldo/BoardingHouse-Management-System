@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.post('/', createTenant);
 router.get('/', getTenants);
-router.put('/', updateTenant);
+router.put('/:tenantID', updateTenant);
 router.delete('/:tenantID', deleteTenant);
 
 export default router;

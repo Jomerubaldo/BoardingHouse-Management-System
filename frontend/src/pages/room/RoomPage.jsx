@@ -97,7 +97,7 @@ function RoomPage() {
 
   const handleSubmitEdit = async (e) => {
     e.preventDefault();
-    const result = await editRoom(editFormData);
+    const result = await editRoom(editFormData.roomID, editFormData); //kunin ang id at body/data na ipapasa sa api
     if (result.success) {
       alert('Room update successfully!');
       document.getElementById('editModal').close();
@@ -177,7 +177,7 @@ function RoomPage() {
             </div>
           </div>
         </div>
-        <div className="overflow-x-auto rounded-box border max-h-133.75 border-base-content/20 bg-[#F4F4F5]">
+        <div className="overflow-x-auto rounded-box border max-h-133.75 border-base-content/20 bg-[#Fff]">
           <RoomTable
             tableSearchRoom={tableSearchRoom}
             statusColor={statusColor}

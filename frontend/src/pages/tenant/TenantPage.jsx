@@ -103,12 +103,10 @@ function TenantPage() {
   const handleEditSubmit = async (e) => {
     e.preventDefault();
     try {
-      const result = await updateTenant(editFormData);
+      const result = await updateTenant(editFormData.tenantID, editFormData);
       if (result.success) {
         alert('Tenant Saved Successfully!');
-        // clear after submit form
-        // setEditFormData({ firstName: '', lastName: '', phoneNumber: '' });
-        fetchTenants(); // ipakita agad ang data pagtapos ma clear at ma submit
+        fetchTenants(); // ipakita agad ang data pagtapos ma submit
         document.getElementById('editModal').close();
       } else {
         console.error('Something went wrong:' + result.message);
@@ -162,7 +160,7 @@ function TenantPage() {
           <div className="flex justify-between items-center sm:flex gap-30">
             <TenantSearchFilter search={search} setSearch={setSearch} />
             <button
-              className="btn btn-xs bg-[#2C3038] sm:btn-sm md:btn-md"
+              className="btn border-none shadow-none btn-xs bg-[#2C3038] sm:btn-sm md:btn-md"
               onClick={() => {
                 getTenantsData.length < 8
                   ? document.getElementById('addModal').showModal()
@@ -179,7 +177,7 @@ function TenantPage() {
             </button>
           </div>
         </div>
-        <div className="overflow-x-auto overflow-y-auto max-h-133.75 rounded-box border border-base-content/20 bg-[#F4F4F5]">
+        <div className="overflow-x-auto overflow-y-auto max-h-133.75 rounded-box border border-base-content/20 bg-[#Fff]">
           <TenantTable
             tableSearchTenant={tableSearchTenant}
             handleEditClick={handleEditClick}

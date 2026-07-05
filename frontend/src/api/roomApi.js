@@ -24,18 +24,19 @@ export const selectionTenants = async () => {
 };
 
 //edit
-export const updateRoom = async (roomData) => {
-  const response = await fetch(API_Room_URL, {
+// dito marereference ang id at body/data mula sa function roompage
+export const updateRoom = async (id, data) => {
+  const response = await fetch(`${API_Room_URL}/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(roomData),
+    body: JSON.stringify(data),
   });
   return await response.json();
 };
 
 // delete
-export const deleteRoom = async (roomID) => {
-  const response = await fetch(`${API_Room_URL}/${roomID}`, {
+export const deleteRoom = async (id) => {
+  const response = await fetch(`${API_Room_URL}/${id}`, {
     method: 'DELETE',
   });
   return response.json();

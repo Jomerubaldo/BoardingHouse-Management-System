@@ -14,7 +14,7 @@ function MainLayout() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   return (
-    <div className="drawer lg:drawer-open bg-[#FFFFFF]">
+    <div className="drawer lg:drawer-open bg-[#F4F4F5]">
       <input
         id="my-drawer-4"
         type="checkbox"
@@ -23,7 +23,7 @@ function MainLayout() {
         onChange={(e) => setIsDrawerOpen(e.target.checked)}
       />
       <div className="drawer-content">
-        <nav className="navbar w-full border-b border-gray-600 bg-[#FFFFFF] flex gap-1">
+        <nav className="navbar w-full border-b border-gray-300 bg-[#FFFFFF] flex gap-1">
           <label
             htmlFor="my-drawer-4"
             aria-label="open sidebar"

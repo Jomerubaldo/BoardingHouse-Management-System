@@ -55,7 +55,8 @@ export const getTenants = (req, res) => {
 
 // update
 export const updateTenant = (req, res) => {
-  const { firstName, lastName, phoneNumber, tenantID } = req.body;
+  const { tenantID } = req.params;
+  const { firstName, lastName, phoneNumber } = req.body;
 
   const sql = `UPDATE tblTenant SET firstName = ?, lastName = ?, phoneNumber = ? WHERE tenantID = ?`;
 

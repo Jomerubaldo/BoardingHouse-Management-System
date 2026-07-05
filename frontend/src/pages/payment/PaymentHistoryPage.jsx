@@ -53,7 +53,7 @@ function PaymentHistoryPage() {
           </div>
           <TotalRevenueDashCard getTotalRevenue={getTotalRevenue} />
         </div>
-        <div className="overflow-x-auto rounded-box max-h-133.75 border border-base-content/20 bg-[#F4F4F5]">
+        <div className="overflow-x-auto rounded-box max-h-133.75 border border-base-content/20 bg-white">
           <PaymentHistoryTable tableSearchPayment={tableSearchPayment} />
         </div>
       </div>
