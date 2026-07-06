@@ -19,11 +19,11 @@ export const createPayment = (req, res) => {
       });
     }
 
-    const tenantID = result[0].tenantID;
+    const tenantID = result[0].tenantID; // kunin ang unang item sa loob ng array object witch is yung data [{ tenantID: 5/number }]
 
-    const sql = `INSERT INTO tblPayment (roomID, tenantID, amountPayment) VALUES (?, ?, ?)`;
+    const sql = `INSERT INTO tblPayment (tenantID, roomID, amountPayment) VALUES (?, ?, ?)`;
 
-    db.query(sql, [roomID, tenantID, amountPayment], (err, result) => {
+    db.query(sql, [tenantID, roomID, amountPayment], (err, result) => {
       if (err) {
         console.error(err);
         return res.status(500).json({ error: err.message });

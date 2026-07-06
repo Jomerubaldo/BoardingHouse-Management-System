@@ -12,25 +12,21 @@ import RoomSearchFilter from './components/RoomSearchFilter.jsx';
 
 function RoomPage() {
   const { tenants } = useTenantSelection();
-
+  const [deleteRoomData, setDeleteRoomData] = useState(null);
+  const [search, setSearch] = useState(''); // for filter tablelist
   const { rooms, addRoom, editRoom, removeRoom } = useRooms();
-
   const [createFormData, setCreateFormData] = useState({
     tenantID: '',
     roomNumber: '',
     amountRent: '',
     roomStatus: '',
   });
-
   const [editFormData, setEditFormData] = useState({
     tenantFullName: '',
     roomNumber: '',
     amountRent: 0,
     roomStatus: '',
   });
-
-  const [deleteRoomData, setDeleteRoomData] = useState(null);
-  const [search, setSearch] = useState(''); // for filter tablelist
 
   // for payment useHook
   const {

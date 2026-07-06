@@ -7,12 +7,12 @@ export const getAllTenants = async () => {
 };
 
 // create fetch
-// confusing to na part saan galing (tenantData) na parameter?
-export const createTenant = async (tenantData) => {
+// no need ma confused kung bakit may data parameter dito kasi sa handleCreateSubmit function to galing na data
+export const createTenant = async (data) => {
   const response = await fetch(API_Tenant_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(tenantData),
+    body: JSON.stringify(data),
   });
 
   return await response.json();

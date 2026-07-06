@@ -12,7 +12,7 @@ const router = express.Router();
 
 router.post('/', createRoom);
 router.get('/', getRooms);
-router.put('/', updateRoom);
+router.put('/:roomID', updateRoom);
 router.delete('/:roomID', deleteRoom);
 router.get('/total-room', totalRoom);
 router.get('/totalRepairingRoom', totalRepairRoom);

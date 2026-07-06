@@ -20,6 +20,7 @@ function AddPaymentModal({
         <form onSubmit={handleCreateSubmit} className="space-y-4">
           <div>
             <select
+              readOnly
               onChange={handleCreateChange}
               value={createPaymentFormData.roomID}
               name="roomID"
@@ -38,6 +39,7 @@ function AddPaymentModal({
           </div>
           <div>
             <input
+              readOnly
               onChange={handleCreateChange}
               value={createPaymentFormData.amountPayment}
               min="0"

@@ -68,7 +68,8 @@ export const getRooms = (req, res) => {
 
 // edit
 export const updateRoom = (req, res) => {
-  const { roomNumber, amountRent, roomStatus, roomID } = req.body;
+  const { roomID } = req.params;
+  const { roomNumber, amountRent, roomStatus } = req.body;
 
   const sql = `UPDATE tblRoom SET roomNumber = ?, amountRent = ?, roomStatus = ? WHERE roomID = ?`;
 

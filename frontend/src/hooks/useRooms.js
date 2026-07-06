@@ -41,9 +41,9 @@ export function useRooms() {
   }, []);
 
   // edit room
-  const editRoom = async (editFormData) => {
+  const editRoom = async (id, data) => {
     try {
-      const result = await updateRoom(editFormData);
+      const result = await updateRoom(id, data);
       if (result.success) {
         await fetchViewRooms();
       }
