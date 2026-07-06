@@ -14,6 +14,8 @@ import TenantTable from './components/TenantTable.jsx';
 import TenantSearchFilter from './components/TenantSearchFilter.jsx';
 
 function TenantPage() {
+  const [isFetchLoading, setIsFetchLoading] = useState(false);
+  const [isDeleteLoading, setIsDeleteLoading] = useState(false);
   const [getTenantsData, setGetTenantsData] = useState([]); // gamitin nalang to kapag mag search filter same lang naman sila ng purpose
   const [editFormData, setEditFormData] = useState({
     firstName: '',
@@ -70,11 +72,14 @@ function TenantPage() {
 
   //get all data from tblTenant
   const fetchTenants = async () => {
+    setIsFetchLoading(true);
     try {
       const result = await getAllTenants();
       setGetTenantsData(result);
     } catch (err) {
       console.error(err);
+    } finally {
+      setIsFetchLoading(false); // only turns off after success OR error
     }
   };
 
@@ -125,12 +130,12 @@ function TenantPage() {
 
   // submit delete
   const handleDeleteSubmit = async (e) => {
+    setIsDeleteLoading(true);
     e.preventDefault();
     try {
       const result = await deleteTenant(deleteTenantData.tenantID);
 
       if (result.success) {
-        alert('Delete successfully');
         fetchTenants();
         document.getElementById('deleteModal').close();
       } else {
@@ -139,6 +144,8 @@ function TenantPage() {
     } catch (err) {
       console.error('Error:', err);
       alert('Cannot connect to server, Please check your connection');
+    } finally {
+      setIsDeleteLoading(false);
     }
   };
 
@@ -182,6 +189,7 @@ function TenantPage() {
             tableSearchTenant={tableSearchTenant}
             handleEditClick={handleEditClick}
             handleDeleteClick={handleDeleteClick}
+            isFetchLoading={isFetchLoading}
           />
         </div>
         <AddTenantModal
@@ -195,7 +203,10 @@ function TenantPage() {
           editFormData={editFormData}
           handleEditChange={handleEditChange}
         />
-        <DeleteTenantModal handleDeleteSubmit={handleDeleteSubmit} />
+        <DeleteTenantModal
+          handleDeleteSubmit={handleDeleteSubmit}
+          isDeleteLoading={isDeleteLoading}
+        />
       </div>
     </div>
   );
