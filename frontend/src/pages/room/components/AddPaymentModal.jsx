@@ -5,7 +5,8 @@ function AddPaymentModal({
   handleCreateChange,
   createPaymentFormData,
   showSelectedRoom,
-  clearCreateButtonWhenClose,
+  clearPaymentButtonWhenClose,
+  isCreatePaymentLoading,
 }) {
   return (
     <dialog id="addPaymentModal" className="modal modal-middle sm:modal-middle">
@@ -20,7 +21,6 @@ function AddPaymentModal({
         <form onSubmit={handleCreateSubmit} className="space-y-4">
           <div>
             <select
-              readOnly
               onChange={handleCreateChange}
               value={createPaymentFormData.roomID}
               name="roomID"
@@ -39,10 +39,8 @@ function AddPaymentModal({
           </div>
           <div>
             <input
-              readOnly
               onChange={handleCreateChange}
               value={createPaymentFormData.amountPayment}
-              min="0"
               required
               type="number"
               name="amountPayment"
@@ -52,12 +50,12 @@ function AddPaymentModal({
           </div>
           <div className="flex justify-end gap-3 pt-2">
             <button type="submit" className="btn btn-success">
-              Save
+              {isCreatePaymentLoading ? 'Processing...' : 'Save'}
             </button>
             <button
               type="button"
               className="btn btn-soft"
-              onClick={clearCreateButtonWhenClose}
+              onClick={clearPaymentButtonWhenClose}
             >
               Cancel
             </button>

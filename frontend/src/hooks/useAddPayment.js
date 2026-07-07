@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { createPayment, selectionRooms } from '../api/paymentApi';
 
 export function useAddPayment() {
+  const [isCreatePaymentLoading, setIsCreatePaymentLoading] = useState(false);
   const [showSelectedRoom, setShowSelectedRoom] = useState([]);
   const [createPaymentFormData, setCreateFormData] = useState({
     roomID: '',
@@ -29,6 +30,7 @@ export function useAddPayment() {
   };
 
   const handleCreateSubmit = async (e) => {
+    setIsCreatePaymentLoading(true);
     e.preventDefault();
     try {
       const result = await createPayment(createPaymentFormData);
@@ -45,6 +47,8 @@ export function useAddPayment() {
     } catch (err) {
       console.error('Error:', err);
       alert('Cannot connect to server, Please check you connection');
+    } finally {
+      setIsCreatePaymentLoading(false);
     }
   };
 
@@ -56,11 +60,13 @@ export function useAddPayment() {
     });
     document.getElementById('addPaymentModal').close();
   };
+
   return {
     showSelectedRoom,
     handlePaymentChange,
     handleCreateSubmit,
     clearPaymentButtonWhenClose,
     createPaymentFormData,
+    isCreatePaymentLoading,
   };
 }

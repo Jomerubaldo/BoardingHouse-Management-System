@@ -9,14 +9,18 @@ function PaymentHistoryPage() {
   const [showPayment, setShowPayment] = useState([]);
   const [search, setSearch] = useState('');
   const [getTotalRevenue, setGetTotalRevenue] = useState(0);
+  const [isFetchLoading, setIsFetchLoading] = useState(false);
 
   useEffect(() => {
     const fetchViewPayment = async () => {
+      setIsFetchLoading(true);
       try {
         const result = await getAllPaymentsHistory();
         setShowPayment(result);
       } catch (err) {
         console.error(err);
+      } finally {
+        setIsFetchLoading(false);
       }
     };
     fetchViewPayment();
@@ -54,7 +58,11 @@ function PaymentHistoryPage() {
           <TotalRevenueDashCard getTotalRevenue={getTotalRevenue} />
         </div>
         <div className="overflow-x-auto rounded-box max-h-133.75 border border-base-content/20 bg-white">
-          <PaymentHistoryTable tableSearchPayment={tableSearchPayment} />
+          <PaymentHistoryTable
+            tableSearchPayment={tableSearchPayment}
+            isFetchLoading={isFetchLoading}
+            tableSearchPayment={tableSearchPayment}
+          />
         </div>
       </div>
     </div>

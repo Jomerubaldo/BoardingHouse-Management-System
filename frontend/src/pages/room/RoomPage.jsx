@@ -14,6 +14,7 @@ function RoomPage() {
   const { tenants } = useTenantSelection();
   const [deleteRoomData, setDeleteRoomData] = useState(null);
   const [search, setSearch] = useState(''); // for filter tablelist
+  // room useHooks
   const {
     rooms,
     addRoom,
@@ -21,6 +22,8 @@ function RoomPage() {
     removeRoom,
     isCreateLoading,
     isFetchLoading,
+    isUpdateLoading,
+    isDeleteLoading,
   } = useRooms();
   const [createFormData, setCreateFormData] = useState({
     tenantID: '',
@@ -38,10 +41,11 @@ function RoomPage() {
   // for payment useHook
   const {
     showSelectedRoom,
-    handlePaymenthange,
+    handlePaymentChange,
     handleCreateSubmit,
     clearPaymentButtonWhenClose,
     createPaymentFormData,
+    isCreatePaymentLoading,
   } = useAddPayment();
 
   // para sa pag kuha ng e cre-create na value
@@ -102,7 +106,6 @@ function RoomPage() {
     e.preventDefault();
     const result = await editRoom(editFormData.roomID, editFormData); //kunin ang id at body/data na ipapasa sa api
     if (result.success) {
-      alert('Room update successfully!');
       document.getElementById('editModal').close();
     } else {
       alert('Something went wrong:' + result.message);
@@ -202,14 +205,19 @@ function RoomPage() {
           editFormData={editFormData}
           handleEditChange={handleEditChange}
           tenants={tenants}
+          isUpdateLoading={isUpdateLoading}
         />
-        <DeleteRoomModal handleSubmitDelete={handleSubmitDelete} />
+        <DeleteRoomModal
+          handleSubmitDelete={handleSubmitDelete}
+          isDeleteLoading={isDeleteLoading}
+        />
         <AddPaymentModal
           showSelectedRoom={showSelectedRoom}
-          handlePaymenthange={handlePaymenthange}
+          handleCreateChange={handlePaymentChange}
           handleCreateSubmit={handleCreateSubmit}
           clearPaymentButtonWhenClose={clearPaymentButtonWhenClose}
           createPaymentFormData={createPaymentFormData}
+          isCreatePaymentLoading={isCreatePaymentLoading}
         />
       </div>
     </div>

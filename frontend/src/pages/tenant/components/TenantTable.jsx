@@ -10,10 +10,10 @@ function TenantTable({
     <table className="table table-pin-rows">
       <thead>
         <tr className="bg-[#2C3038]">
-          <th className="text-[#FFFFFE]">FIRST NAME</th>
-          <th className="text-[#FFFFFE]">LAST NAME</th>
-          <th className="text-[#FFFFFE]">CONTACT</th>
-          <th className="text-[#FFFFFE]">ACTIONS</th>
+          <th className="text-[#FFFFFE]">First Name</th>
+          <th className="text-[#FFFFFE]">Last Name</th>
+          <th className="text-[#FFFFFE]">Contact Number</th>
+          <th className="text-[#FFFFFE]">Actions</th>
         </tr>
       </thead>
       <tbody>

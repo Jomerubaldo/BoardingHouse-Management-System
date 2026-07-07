@@ -1,6 +1,6 @@
 import { Trash2 } from 'lucide-react';
 
-function DeleteRoomModal({ handleSubmitDelete }) {
+function DeleteRoomModal({ handleSubmitDelete, isDeleteLoading }) {
   return (
     <dialog id="deleteModal" className="modal modal-bottom sm:modal-middle">
       <div className="modal-box">
@@ -15,7 +15,7 @@ function DeleteRoomModal({ handleSubmitDelete }) {
           <form onSubmit={handleSubmitDelete}>
             <div className="flex justify-end gap-3 pt-2">
               <button type="submit" className="btn btn-error">
-                Yes, Delete it
+                {isDeleteLoading ? 'Deleting...' : 'Yes, Delete it'}
               </button>
               <button
                 onClick={() => document.getElementById('deleteModal').close()}

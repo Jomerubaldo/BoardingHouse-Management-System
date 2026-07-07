@@ -5,6 +5,7 @@ function EditRoomModal({
   editFormData,
   handleEditChange,
   tenants,
+  isUpdateLoading,
 }) {
   return (
     <dialog id="editModal" className="modal modal-middle sm:modal-middle">
@@ -80,7 +81,7 @@ function EditRoomModal({
           </div>
           <div className="flex justify-end gap-3 pt-2">
             <button type="submit" className="btn btn-success">
-              Save
+              {isUpdateLoading ? 'Saving...' : 'Save'}
             </button>
             <button
               type="button"

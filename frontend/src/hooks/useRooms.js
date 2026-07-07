@@ -11,6 +11,8 @@ export function useRooms() {
   // loading state
   const [isCreateLoading, setIsCreateLoading] = useState(false);
   const [isFetchLoading, setIsFetchLoading] = useState(false);
+  const [isUpdateLoading, setIsUpdateLoading] = useState(false);
+  const [isDeleteLoading, setIsDeleteLoading] = useState(false);
 
   const [rooms, setRooms] = useState([]);
 
@@ -53,6 +55,7 @@ export function useRooms() {
 
   // edit room
   const editRoom = async (id, data) => {
+    setIsUpdateLoading(true);
     try {
       const result = await updateRoom(id, data);
       if (result.success) {
@@ -66,11 +69,14 @@ export function useRooms() {
         message:
           'Cannot connect to server. Please check your internet connection',
       };
+    } finally {
+      setIsUpdateLoading(false);
     }
   };
 
   // delete room
   const removeRoom = async (roomID) => {
+    setIsDeleteLoading(true);
     try {
       const result = await deleteRoom(roomID);
       if (result.success) {
@@ -84,6 +90,8 @@ export function useRooms() {
         message:
           'Cannot connect to server. Please check your internet connection',
       };
+    } finally {
+      setIsDeleteLoading(false);
     }
   };
 
@@ -94,5 +102,7 @@ export function useRooms() {
     removeRoom,
     isCreateLoading,
     isFetchLoading,
+    isUpdateLoading,
+    isDeleteLoading,
   };
 }
