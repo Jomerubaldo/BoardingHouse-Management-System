@@ -1,10 +1,11 @@
-import { SquarePen, Trash2 } from 'lucide-react';
+import { LoaderCircle, SquarePen, Trash2 } from 'lucide-react';
 
 function RoomTable({
-  tableSearchRoom,
+  filteredRooms,
   statusColor,
   handleEditClick,
   handleDeleteClick,
+  isFetchLoading,
 }) {
   return (
     <>
@@ -19,7 +20,22 @@ function RoomTable({
           </tr>
         </thead>
         <tbody>
-          {tableSearchRoom.length === 0 ? (
+          {isFetchLoading ? (
+            <tr>
+              <td colSpan={5} className="py-38">
+                <div className="flex flex-col items-center justify-center gap-2">
+                  <LoaderCircle
+                    className="animate-spin"
+                    size={34}
+                    color="#2C3038"
+                  />
+                  <span className="text-2xl text-[#2C3038]">
+                    Loading rooms...
+                  </span>
+                </div>
+              </td>
+            </tr>
+          ) : filteredRooms.length === 0 ? (
             <tr>
               <td
                 colSpan={5}
@@ -29,34 +45,32 @@ function RoomTable({
               </td>
             </tr>
           ) : (
-            <>
-              {tableSearchRoom.map((roomData) => (
-                <tr key={roomData.roomID}>
-                  <td className="text-black">{roomData.tenantFullName}</td>
-                  <td className="text-black">{roomData.roomNumber}</td>
-                  <td className="text-black">{roomData.amountRent}</td>
-                  <td>
-                    <span className={`${statusColor[roomData.roomStatus]}`}>
-                      {roomData.roomStatus}
-                    </span>
-                  </td>
-                  <td className="flex gap-2">
-                    <button
-                      className="btn btn-[#2C3038] btn-xs"
-                      onClick={() => handleEditClick(roomData)}
-                    >
-                      <SquarePen size={15} />
-                    </button>
-                    <button
-                      className="btn btn-error btn-xs"
-                      onClick={() => handleDeleteClick(roomData)}
-                    >
-                      <Trash2 size={15} />
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </>
+            filteredRooms.map((roomData) => (
+              <tr key={roomData.roomID}>
+                <td className="text-black">{roomData.tenantFullName}</td>
+                <td className="text-black">{roomData.roomNumber}</td>
+                <td className="text-black">{roomData.amountRent}</td>
+                <td>
+                  <span className={`${statusColor[roomData.roomStatus]}`}>
+                    {roomData.roomStatus}
+                  </span>
+                </td>
+                <td className="flex gap-2">
+                  <button
+                    className="btn btn-[#2C3038] btn-xs"
+                    onClick={() => handleEditClick(roomData)}
+                  >
+                    <SquarePen size={15} />
+                  </button>
+                  <button
+                    className="btn btn-error btn-xs"
+                    onClick={() => handleDeleteClick(roomData)}
+                  >
+                    <Trash2 size={15} />
+                  </button>
+                </td>
+              </tr>
+            ))
           )}
         </tbody>
       </table>

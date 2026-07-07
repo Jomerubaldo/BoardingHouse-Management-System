@@ -1,4 +1,4 @@
-import { LoaderCircle, Trash2 } from 'lucide-react';
+import { Trash2 } from 'lucide-react';
 
 function DeleteTenantModal({ handleDeleteSubmit, isDeleteLoading }) {
   return (
@@ -15,11 +15,7 @@ function DeleteTenantModal({ handleDeleteSubmit, isDeleteLoading }) {
           <form onSubmit={handleDeleteSubmit}>
             <div className="flex justify-end gap-3 pt-2">
               <button type="submit" className="btn btn-error">
-                {isDeleteLoading ? (
-                  <LoaderCircle className="animate-spin" />
-                ) : (
-                  'Yes, Delete it'
-                )}
+                {isDeleteLoading ? 'Deleting...' : 'Yes, Delete it'}
               </button>
               <button
                 onClick={() => document.getElementById('deleteModal').close()}

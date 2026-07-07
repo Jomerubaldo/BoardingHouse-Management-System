@@ -5,6 +5,7 @@ function AddTenantModal({
   createFormData,
   handleCreateChange,
   clearCreateButtonWhenClose,
+  isCreateLoading,
 }) {
   return (
     <dialog id="addModal" className="modal modal-middle sm:modal-middle">
@@ -52,7 +53,7 @@ function AddTenantModal({
           </div>
           <div className="flex justify-end gap-3 pt-2">
             <button type="submit" className="btn btn-success">
-              Save
+              {isCreateLoading ? 'Saving...' : 'Save'}
             </button>
             <button
               type="button"

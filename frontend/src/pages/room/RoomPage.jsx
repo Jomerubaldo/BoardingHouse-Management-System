@@ -14,7 +14,14 @@ function RoomPage() {
   const { tenants } = useTenantSelection();
   const [deleteRoomData, setDeleteRoomData] = useState(null);
   const [search, setSearch] = useState(''); // for filter tablelist
-  const { rooms, addRoom, editRoom, removeRoom } = useRooms();
+  const {
+    rooms,
+    addRoom,
+    editRoom,
+    removeRoom,
+    isCreateLoading,
+    isFetchLoading,
+  } = useRooms();
   const [createFormData, setCreateFormData] = useState({
     tenantID: '',
     roomNumber: '',
@@ -121,7 +128,7 @@ function RoomPage() {
 
   // for searching filter room in tablelist
   // confusing na part dito
-  const tableSearchRoom = rooms.filter((room) => {
+  const filteredRooms = rooms.filter((room) => {
     return room.tenantFullName.toLowerCase().includes(search.toLowerCase());
   });
 
@@ -175,13 +182,15 @@ function RoomPage() {
         </div>
         <div className="overflow-x-auto rounded-box border max-h-133.75 border-base-content/20 bg-[#Fff]">
           <RoomTable
-            tableSearchRoom={tableSearchRoom}
+            filteredRooms={filteredRooms}
             statusColor={statusColor}
             handleEditClick={handleEditClick}
             handleDeleteClick={handleDeleteClick}
+            isFetchLoading={isFetchLoading}
           />
         </div>
         <AddRoomModal
+          isCreateLoading={isCreateLoading}
           handleSubmitCreateRoom={handleSubmitCreateRoom}
           createFormData={createFormData}
           handleCreateChange={handleCreateChange}

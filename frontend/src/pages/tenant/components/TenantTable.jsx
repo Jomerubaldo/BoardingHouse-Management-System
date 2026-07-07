@@ -1,7 +1,7 @@
 import { LoaderCircle, SquarePen, Trash2 } from 'lucide-react';
 
 function TenantTable({
-  tableSearchTenant,
+  filteredTenants,
   handleEditClick,
   handleDeleteClick,
   isFetchLoading,
@@ -32,14 +32,14 @@ function TenantTable({
               </div>
             </td>
           </tr>
-        ) : tableSearchTenant.length === 0 ? (
+        ) : filteredTenants.length === 0 ? (
           <tr>
             <td colSpan={4} className="text-center py-58 text-base-content/50">
               Not found. Click “Add Tenant” to create one.
             </td>
           </tr>
         ) : (
-          tableSearchTenant.map((tenantData) => (
+          filteredTenants.map((tenantData) => (
             <tr key={tenantData.tenantID}>
               <td className="text-black">{tenantData.firstName}</td>
               <td className="text-black">{tenantData.lastName}</td>

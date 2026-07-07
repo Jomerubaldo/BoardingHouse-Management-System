@@ -5,7 +5,6 @@ import {
   deleteTenant,
   createTenant,
 } from '../../api/tenantApi.js';
-
 import { CirclePlus } from 'lucide-react';
 import AddTenantModal from './components/AddTenantModal.jsx';
 import EditTenantModal from './components/EditTenantModal.jsx';
@@ -14,24 +13,28 @@ import TenantTable from './components/TenantTable.jsx';
 import TenantSearchFilter from './components/TenantSearchFilter.jsx';
 
 function TenantPage() {
+  // loading state
+  const [isCreateLoading, setIsCreateLoading] = useState(false);
   const [isFetchLoading, setIsFetchLoading] = useState(false);
+  const [isEditLoading, setIsEditLoading] = useState(false);
   const [isDeleteLoading, setIsDeleteLoading] = useState(false);
+
+  // handles
   const [getTenantsData, setGetTenantsData] = useState([]); // gamitin nalang to kapag mag search filter same lang naman sila ng purpose
   const [editFormData, setEditFormData] = useState({
     firstName: '',
     lastName: '',
     phoneNumber: '',
   });
-
   const [deleteTenantData, setDeleteTenantData] = useState(null);
-  // for search filter in tablelist
-  const [search, setSearch] = useState('');
-
   const [createFormData, setCreateFormData] = useState({
     firstName: '',
     lastName: '',
     phoneNumber: '',
   });
+
+  // for search filter in tablelist
+  const [search, setSearch] = useState('');
 
   // para sa pag kuha ng e cre-create na value
   const handleCreateChange = (e) => {
@@ -39,12 +42,12 @@ function TenantPage() {
   };
 
   const handleCreateSubmit = async (e) => {
+    setIsCreateLoading(true);
     e.preventDefault();
 
     try {
       const result = await createTenant(createFormData);
       if (result.success) {
-        alert('Tenant saved successfully!');
         // clear after submit form
         setCreateFormData({ firstName: '', lastName: '', phoneNumber: '' });
         fetchTenants(); // makikita agad ang na add na tenant pagkatapos mag submit
@@ -54,7 +57,8 @@ function TenantPage() {
       }
     } catch (err) {
       console.error('Error:', err);
-      alert('Cannot connect to server. Please check your connection');
+    } finally {
+      setIsCreateLoading(false);
     }
   };
 
@@ -106,11 +110,11 @@ function TenantPage() {
 
   // submit update
   const handleEditSubmit = async (e) => {
+    setIsEditLoading(true);
     e.preventDefault();
     try {
       const result = await updateTenant(editFormData.tenantID, editFormData);
       if (result.success) {
-        alert('Tenant Saved Successfully!');
         fetchTenants(); // ipakita agad ang data pagtapos ma submit
         document.getElementById('editModal').close();
       } else {
@@ -118,7 +122,8 @@ function TenantPage() {
       }
     } catch (err) {
       console.error('Error:', err);
-      alert('Cannot connect to server. Please check your connection');
+    } finally {
+      setIsEditLoading(false);
     }
   };
 
@@ -151,7 +156,7 @@ function TenantPage() {
 
   // for searching filter tenant in tablelist
   // confusing na part dito
-  const tableSearchTenant = getTenantsData.filter((tenant) =>
+  const filteredTenants = getTenantsData.filter((tenant) =>
     tenant.firstName.toLowerCase().includes(search.toLowerCase())
   );
 
@@ -186,7 +191,7 @@ function TenantPage() {
         </div>
         <div className="overflow-x-auto overflow-y-auto max-h-133.75 rounded-box border border-base-content/20 bg-[#Fff]">
           <TenantTable
-            tableSearchTenant={tableSearchTenant}
+            filteredTenants={filteredTenants}
             handleEditClick={handleEditClick}
             handleDeleteClick={handleDeleteClick}
             isFetchLoading={isFetchLoading}
@@ -197,11 +202,13 @@ function TenantPage() {
           createFormData={createFormData}
           handleCreateChange={handleCreateChange}
           clearCreateButtonWhenClose={clearCreateButtonWhenClose}
+          isCreateLoading={isCreateLoading}
         />
         <EditTenantModal
           handleEditSubmit={handleEditSubmit}
           editFormData={editFormData}
           handleEditChange={handleEditChange}
+          isEditLoading={isEditLoading}
         />
         <DeleteTenantModal
           handleDeleteSubmit={handleDeleteSubmit}

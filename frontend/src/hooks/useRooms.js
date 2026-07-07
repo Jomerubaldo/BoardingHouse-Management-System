@@ -1,3 +1,4 @@
+//creating reusable hooks for logic only and can used in other pages with same logic
 import { useState, useEffect } from 'react';
 import {
   createRoom,
@@ -7,10 +8,15 @@ import {
 } from '../api/roomApi';
 
 export function useRooms() {
+  // loading state
+  const [isCreateLoading, setIsCreateLoading] = useState(false);
+  const [isFetchLoading, setIsFetchLoading] = useState(false);
+
   const [rooms, setRooms] = useState([]);
 
   // add room
   const addRoom = async (createFormData) => {
+    setIsCreateLoading(true);
     try {
       const result = await createRoom(createFormData);
       if (result.success) {
@@ -24,16 +30,21 @@ export function useRooms() {
         message:
           'Cannot connect to server. Please check you internet connection',
       };
+    } finally {
+      setIsCreateLoading(false);
     }
   };
 
   // get all rooms
   const fetchViewRooms = async () => {
+    setIsFetchLoading(true);
     try {
       const result = await getAllRooms();
       setRooms(result);
     } catch (err) {
       console.error(err);
+    } finally {
+      setIsFetchLoading(false);
     }
   };
   useEffect(() => {
@@ -76,5 +87,12 @@ export function useRooms() {
     }
   };
 
-  return { rooms, addRoom, editRoom, removeRoom };
+  return {
+    rooms,
+    addRoom,
+    editRoom,
+    removeRoom,
+    isCreateLoading,
+    isFetchLoading,
+  };
 }

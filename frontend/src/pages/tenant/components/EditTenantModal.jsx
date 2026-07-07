@@ -1,6 +1,11 @@
 import { SquarePen } from 'lucide-react';
 
-function EditTenantModal({ handleEditSubmit, editFormData, handleEditChange }) {
+function EditTenantModal({
+  handleEditSubmit,
+  editFormData,
+  handleEditChange,
+  isEditLoading,
+}) {
   return (
     <dialog id="editModal" className="modal modal-middle sm:modal-middle">
       <div className="modal-box">
@@ -47,7 +52,7 @@ function EditTenantModal({ handleEditSubmit, editFormData, handleEditChange }) {
           </div>
           <div className="flex justify-end gap-3 pt-2">
             <button type="submit" className="btn btn-success">
-              Save Changes
+              {isEditLoading ? 'Saving...' : 'Save Changes'}
             </button>
             <button
               type="button"
