@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { CirclePlus } from 'lucide-react';
 import { useTenantSelection } from '../../hooks/useTenantSelection.js';
-import { useRooms } from '../../hooks/useRooms.js';
+import { useRoom } from '../../hooks/useRoom.js';
 import RoomTable from './components/RoomTable.jsx';
 import AddRoomModal from './components/AddRoomModal.jsx';
 import EditRoomModal from './components/EditRoomModal.jsx';
@@ -24,7 +24,7 @@ function RoomPage() {
     isFetchLoading,
     isUpdateLoading,
     isDeleteLoading,
-  } = useRooms();
+  } = useRoom();
   const [createFormData, setCreateFormData] = useState({
     tenantID: '',
     roomNumber: '',

@@ -1,26 +1,26 @@
-import { useEffect, useState } from 'react';
-import {
-  getAllTenants,
-  updateTenant,
-  deleteTenant,
-  createTenant,
-} from '../../api/tenantApi.js';
+import { useState } from 'react';
 import { CirclePlus } from 'lucide-react';
 import AddTenantModal from './components/AddTenantModal.jsx';
 import EditTenantModal from './components/EditTenantModal.jsx';
 import DeleteTenantModal from './components/DeleteTenantModal.jsx';
 import TenantTable from './components/TenantTable.jsx';
 import TenantSearchFilter from './components/TenantSearchFilter.jsx';
+import { useTenant } from '../../hooks/useTenant.js';
 
 function TenantPage() {
-  // loading state
-  const [isCreateLoading, setIsCreateLoading] = useState(false);
-  const [isFetchLoading, setIsFetchLoading] = useState(false);
-  const [isEditLoading, setIsEditLoading] = useState(false);
-  const [isDeleteLoading, setIsDeleteLoading] = useState(false);
+  // useTenant
+  const {
+    tenants,
+    addTenant,
+    editTenant,
+    removeTenant,
+    isCreateLoading,
+    isFetchLoading,
+    isUpdateLoading,
+    isDeleteLoading,
+  } = useTenant();
 
   // handles
-  const [getTenantsData, setGetTenantsData] = useState([]); // gamitin nalang to kapag mag search filter same lang naman sila ng purpose
   const [editFormData, setEditFormData] = useState({
     firstName: '',
     lastName: '',
@@ -42,23 +42,16 @@ function TenantPage() {
   };
 
   const handleCreateSubmit = async (e) => {
-    setIsCreateLoading(true);
     e.preventDefault();
 
-    try {
-      const result = await createTenant(createFormData);
-      if (result.success) {
-        // clear after submit form
-        setCreateFormData({ firstName: '', lastName: '', phoneNumber: '' });
-        fetchTenants(); // makikita agad ang na add na tenant pagkatapos mag submit
-        document.getElementById('addModal').close();
-      } else {
-        console.error('Something went wrong:' + result.message);
-      }
-    } catch (err) {
-      console.error('Error:', err);
-    } finally {
-      setIsCreateLoading(false);
+    const result = await addTenant(createFormData);
+    if (result.success) {
+      alert('Tenant added successfully');
+      // clear after submit form
+      setCreateFormData({ firstName: '', lastName: '', phoneNumber: '' });
+      document.getElementById('addModal').close();
+    } else {
+      console.error('Something went wrong:' + result.message);
     }
   };
 
@@ -74,23 +67,23 @@ function TenantPage() {
     document.getElementById('addModal').close();
   };
 
-  //get all data from tblTenant
-  const fetchTenants = async () => {
-    setIsFetchLoading(true);
-    try {
-      const result = await getAllTenants();
-      setGetTenantsData(result);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setIsFetchLoading(false); // only turns off after success OR error
-    }
-  };
+  // //get all data from tblTenant
+  // const fetchTenants = async () => {
+  //   setIsFetchLoading(true);
+  //   try {
+  //     const result = await getAllTenants();
+  //     setGetTenantsData(result);
+  //   } catch (err) {
+  //     console.error(err);
+  //   } finally {
+  //     setIsFetchLoading(false); // only turns off after success OR error
+  //   }
+  // };
 
-  // para mag realod agad ang data pagkatapos mag create or update or delete parang live processing
-  useEffect(() => {
-    fetchTenants(); // pwede i declared sa post,put,delete para every done ng process is makikita live value
-  }, []);
+  // // para mag realod agad ang data pagkatapos mag create or update or delete parang live processing
+  // useEffect(() => {
+  //   fetchTenants(); // pwede i declared sa post,put,delete para every done ng process is makikita live value
+  // }, []);
 
   // kapag nag click ng specific na edit sa btn tablelist makukuha ang existing data
   const handleEditClick = (tenant) => {
@@ -110,20 +103,13 @@ function TenantPage() {
 
   // submit update
   const handleEditSubmit = async (e) => {
-    setIsEditLoading(true);
     e.preventDefault();
-    try {
-      const result = await updateTenant(editFormData.tenantID, editFormData);
-      if (result.success) {
-        fetchTenants(); // ipakita agad ang data pagtapos ma submit
-        document.getElementById('editModal').close();
-      } else {
-        console.error('Something went wrong:' + result.message);
-      }
-    } catch (err) {
-      console.error('Error:', err);
-    } finally {
-      setIsEditLoading(false);
+
+    const result = await editTenant(editFormData.tenantID, editFormData);
+    if (result.success) {
+      document.getElementById('editModal').close();
+    } else {
+      console.error('Something went wrong:' + result.message);
     }
   };
 
@@ -135,28 +121,20 @@ function TenantPage() {
 
   // submit delete
   const handleDeleteSubmit = async (e) => {
-    setIsDeleteLoading(true);
     e.preventDefault();
-    try {
-      const result = await deleteTenant(deleteTenantData.tenantID);
 
-      if (result.success) {
-        fetchTenants();
-        document.getElementById('deleteModal').close();
-      } else {
-        console.error('Something went wrong:' + result.message);
-      }
-    } catch (err) {
-      console.error('Error:', err);
-      alert('Cannot connect to server, Please check your connection');
-    } finally {
-      setIsDeleteLoading(false);
+    const result = await removeTenant(deleteTenantData.tenantID);
+
+    if (result.success) {
+      document.getElementById('deleteModal').close();
+    } else {
+      console.error('Something went wrong:' + result.message);
     }
   };
 
   // for searching filter tenant in tablelist
   // confusing na part dito
-  const filteredTenants = getTenantsData.filter((tenant) =>
+  const filteredTenants = tenants.filter((tenant) =>
     tenant.firstName.toLowerCase().includes(search.toLowerCase())
   );
 
@@ -174,7 +152,7 @@ function TenantPage() {
             <button
               className="btn border-none shadow-none btn-xs bg-[#2C3038] sm:btn-sm md:btn-md"
               onClick={() => {
-                getTenantsData.length < 8
+                tenants.length < 8
                   ? document.getElementById('addModal').showModal()
                   : alert('Sorry, Cannot add tenant, Room is Full!');
               }}
@@ -203,12 +181,13 @@ function TenantPage() {
           handleCreateChange={handleCreateChange}
           clearCreateButtonWhenClose={clearCreateButtonWhenClose}
           isCreateLoading={isCreateLoading}
+          tenants={tenants}
         />
         <EditTenantModal
           handleEditSubmit={handleEditSubmit}
           editFormData={editFormData}
           handleEditChange={handleEditChange}
-          isEditLoading={isEditLoading}
+          isUpdateLoading={isUpdateLoading}
         />
         <DeleteTenantModal
           handleDeleteSubmit={handleDeleteSubmit}

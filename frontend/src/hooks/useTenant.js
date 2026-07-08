@@ -1,28 +1,27 @@
-//creating reusable hooks for logic only and can used in other pages with same logic
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {
-  createRoom,
-  getAllRooms,
-  updateRoom,
-  deleteRoom,
-} from '../api/roomApi';
+  createTenant,
+  getAllTenants,
+  updateTenant,
+  deleteTenant,
+} from '../api/tenantApi';
 
-export function useRooms() {
+export function useTenant() {
   // loading state
   const [isCreateLoading, setIsCreateLoading] = useState(false);
   const [isFetchLoading, setIsFetchLoading] = useState(false);
   const [isUpdateLoading, setIsUpdateLoading] = useState(false);
   const [isDeleteLoading, setIsDeleteLoading] = useState(false);
 
-  const [rooms, setRooms] = useState([]);
+  // fetch data tenats
+  const [tenants, setTenants] = useState([]);
 
-  // add room
-  const addRoom = async (createFormData) => {
+  const addTenant = async (data) => {
     setIsCreateLoading(true);
     try {
-      const result = await createRoom(createFormData);
+      const result = await createTenant(data);
       if (result.success) {
-        await fetchViewRooms();
+        await fetchViewTenants();
       }
       return result;
     } catch (err) {
@@ -37,69 +36,57 @@ export function useRooms() {
     }
   };
 
-  // get all rooms
-  const fetchViewRooms = async () => {
+  const fetchViewTenants = async () => {
     setIsFetchLoading(true);
     try {
-      const result = await getAllRooms();
-      setRooms(result);
+      const result = await getAllTenants();
+      setTenants(result);
     } catch (err) {
       console.error(err);
     } finally {
       setIsFetchLoading(false);
     }
   };
+
   useEffect(() => {
-    fetchViewRooms();
+    fetchViewTenants();
   }, []);
 
-  // edit room
-  const editRoom = async (id, data) => {
+  const editTenant = async (id, data) => {
     setIsUpdateLoading(true);
     try {
-      const result = await updateRoom(id, data);
+      const result = await updateTenant(id, data);
       if (result.success) {
-        await fetchViewRooms();
+        await fetchViewTenants();
       }
       return result;
     } catch (err) {
       console.error(err);
-      return {
-        success: false,
-        message:
-          'Cannot connect to server. Please check your internet connection',
-      };
     } finally {
       setIsUpdateLoading(false);
     }
   };
 
-  // delete room
-  const removeRoom = async (roomID) => {
+  const removeTenant = async (id) => {
     setIsDeleteLoading(true);
     try {
-      const result = await deleteRoom(roomID);
+      const result = await deleteTenant(id);
       if (result.success) {
-        await fetchViewRooms();
+        await fetchViewTenants();
       }
       return result;
     } catch (err) {
       console.error(err);
-      return {
-        success: false,
-        message:
-          'Cannot connect to server. Please check your internet connection',
-      };
     } finally {
       setIsDeleteLoading(false);
     }
   };
 
   return {
-    rooms,
-    addRoom,
-    editRoom,
-    removeRoom,
+    tenants,
+    addTenant,
+    editTenant,
+    removeTenant,
     isCreateLoading,
     isFetchLoading,
     isUpdateLoading,

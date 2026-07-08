@@ -4,7 +4,7 @@ function EditTenantModal({
   handleEditSubmit,
   editFormData,
   handleEditChange,
-  isEditLoading,
+  isUpdateLoading,
 }) {
   return (
     <dialog id="editModal" className="modal modal-middle sm:modal-middle">
@@ -52,7 +52,7 @@ function EditTenantModal({
           </div>
           <div className="flex justify-end gap-3 pt-2">
             <button type="submit" className="btn btn-success">
-              {isEditLoading ? 'Saving...' : 'Save Changes'}
+              {isUpdateLoading ? 'Saving...' : 'Save Changes'}
             </button>
             <button
               type="button"
