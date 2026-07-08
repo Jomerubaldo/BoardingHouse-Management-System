@@ -8,29 +8,49 @@ export const createPayment = async (paymentData) => {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(paymentData),
   });
-  return await response.json();
+  const resData = await response.json();
+  if (!response.ok) {
+    throw new Error(`Server Error: ${response.status}`);
+  }
+  return resData;
 };
 
 // selection to room for payment
 export const selectionRooms = async () => {
   const response = await fetch(API_Room_URL);
-  return await response.json();
+  const resData = await response.json();
+  if (!response.ok) {
+    throw new Error(`Server Error: ${response.status}`);
+  }
+  return resData;
 };
 
 // showPaymentHistoryTableList
 export const getAllPaymentsHistory = async () => {
   const response = await fetch(API_Payment_URL);
-  return await response.json();
+  const resData = await response.json();
+  if (!response.ok) {
+    throw new Error(`Server Error: ${response.status}`);
+  }
+  return resData;
 };
 
 // totalSales dashboard need ng /path para alam ng kung ano lang kukunin niya
 export const totalRevenue = async () => {
   const response = await fetch(`${API_Payment_URL}/total-revenue`);
-  return await response.json();
+  const resData = await response.json();
+  if (!response.ok) {
+    throw new Error(`Server Error: ${response.status}`);
+  }
+  return resData;
 };
 
 // dashboardChart
 export const dashboardChart = async () => {
   const response = await fetch(`${API_Payment_URL}/dashboardChart`);
-  return await response.json();
+  const resData = await response.json();
+  if (!response.ok) {
+    throw new Error(`Server Error: ${response.status}`);
+  }
+  return resData;
 };

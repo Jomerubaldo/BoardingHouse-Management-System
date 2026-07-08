@@ -3,7 +3,6 @@ import db from '../config/db.js';
 // create
 export const createTenant = (req, res) => {
   const { firstName, lastName, phoneNumber } = req.body;
-
   const MAX_TENANTS = 8;
 
   const countSql = `SELECT COUNT(*) AS totalTenants FROM tblTenant`;
@@ -22,20 +21,20 @@ export const createTenant = (req, res) => {
         message: `Cannot add tenant its limited to ${MAX_TENANTS}`,
       });
     }
-  });
 
-  const sql = `INSERT INTO tblTenant (firstName, lastName, phoneNumber) VALUES (?, ?, ?)`;
+    const sql = `INSERT INTO tblTenant (firstName, lastName, phoneNumber) VALUES (?, ?, ?)`;
 
-  db.query(sql, [firstName, lastName, phoneNumber], (err, result) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).json({ error: err.message });
-    }
+    db.query(sql, [firstName, lastName, phoneNumber], (err, result) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ error: err.message });
+      }
 
-    res.json({
-      success: true,
-      message: 'Added Tenant Successfully',
-      id: result.insertId,
+      res.json({
+        success: true,
+        message: 'Added Tenant Successfully',
+        id: result.insertId,
+      });
     });
   });
 };
