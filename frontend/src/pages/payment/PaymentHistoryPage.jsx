@@ -28,7 +28,7 @@ function PaymentHistoryPage() {
 
   // searching filter tablePayment
   const tableSearchPayment = showPayment.filter((payment) => {
-    return payment.tenantFullName.toLowerCase().includes(search.toLowerCase());
+    return payment.tenantName.toLowerCase().includes(search.toLowerCase());
   });
 
   useEffect(() => {

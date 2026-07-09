@@ -4,7 +4,6 @@ function AddPaymentModal({
   handleCreateSubmit,
   handleCreateChange,
   createPaymentFormData,
-  showSelectedRoom,
   clearPaymentButtonWhenClose,
   isCreatePaymentLoading,
 }) {
@@ -20,7 +19,7 @@ function AddPaymentModal({
         <p className="py-4">Fill out the payment information:</p>
         <form onSubmit={handleCreateSubmit} className="space-y-4">
           <div>
-            <select
+            {/* <select
               onChange={handleCreateChange}
               value={createPaymentFormData.roomID}
               name="roomID"
@@ -35,7 +34,27 @@ function AddPaymentModal({
                   {room.roomNumber}
                 </option>
               ))}
-            </select>
+            </select> */}
+            <input
+              onChange={handleCreateChange}
+              value={createPaymentFormData.tenantName}
+              required
+              type="text"
+              name="tenantName"
+              placeholder="Tenant name"
+              className="input input-border w-full"
+            />
+          </div>
+          <div>
+            <input
+              onChange={handleCreateChange}
+              value={createPaymentFormData.roomNumber}
+              required
+              type="text"
+              name="roomNumber"
+              placeholder="Room number"
+              className="input input-border w-full"
+            />
           </div>
           <div>
             <input

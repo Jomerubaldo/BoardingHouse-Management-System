@@ -34,9 +34,9 @@ function PaymentHistoryTable({ tableSearchPayment, isFetchLoading }) {
             </td>
           </tr>
         ) : (
-          tableSearchPayment.map((payment) => (
-            <tr key={payment.paymentID}>
-              <td className="text-black">{payment.tenantFullName}</td>
+          tableSearchPayment.map((payment, index) => (
+            <tr key={index}>
+              <td className="text-black">{payment.tenantName}</td>
               <td className="text-black">{payment.roomNumber}</td>
               <td className="text-black">{payment.amountPayment}</td>
               <td className="text-black">

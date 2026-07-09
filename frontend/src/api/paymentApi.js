@@ -1,5 +1,5 @@
 const API_Payment_URL = 'http://localhost:8080/api/tblPayment';
-const API_Room_URL = 'http://localhost:8080/api/tblRoom';
+// const API_Room_URL = 'http://localhost:8080/api/tblRoom';
 
 // create
 export const createPayment = async (paymentData) => {
@@ -16,14 +16,15 @@ export const createPayment = async (paymentData) => {
 };
 
 // selection to room for payment
-export const selectionRooms = async () => {
-  const response = await fetch(API_Room_URL);
-  const resData = await response.json();
-  if (!response.ok) {
-    throw new Error(`Server Error: ${response.status}`);
-  }
-  return resData;
-};
+
+// export const selectionRooms = async () => {
+//   const response = await fetch(API_Room_URL);
+//   const resData = await response.json();
+//   if (!response.ok) {
+//     throw new Error(`Server Error: ${response.status}`);
+//   }
+//   return resData;
+// };
 
 // showPaymentHistoryTableList
 export const getAllPaymentsHistory = async () => {

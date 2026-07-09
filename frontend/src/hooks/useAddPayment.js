@@ -1,29 +1,31 @@
-import { useEffect, useState } from 'react';
-import { createPayment, selectionRooms } from '../api/paymentApi';
+import { useState } from 'react';
+import { createPayment } from '../api/paymentApi';
 
 export function useAddPayment() {
   const [isCreatePaymentLoading, setIsCreatePaymentLoading] = useState(false);
-  const [showSelectedRoom, setShowSelectedRoom] = useState([]);
-  const [createPaymentFormData, setCreateFormData] = useState({
-    roomID: '',
+  // const [showSelectedRoom, setShowSelectedRoom] = useState([]);
+  const [createPaymentFormData, setCreatePaymentFormData] = useState({
+    tenantName: '',
+    roomNumber: '',
     amountPayment: '',
   });
 
   //fetch selection room for payment
-  useEffect(() => {
-    const getRoomForSelection = async () => {
-      try {
-        const result = await selectionRooms();
-        setShowSelectedRoom(result);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    getRoomForSelection();
-  }, []);
+
+  // useEffect(() => {
+  //   const getRoomForSelection = async () => {
+  //     try {
+  //       const result = await selectionRooms();
+  //       setShowSelectedRoom(result);
+  //     } catch (err) {
+  //       console.error(err);
+  //     }
+  //   };
+  //   getRoomForSelection();
+  // }, []);
 
   const handlePaymentChange = (e) => {
-    setCreateFormData({
+    setCreatePaymentFormData({
       ...createPaymentFormData,
       [e.target.name]: e.target.value,
     });
@@ -36,8 +38,9 @@ export function useAddPayment() {
       const result = await createPayment(createPaymentFormData);
       if (result.success) {
         alert(`Payment added successfully`);
-        setCreateFormData({
-          roomID: '',
+        setCreatePaymentFormData({
+          tenantName: '',
+          roomNumber: '',
           amountPayment: '',
         });
         document.getElementById('addPaymentModal').close();
@@ -54,15 +57,15 @@ export function useAddPayment() {
 
   const clearPaymentButtonWhenClose = (e) => {
     e.preventDefault();
-    setCreateFormData({
-      roomID: '',
+    setCreatePaymentFormData({
+      tenantName: '',
+      roomNumber: '',
       amountPayment: '',
     });
     document.getElementById('addPaymentModal').close();
   };
 
   return {
-    showSelectedRoom,
     handlePaymentChange,
     handleCreateSubmit,
     clearPaymentButtonWhenClose,
