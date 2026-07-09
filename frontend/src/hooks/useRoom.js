@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import {
   createRoom,
   getAllRooms,
+  updateStatusRoom,
   updateRoom,
   deleteRoom,
 } from '../api/roomApi';
@@ -53,6 +54,24 @@ export function useRoom() {
     fetchViewRooms();
   }, []);
 
+  // edit room status
+  const editStatusRoom = async (id, data) => {
+    try {
+      const result = await updateStatusRoom(id, data);
+      if (result.success) {
+        await fetchViewRooms();
+      }
+      return result;
+    } catch (err) {
+      console.error(err);
+      return {
+        success: false,
+        message:
+          'Cannot connect to server. Please check your internet connection',
+      };
+    }
+  };
+
   // edit room
   const editRoom = async (id, data) => {
     setIsUpdateLoading(true);
@@ -98,6 +117,7 @@ export function useRoom() {
   return {
     rooms,
     addRoom,
+    editStatusRoom,
     editRoom,
     removeRoom,
     isCreateLoading,

@@ -6,6 +6,7 @@ function RoomTable({
   handleEditClick,
   handleDeleteClick,
   isFetchLoading,
+  handleStatusRoomChange,
 }) {
   return (
     <>
@@ -51,9 +52,21 @@ function RoomTable({
                 <td className="text-black">{roomData.roomNumber}</td>
                 <td className="text-black">{roomData.amountRent}</td>
                 <td>
-                  <span className={`${statusColor[roomData.roomStatus]}`}>
-                    {roomData.roomStatus}
-                  </span>
+                  <select
+                    name="roomStatus"
+                    value={roomData.roomStatus}
+                    onChange={(e) =>
+                      handleStatusRoomChange(roomData.roomID, {
+                        roomStatus: e.target.value,
+                      })
+                    }
+                    className={`appearance-none hover:cursor-pointer ${statusColor[roomData.roomStatus]}`}
+                  >
+                    <option className="" value="Occupied">
+                      Occupied
+                    </option>
+                    <option value="Repairing">Repairing</option>
+                  </select>
                 </td>
                 <td className="flex gap-2">
                   <button

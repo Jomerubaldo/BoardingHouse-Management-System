@@ -18,6 +18,7 @@ function RoomPage() {
   const {
     rooms,
     addRoom,
+    editStatusRoom,
     editRoom,
     removeRoom,
     isCreateLoading,
@@ -29,7 +30,6 @@ function RoomPage() {
     tenantID: '',
     roomNumber: '',
     amountRent: '',
-    roomStatus: '',
   });
   const [editFormData, setEditFormData] = useState({
     tenantFullName: '',
@@ -64,7 +64,6 @@ function RoomPage() {
         tenantID: '',
         roomNumber: '',
         amountRent: '',
-        roomStatus: '',
       });
       document.getElementById('addModal').close();
     } else {
@@ -82,6 +81,14 @@ function RoomPage() {
       roomStatus: '',
     });
     document.getElementById('addModal').close();
+  };
+
+  // edit room status
+  const handleStatusRoomChange = async (roomID, data) => {
+    const result = await editStatusRoom(roomID, data);
+    if (!result.success) {
+      alert('Something went wrong' + result.message);
+    }
   };
 
   // para makuha yung value na eedit
@@ -136,8 +143,10 @@ function RoomPage() {
   });
 
   const statusColor = {
-    Occupied: 'badge badge-success text-xs text-black',
-    Repairing: 'badge badge-warning text-xs text-black',
+    Occupied:
+      'badge bg-emerald-500/10 border-emerald-500/20 text-emerald-400 font-medium text-xs',
+    Repairing:
+      'badge bg-amber-500/10 border-amber-500/20 text-amber-400 font-medium  text-xs',
   };
 
   return (
@@ -190,6 +199,7 @@ function RoomPage() {
             handleEditClick={handleEditClick}
             handleDeleteClick={handleDeleteClick}
             isFetchLoading={isFetchLoading}
+            handleStatusRoomChange={handleStatusRoomChange}
           />
         </div>
         <AddRoomModal

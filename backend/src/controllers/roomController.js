@@ -2,7 +2,7 @@ import db from '../config/db.js';
 
 // create
 export const createRoom = (req, res) => {
-  const { tenantID, roomNumber, amountRent, roomStatus } = req.body;
+  const { tenantID, roomNumber, amountRent } = req.body;
 
   const MAX_ROOMS = 8;
 
@@ -23,23 +23,19 @@ export const createRoom = (req, res) => {
       });
     }
 
-    const sql = `INSERT INTO tblRoom (tenantID, roomNumber, amountRent, roomStatus) VALUES (?, ?, ?, ?)`;
+    const sql = `INSERT INTO tblRoom (tenantID, roomNumber, amountRent) VALUES (?, ?, ?)`;
 
-    db.query(
-      sql,
-      [tenantID, roomNumber, amountRent, roomStatus],
-      (err, result) => {
-        if (err) {
-          console.error(err);
-          return res.status(500).json({ error: err.message });
-        }
-        res.json({
-          success: true,
-          message: `1 Added Successfully into tblRoom`,
-          id: result.insertId,
-        });
+    db.query(sql, [tenantID, roomNumber, amountRent], (err, result) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ error: err.message });
       }
-    );
+      res.json({
+        success: true,
+        message: `1 Added Successfully into tblRoom`,
+        id: result.insertId,
+      });
+    });
   });
 };
 
@@ -63,6 +59,22 @@ export const getRooms = (req, res) => {
       return res.status(500).json({ error: err.message });
     }
     res.json(result);
+  });
+};
+
+// edit room status
+export const updateStatusRoom = (req, res) => {
+  const { roomID } = req.params;
+  const { roomStatus } = req.body;
+
+  const sql = `UPDATE tblRoom SET roomStatus = ? WHERE roomID = ?`;
+
+  db.query(sql, [roomStatus, roomID], (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: err.message });
+    }
+    res.json({ success: true, message: `Update Room status successfully` });
   });
 };
 

@@ -77,21 +77,6 @@ function AddRoomModal({
               <option value="5000.00">5000.00</option>
             </select>
           </div>
-          <div>
-            <select
-              required
-              name="roomStatus"
-              value={createFormData.roomStatus}
-              onChange={handleCreateChange}
-              className="select w-full"
-            >
-              <option disabled={true} value="">
-                Select Status
-              </option>
-              <option value="Occupied">Occupied</option>
-              <option value="Repairing">Repair</option>
-            </select>
-          </div>
           <div className="flex justify-end gap-3 pt-2">
             <button type="submit" className="btn btn-success">
               {isCreateLoading ? 'Saving...' : 'Save'}

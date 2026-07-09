@@ -67,18 +67,6 @@ function EditRoomModal({
               <option value="5000.00">5000.00</option>
             </select>
           </div>
-          <div>
-            <select
-              name="roomStatus"
-              value={editFormData.roomStatus}
-              onChange={handleEditChange}
-              className="select w-full"
-            >
-              <option disabled={false}>Select Status</option>
-              <option value="Occupied">Occupied</option>
-              <option value="Repairing">Repair</option>
-            </select>
-          </div>
           <div className="flex justify-end gap-3 pt-2">
             <button type="submit" className="btn btn-success">
               {isUpdateLoading ? 'Saving...' : 'Save'}
