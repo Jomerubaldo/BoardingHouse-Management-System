@@ -6,6 +6,7 @@ import DeleteTenantModal from './components/DeleteTenantModal.jsx';
 import TenantTable from './components/TenantTable.jsx';
 import TenantSearchFilter from './components/TenantSearchFilter.jsx';
 import { useTenant } from '../../hooks/useTenant.js';
+import Swal from 'sweetalert2';
 
 function TenantPage() {
   // useTenant
@@ -46,12 +47,25 @@ function TenantPage() {
 
     const result = await addTenant(createFormData);
     if (result.success) {
-      alert('Tenant added successfully');
-      // clear after submit form
       setCreateFormData({ firstName: '', lastName: '', phoneNumber: '' });
       document.getElementById('addModal').close();
+      Swal.fire({
+        title: 'Success',
+        icon: 'success',
+        text: 'Added Successfully!',
+        showConfirmButton: false,
+        timer: 3000,
+      });
     } else {
+      document.getElementById('addModal').close();
+      setCreateFormData({ firstName: '', lastName: '', phoneNumber: '' });
       console.error('Something went wrong:' + result.message);
+      Swal.fire({
+        title: 'Error',
+        icon: 'error',
+        text: 'Cannot connect to server. Please check you internet connection!',
+        showConfirmButton: true,
+      });
     }
   };
 
@@ -66,24 +80,6 @@ function TenantPage() {
 
     document.getElementById('addModal').close();
   };
-
-  // //get all data from tblTenant
-  // const fetchTenants = async () => {
-  //   setIsFetchLoading(true);
-  //   try {
-  //     const result = await getAllTenants();
-  //     setGetTenantsData(result);
-  //   } catch (err) {
-  //     console.error(err);
-  //   } finally {
-  //     setIsFetchLoading(false); // only turns off after success OR error
-  //   }
-  // };
-
-  // // para mag realod agad ang data pagkatapos mag create or update or delete parang live processing
-  // useEffect(() => {
-  //   fetchTenants(); // pwede i declared sa post,put,delete para every done ng process is makikita live value
-  // }, []);
 
   // kapag nag click ng specific na edit sa btn tablelist makukuha ang existing data
   const handleEditClick = (tenant) => {
@@ -154,7 +150,12 @@ function TenantPage() {
               onClick={() => {
                 tenants.length < 8
                   ? document.getElementById('addModal').showModal()
-                  : alert('Sorry, Cannot add tenant, Room is Full!');
+                  : Swal.fire({
+                      title: 'Warning',
+                      icon: 'warning',
+                      text: 'Sorry, Cannot add tenant, Room is Full!',
+                      showConfirmButton: true,
+                    });
               }}
             >
               <CirclePlus
