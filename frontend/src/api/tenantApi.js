@@ -22,7 +22,11 @@ export const createTenant = async (data) => {
   const resData = await response.json();
 
   if (!response.ok) {
-    throw new Error(`Server Error: ${response.status}`);
+    const error = new Error(
+      resData.message || `Server Error: ${response.status}`
+    );
+    error.code = resData.code;
+    throw error;
   }
   return resData;
 };
@@ -37,7 +41,11 @@ export const updateTenant = async (id, data) => {
   const resData = await response.json();
 
   if (!response.ok) {
-    throw new Error(`Server Error: ${response.status}`);
+    const error = new Error(
+      resData.message || `Server Error: ${response.status}`
+    );
+    error.code = resData.code;
+    throw error;
   }
   return resData;
 };
@@ -50,7 +58,10 @@ export const deleteTenant = async (id) => {
   const resData = await response.json();
 
   if (!response.ok) {
-    throw new Error(`Server Error: ${response.status}`);
+    const error = new Error(
+      resData.message || `Server Error: ${response.status}`
+    );
+    error.code = resData.code;
   }
   return resData;
 };

@@ -27,7 +27,7 @@ export const createTenant = (req, res) => {
     db.query(sql, [firstName, lastName, phoneNumber], (err, result) => {
       if (err) {
         console.error(err);
-        return res.status(500).json({ error: err.message });
+        return res.status(500).json({ error: err.message, code: err.code });
       }
 
       res.json({
@@ -62,7 +62,7 @@ export const updateTenant = (req, res) => {
   db.query(sql, [firstName, lastName, phoneNumber, tenantID], (err) => {
     if (err) {
       console.error(err);
-      return res.status(500).json({ error: err.message });
+      return res.status(500).json({ error: err.message, code: err.code });
     }
     res.json({
       success: true,
@@ -80,7 +80,7 @@ export const deleteTenant = (req, res) => {
   db.query(sql, [tenantID], (err, result) => {
     if (err) {
       console.error(err);
-      return res.status(500).json({ error: err.message });
+      return res.status(500).json({ error: err.message, code: err.code });
     }
     res.json({
       success: true,

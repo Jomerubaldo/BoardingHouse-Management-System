@@ -22,19 +22,19 @@ function TenantPage() {
   } = useTenant();
 
   // handles
+  const [createFormData, setCreateFormData] = useState({
+    firstName: '',
+    lastName: '',
+    phoneNumber: '',
+  });
   const [editFormData, setEditFormData] = useState({
     firstName: '',
     lastName: '',
     phoneNumber: '',
   });
   const [deleteTenantData, setDeleteTenantData] = useState(null);
-  const [createFormData, setCreateFormData] = useState({
-    firstName: '',
-    lastName: '',
-    phoneNumber: '',
-  });
 
-  // for search filter in tablelist
+  // search filter in tablelist
   const [search, setSearch] = useState('');
 
   // para sa pag kuha ng e cre-create na value
@@ -42,6 +42,7 @@ function TenantPage() {
     setCreateFormData({ ...createFormData, [e.target.name]: e.target.value });
   };
 
+  // submit create form
   const handleCreateSubmit = async (e) => {
     e.preventDefault();
 
@@ -52,10 +53,20 @@ function TenantPage() {
       Swal.fire({
         title: 'Success',
         icon: 'success',
-        text: 'Added Successfully!',
+        text: 'Tenant has been added',
         showConfirmButton: false,
-        timer: 3000,
+        timer: 1000,
       });
+    } else if (result.code === 'ER_DUP_ENTRY') {
+      document.getElementById('addModal').close();
+      await Swal.fire({
+        title: 'Warning',
+        icon: 'warning',
+        text: 'This contact number already exists.',
+        showConfirmButton: true,
+        confirmButtonColor: '#000',
+      });
+      document.getElementById('addModal').showModal();
     } else {
       document.getElementById('addModal').close();
       setCreateFormData({ firstName: '', lastName: '', phoneNumber: '' });
@@ -63,13 +74,14 @@ function TenantPage() {
       Swal.fire({
         title: 'Error',
         icon: 'error',
-        text: 'Cannot connect to server. Please check you internet connection!',
+        text: 'Unable to add tenant. Please check your connection and try again.',
         showConfirmButton: true,
+        confirmButtonColor: '#000',
       });
     }
   };
 
-  // if cancel the button to submit the value reset to empty again
+  // reset value when close button add modal
   const clearCreateButtonWhenClose = (e) => {
     e.preventDefault();
     setCreateFormData({
@@ -77,7 +89,6 @@ function TenantPage() {
       lastName: '',
       phoneNumber: '',
     });
-
     document.getElementById('addModal').close();
   };
 
@@ -97,15 +108,41 @@ function TenantPage() {
     setEditFormData({ ...editFormData, [e.target.name]: e.target.value });
   };
 
-  // submit update
+  // submit update form
   const handleEditSubmit = async (e) => {
     e.preventDefault();
 
     const result = await editTenant(editFormData.tenantID, editFormData);
     if (result.success) {
       document.getElementById('editModal').close();
+      Swal.fire({
+        title: 'Success',
+        icon: 'success',
+        text: 'Tenant information has been updated.',
+        showConfirmButton: false,
+        timer: 1000,
+      });
+    } else if (result.code === 'ER_DUP_ENTRY') {
+      document.getElementById('editModal').close();
+      await Swal.fire({
+        title: 'Warning',
+        icon: 'warning',
+        text: 'This contact number already exists.',
+        showConfirmButton: true,
+        confirmButtonColor: '#000',
+      });
+      document.getElementById('editModal').showModal();
     } else {
+      document.getElementById('editModal').close();
+      setCreateFormData({ firstName: '', lastName: '', phoneNumber: '' });
       console.error('Something went wrong:' + result.message);
+      Swal.fire({
+        title: 'Error',
+        icon: 'error',
+        text: 'Unable to update tenant. Please check your connection and try again.',
+        showConfirmButton: true,
+        confirmButtonColor: '#000',
+      });
     }
   };
 
@@ -115,7 +152,7 @@ function TenantPage() {
     document.getElementById('deleteModal').showModal();
   };
 
-  // submit delete
+  // submit delete form
   const handleDeleteSubmit = async (e) => {
     e.preventDefault();
 
@@ -123,13 +160,35 @@ function TenantPage() {
 
     if (result.success) {
       document.getElementById('deleteModal').close();
+      Swal.fire({
+        title: 'Deleted!',
+        icon: 'success',
+        text: 'Tenant has been deleted',
+        timer: 1000,
+        showConfirmButton: false,
+      });
+    } else if (result.code === 'ER_ROW_IS_REFERENCED_2') {
+      document.getElementById('deleteModal').close();
+      await Swal.fire({
+        title: 'Warning',
+        icon: 'warning',
+        text: 'This tenant is existing in roompage, cannot delete it for now.',
+        showConfirmButton: true,
+        confirmButtonColor: '#000',
+      });
     } else {
       console.error('Something went wrong:' + result.message);
+      Swal.fire({
+        title: 'Error',
+        icon: 'error',
+        text: 'Unable to delete tenant. Please check your connection and try again.',
+        showConfirmButton: true,
+        confirmButtonColor: '#000',
+      });
     }
   };
 
   // for searching filter tenant in tablelist
-  // confusing na part dito
   const filteredTenants = tenants.filter((tenant) =>
     tenant.firstName.toLowerCase().includes(search.toLowerCase())
   );
@@ -155,6 +214,7 @@ function TenantPage() {
                       icon: 'warning',
                       text: 'Sorry, Cannot add tenant, Room is Full!',
                       showConfirmButton: true,
+                      confirmButtonColor: '#000',
                     });
               }}
             >

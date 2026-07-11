@@ -47,7 +47,7 @@ function PaymentHistoryPage() {
     <div className="@container px-5 h-auto">
       <div className="flex flex-col gap-4">
         <div className="flex justify-between items-center">
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-4">
             <div className=" sm:text-sm md:text-md lg:text-lg xl:text-2xl">
               <h1 className="text-3xl text-[#404244] font-bold">
                 Payment History

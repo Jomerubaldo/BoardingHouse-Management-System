@@ -28,6 +28,7 @@ export function useTenant() {
       console.error(err);
       return {
         success: false,
+        code: err.code,
         message:
           'Cannot connect to server. Please check you internet connection',
       };
@@ -62,6 +63,12 @@ export function useTenant() {
       return result;
     } catch (err) {
       console.error(err);
+      return {
+        success: false,
+        code: err.code,
+        message:
+          'Cannot connect to server. Please check you internet connection',
+      };
     } finally {
       setIsUpdateLoading(false);
     }
@@ -77,6 +84,12 @@ export function useTenant() {
       return result;
     } catch (err) {
       console.error(err);
+      return {
+        success: false,
+        code: err.code,
+        message:
+          'Cannot connect to server. Please check you internet connection',
+      };
     } finally {
       setIsDeleteLoading(false);
     }

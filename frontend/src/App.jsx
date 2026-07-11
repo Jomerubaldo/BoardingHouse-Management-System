@@ -4,12 +4,14 @@ import PaymentHistoryPage from './pages/payment/PaymentHistoryPage';
 import RoomPage from './pages/room/RoomPage';
 import TenantPage from './pages/tenant/TenantPage';
 import MainLayout from './components/layouts/MainLayout';
+import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<MainLayout />}>
+          <Route path="*" element={<NotFoundPage />} />
           <Route index element={<DashboardPage />} />
           <Route path="/payment" element={<PaymentHistoryPage />} />
           <Route path="/room" element={<RoomPage />} />

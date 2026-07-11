@@ -47,7 +47,7 @@ function AddTenantModal({
               name="phoneNumber"
               value={createFormData.phoneNumber}
               onChange={handleCreateChange}
-              placeholder="Contact"
+              placeholder="Contact Number"
               className="input input-bordered w-full"
             />
           </div>
