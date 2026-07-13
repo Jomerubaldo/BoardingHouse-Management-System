@@ -9,6 +9,9 @@ import { useTenant } from '../../hooks/useTenant.js';
 import Swal from 'sweetalert2';
 
 function TenantPage() {
+  // phone validation
+  const [errorPhone, setErrorPhone] = useState('');
+
   // useTenant
   const {
     tenants,
@@ -40,13 +43,24 @@ function TenantPage() {
   // para sa pag kuha ng e cre-create na value
   const handleCreateChange = (e) => {
     setCreateFormData({ ...createFormData, [e.target.name]: e.target.value });
+    // phone number must 11 digits
+    if (e.target.name === 'phoneNumber' && e.target.value.length >= 11) {
+      setErrorPhone('');
+    }
   };
 
   // submit create form
   const handleCreateSubmit = async (e) => {
     e.preventDefault();
+    // phone number validation checking
+    if (createFormData.phoneNumber.length < 11) {
+      setErrorPhone('Contact Number must be 11 digits above!');
+      return;
+    }
+    setErrorPhone('');
 
     const result = await addTenant(createFormData);
+
     if (result.success) {
       setCreateFormData({ firstName: '', lastName: '', phoneNumber: '' });
       document.getElementById('addModal').close();
@@ -134,7 +148,7 @@ function TenantPage() {
       document.getElementById('editModal').showModal();
     } else {
       document.getElementById('editModal').close();
-      setCreateFormData({ firstName: '', lastName: '', phoneNumber: '' });
+      // setCreateFormData({ firstName: '', lastName: '', phoneNumber: '' });
       console.error('Something went wrong:' + result.message);
       Swal.fire({
         title: 'Error',
@@ -243,6 +257,7 @@ function TenantPage() {
           clearCreateButtonWhenClose={clearCreateButtonWhenClose}
           isCreateLoading={isCreateLoading}
           tenants={tenants}
+          errorPhone={errorPhone}
         />
         <EditTenantModal
           handleEditSubmit={handleEditSubmit}

@@ -6,6 +6,7 @@ function AddTenantModal({
   handleCreateChange,
   clearCreateButtonWhenClose,
   isCreateLoading,
+  errorPhone,
 }) {
   return (
     <dialog id="addModal" className="modal modal-middle sm:modal-middle">
@@ -50,6 +51,11 @@ function AddTenantModal({
               placeholder="Contact Number"
               className="input input-bordered w-full"
             />
+            {errorPhone && (
+              <span className="text-red-500 text-xs font-semibold">
+                {errorPhone}
+              </span>
+            )}
           </div>
           <div className="flex justify-end gap-3 pt-2">
             <button type="submit" className="btn btn-success">
