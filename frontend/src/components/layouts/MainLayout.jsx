@@ -23,11 +23,11 @@ function MainLayout() {
         onChange={(e) => setIsDrawerOpen(e.target.checked)}
       />
       <div className="drawer-content">
-        <nav className="navbar w-full border-b border-gray-300 bg-[#FFFFFF] flex gap-1">
+        <nav className="navbar w-full border-b border-[#2C3038] bg-[#FFFFFF] flex gap-1">
           <label
             htmlFor="my-drawer-4"
             aria-label="open sidebar"
-            className="btn btn-square btn-ghost"
+            className="btn btn-square hover:bg-[#F4F4F5] bg-white border-none shadow-none"
           >
             {isDrawerOpen ? (
               <PanelLeftClose color="#DC2626" size={16} />
@@ -50,7 +50,7 @@ function MainLayout() {
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <div className="flex min-h-full flex-col items-start bg-[#282C34] is-drawer-close:w-14 is-drawer-open:w-64">
+        <div className="flex min-h-full flex-col items-start bg-[#2C3038] is-drawer-close:w-14 is-drawer-open:w-64">
           <ul className="menu w-full grow gap-2 text-md">
             <li>
               <NavLink to="/">
@@ -58,8 +58,8 @@ function MainLayout() {
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center gap-3"
                   data-tip="Dashboard"
                 >
-                  <LayoutDashboardIcon color="#6F2CF3" size={17} />
-                  <span className="is-drawer-close:hidden font-semibold text-[#FFFFFE]">
+                  <LayoutDashboardIcon color="#6F2CF3" size={16} />
+                  <span className="is-drawer-close:hidden font-semibold text-[#FFFFFE] text-[16px]">
                     Dashboard
                   </span>
                 </button>
@@ -72,8 +72,8 @@ function MainLayout() {
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center gap-3"
                   data-tip="Tenant"
                 >
-                  <Users color="#2cb67d" size={17} />
-                  <span className="is-drawer-close:hidden font-semibold text-[#FFFFFE]">
+                  <Users color="#2cb67d" size={16} />
+                  <span className="is-drawer-close:hidden font-semibold text-[#FFFFFE] text-[16px]">
                     Tenant
                   </span>
                 </button>
@@ -86,8 +86,8 @@ function MainLayout() {
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center gap-3"
                   data-tip="Room"
                 >
-                  <BedSingle color="#3B82F6" size={17} />
-                  <span className="is-drawer-close:hidden font-semibold text-[#FFFFFE]">
+                  <BedSingle color="#3B82F6" size={16} />
+                  <span className="is-drawer-close:hidden font-semibold text-[#FFFFFE] text-[16px]">
                     Room
                   </span>
                 </button>
@@ -100,8 +100,8 @@ function MainLayout() {
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center gap-3"
                   data-tip="Payment"
                 >
-                  <Wallet color="#f2c94c" size={17} />
-                  <span className="is-drawer-close:hidden font-semibold text-[#FFFFFE]">
+                  <Wallet color="#f2c94c" size={16} />
+                  <span className="is-drawer-close:hidden font-semibold text-[#FFFFFE] text-[16px]">
                     Payment
                   </span>
                 </button>
