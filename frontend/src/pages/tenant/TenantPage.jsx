@@ -21,7 +21,7 @@ function TenantPage() {
     isDeleteLoading,
   } = useTenant();
 
-  // modal variable show
+  // modal variable
   const addModal = document.getElementById('addModal');
   const editModal = document.getElementById('editModal');
   const deleteModal = document.getElementById('deleteModal');
@@ -29,6 +29,10 @@ function TenantPage() {
   // phone validation
   const [addPhoneError, setAddPhoneError] = useState('');
   const [editPhoneError, setEditPhoneError] = useState('');
+
+  const [deleteTenantData, setDeleteTenantData] = useState(null);
+  // search filter in tablelist
+  const [search, setSearch] = useState('');
 
   // handles submit
   const [createFormData, setCreateFormData] = useState({
@@ -41,10 +45,6 @@ function TenantPage() {
     lastName: '',
     phoneNumber: '',
   });
-  const [deleteTenantData, setDeleteTenantData] = useState(null);
-
-  // search filter in tablelist
-  const [search, setSearch] = useState('');
 
   // para makapag add mag oopen ng modal add tapos check kung full na or hindi
   const handleCreateClick = (e) => {

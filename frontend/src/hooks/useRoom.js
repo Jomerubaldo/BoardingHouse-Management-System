@@ -30,6 +30,7 @@ export function useRoom() {
       console.error(err);
       return {
         success: false,
+        code: err.code,
         message:
           'Cannot connect to server. Please check you internet connection',
       };
@@ -85,6 +86,7 @@ export function useRoom() {
       console.error(err);
       return {
         success: false,
+        code: err.code,
         message:
           'Cannot connect to server. Please check your internet connection',
       };

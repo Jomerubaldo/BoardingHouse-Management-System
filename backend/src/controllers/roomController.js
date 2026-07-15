@@ -27,12 +27,20 @@ export const createRoom = (req, res) => {
 
     db.query(sql, [tenantID, roomNumber, amountRent], (err, result) => {
       if (err) {
+        if (
+          err.code === 'ER_DUP_ENTRY' &&
+          err.sqlMessage.includes('roomNumber')
+        ) {
+          return res
+            .status(500)
+            .json({ error: err.message, code: 'ROOM_NUMBER_EXISTS' });
+        }
         console.error(err);
-        return res.status(500).json({ error: err.message });
       }
+
       res.json({
         success: true,
-        message: `1 Added Successfully into tblRoom`,
+        message: `Added Successfully into tblRoom`,
         id: result.insertId,
       });
     });

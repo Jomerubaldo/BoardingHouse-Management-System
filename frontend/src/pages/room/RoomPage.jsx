@@ -12,9 +12,16 @@ import RoomSearchFilter from './components/RoomSearchFilter.jsx';
 import Swal from 'sweetalert2';
 
 function RoomPage() {
-  const { tenants } = useTenantSelection();
-  const [deleteRoomData, setDeleteRoomData] = useState(null);
-  const [search, setSearch] = useState(''); // for filter tablelist
+  // payment useHooks
+  const {
+    showSelectedRoom,
+    handlePaymentChange,
+    handleCreateSubmit,
+    clearPaymentButtonWhenClose,
+    createPaymentFormData,
+    isCreatePaymentLoading,
+  } = useAddPayment();
+
   // room useHooks
   const {
     rooms,
@@ -27,6 +34,15 @@ function RoomPage() {
     isUpdateLoading,
     isDeleteLoading,
   } = useRoom();
+
+  // show modal variable
+  const addModal = document.getElementById('addModal');
+  const editModal = document.getElementById('editModal');
+  const deleteModal = document.getElementById('deleteModal');
+
+  const { tenants } = useTenantSelection();
+  const [search, setSearch] = useState(''); // for filter tablelist
+  const [deleteRoomData, setDeleteRoomData] = useState(null);
   const [createFormData, setCreateFormData] = useState({
     tenantID: '',
     roomNumber: '',
@@ -39,15 +55,20 @@ function RoomPage() {
     roomStatus: '',
   });
 
-  // for payment useHook
-  const {
-    showSelectedRoom,
-    handlePaymentChange,
-    handleCreateSubmit,
-    clearPaymentButtonWhenClose,
-    createPaymentFormData,
-    isCreatePaymentLoading,
-  } = useAddPayment();
+  // click create modal checking room
+  const handleCreateClick = () => {
+    if (rooms.length < 8) {
+      addModal.showModal();
+    } else {
+      Swal.fire({
+        title: 'Warning',
+        icon: 'warning',
+        text: 'Room is full.',
+        showConfirmButton: true,
+        confirmButtonColor: '#2C3038',
+      });
+    }
+  };
 
   // para sa pag kuha ng e cre-create na value
   const handleCreateChange = (e) => {
@@ -62,7 +83,7 @@ function RoomPage() {
       Swal.fire({
         title: 'Success',
         icon: 'success',
-        text: 'Room has been created',
+        text: 'Room created successfully.',
         showConfirmButton: false,
         timer: 1000,
       });
@@ -72,29 +93,49 @@ function RoomPage() {
         roomNumber: '',
         amountRent: '',
       });
-      document.getElementById('addModal').close();
+      addModal.close();
+    }
+    // check error from backend db throw error
+    else if (result.code === 'ROOM_NUMBER_EXISTS') {
+      addModal.close();
+      await Swal.fire({
+        title: 'Warning',
+        icon: 'warning',
+        text: 'This room is already in use.',
+        showConfirmButton: true,
+        confirmButtonColor: '#2C3038',
+      });
+      addModal.showModal();
     } else {
-      alert('Something went wrong:' + result.message);
+      console.error('Something went wrong:', result.message);
+      addModal.close();
+      await Swal.fire({
+        title: 'Error',
+        icon: 'error',
+        text: 'Unable to create room. Please check your connection and try again.',
+        showConfirmButton: true,
+        confirmButtonColor: '#2C3038',
+      });
+      addModal.showModal();
     }
   };
 
   // if cancel the button to submit the value recent reset to empty again
   const clearCreateButtonWhenClose = (e) => {
     e.preventDefault();
+    addModal.close();
     setCreateFormData({
       tenantID: '',
       roomNumber: '',
       amountRent: '',
-      roomStatus: '',
     });
-    document.getElementById('addModal').close();
   };
 
   // edit room status
   const handleStatusRoomChange = async (roomID, data) => {
     const result = await editStatusRoom(roomID, data);
     if (!result.success) {
-      alert('Something went wrong' + result.message);
+      alert('Something went wrong', result.message);
     }
   };
 
@@ -113,23 +154,24 @@ function RoomPage() {
       amountRent: room.amountRent, //changed number from string // fixed it in edting
       roomStatus: room.roomStatus,
     });
-    document.getElementById('editModal').showModal();
+    editModal.showModal();
   };
 
+  // need to fix
   const handleSubmitEdit = async (e) => {
     e.preventDefault();
     const result = await editRoom(editFormData.roomID, editFormData); //kunin ang id at body/data na ipapasa sa api
     if (result.success) {
-      document.getElementById('editModal').close();
+      editModal.close();
     } else {
-      alert('Something went wrong:' + result.message);
+      alert('Something went wrong:', result.message);
     }
   };
 
   // delete
   const handleDeleteClick = (room) => {
     setDeleteRoomData(room);
-    document.getElementById('deleteModal').showModal();
+    deleteModal.showModal();
   };
 
   const handleSubmitDelete = async (e) => {
@@ -137,9 +179,9 @@ function RoomPage() {
     const result = await removeRoom(deleteRoomData.roomID);
     if (result.success) {
       alert('Delete room successfully!');
-      document.getElementById('deleteModal').close();
+      deleteModal.close();
     } else {
-      alert('Something went wrong:' + result.message);
+      alert('Something went wrong:', result.message);
     }
   };
 
@@ -168,11 +210,7 @@ function RoomPage() {
             <div className="flex gap-3">
               <button
                 className="btn bg-[#2C3038] shadow-none border-none hover:bg-black"
-                onClick={() => {
-                  rooms.length < 8
-                    ? document.getElementById('addModal').show()
-                    : alert('Sorry, cannot add Room is full!');
-                }}
+                onClick={handleCreateClick}
               >
                 <CirclePlus
                   size={18}

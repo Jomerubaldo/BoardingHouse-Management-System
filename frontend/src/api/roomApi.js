@@ -11,7 +11,11 @@ export const createRoom = async (roomData) => {
   const resData = await response.json();
 
   if (!response.ok) {
-    throw new Error(`Server Error: ${response.status}`);
+    const error = new Error(
+      resData.message || `Server Error: ${response.status}`
+    );
+    error.code = resData.code;
+    throw error;
   }
   return resData;
 };
