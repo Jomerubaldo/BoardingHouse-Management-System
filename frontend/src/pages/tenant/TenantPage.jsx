@@ -56,7 +56,7 @@ function TenantPage() {
       Swal.fire({
         title: 'Warning',
         icon: 'warning',
-        text: 'Sorry, Cannot add tenant, Room is Full!',
+        text: 'Room is full. Unable to add tenant.',
         showConfirmButton: true,
         confirmButtonColor: '#2C3038',
       });
@@ -79,7 +79,7 @@ function TenantPage() {
 
     // check phone number length
     if (createFormData.phoneNumber.length < 11) {
-      setAddPhoneError('* Please enter a valid 11-digit contact number.');
+      setAddPhoneError('Please enter a valid 11-digit contact number.');
       return;
     }
     setAddPhoneError('');
@@ -90,7 +90,7 @@ function TenantPage() {
       Swal.fire({
         title: 'Success',
         icon: 'success',
-        text: 'Tenant has been added',
+        text: 'Tenant added successfully.',
         showConfirmButton: false,
         timer: 1000,
       });
@@ -103,7 +103,7 @@ function TenantPage() {
       await Swal.fire({
         title: 'Warning',
         icon: 'warning',
-        text: 'This contact number already exists.',
+        text: 'This contact number is already in use.',
         showConfirmButton: true,
         confirmButtonColor: '#2C3038',
       });
@@ -159,7 +159,7 @@ function TenantPage() {
     e.preventDefault();
 
     if (editFormData.phoneNumber.length < 11) {
-      setEditPhoneError('* Please enter a valid 11-digit contact number.');
+      setEditPhoneError('Please enter a valid 11-digit contact number.');
       return;
     }
     setEditPhoneError('');
@@ -171,7 +171,7 @@ function TenantPage() {
       Swal.fire({
         title: 'Success',
         icon: 'success',
-        text: 'Tenant information has been updated.',
+        text: 'Tenant information updated successfully.',
         showConfirmButton: false,
         timer: 1000,
       });
@@ -181,7 +181,7 @@ function TenantPage() {
       await Swal.fire({
         title: 'Warning',
         icon: 'warning',
-        text: 'This contact number already exists.',
+        text: 'This contact number is already in use.',
         showConfirmButton: true,
         confirmButtonColor: '#2C3038',
       });
@@ -217,7 +217,7 @@ function TenantPage() {
       Swal.fire({
         title: 'Deleted!',
         icon: 'success',
-        text: 'Tenant has been deleted',
+        text: 'Tenant deleted successfully.',
         timer: 1000,
         showConfirmButton: false,
       });
@@ -227,7 +227,7 @@ function TenantPage() {
       await Swal.fire({
         title: 'Warning',
         icon: 'warning',
-        text: 'This tenant is existing in roompage, cannot delete it for now.',
+        text: 'This tenant is currently assigned to a room and cannot be deleted.',
         showConfirmButton: true,
         confirmButtonColor: '#2C3038',
       });
