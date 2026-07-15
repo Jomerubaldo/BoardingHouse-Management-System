@@ -35,11 +35,17 @@ function PaymentHistoryTable({ tableSearchPayment, isFetchLoading }) {
           </tr>
         ) : (
           tableSearchPayment.map((payment, index) => (
-            <tr key={index}>
-              <td className="text-black">{payment.tenantName}</td>
-              <td className="text-black">{payment.roomNumber}</td>
-              <td className="text-black">{payment.amountPayment}</td>
-              <td className="text-black">
+            <tr key={index} className="hover:bg-gray-200">
+              <td className="text-[#404244] border-b border-[#2C3038] font-semibold">
+                {payment.tenantName}
+              </td>
+              <td className="text-[#404244] border-b border-[#2C3038] font-semibold">
+                {payment.roomNumber}
+              </td>
+              <td className="text-[#404244] border-b border-[#2C3038] font-semibold">
+                {payment.amountPayment}
+              </td>
+              <td className="text-[#404244] border-b border-[#2C3038] font-semibold">
                 {new Date(payment.datePayment).toLocaleDateString('en-PH', {
                   year: 'numeric',
                   month: 'long',

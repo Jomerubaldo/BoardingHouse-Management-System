@@ -9,6 +9,7 @@ import DeleteRoomModal from './components/DeleteRoomModal.jsx';
 import AddPaymentModal from './components/AddPaymentModal.jsx';
 import { useAddPayment } from '../../hooks/useAddPayment.js';
 import RoomSearchFilter from './components/RoomSearchFilter.jsx';
+import Swal from 'sweetalert2';
 
 function RoomPage() {
   const { tenants } = useTenantSelection();
@@ -58,7 +59,13 @@ function RoomPage() {
     e.preventDefault();
     const result = await addRoom(createFormData);
     if (result.success) {
-      alert('Room added successfully');
+      Swal.fire({
+        title: 'Success',
+        icon: 'success',
+        text: 'Room has been created',
+        showConfirmButton: false,
+        timer: 1000,
+      });
       // clear data dropdown after submit
       setCreateFormData({
         tenantID: '',
@@ -143,10 +150,8 @@ function RoomPage() {
   });
 
   const statusColor = {
-    Occupied:
-      'badge bg-emerald-500/10 border-emerald-500/20 text-emerald-400 font-medium text-xs',
-    Repairing:
-      'badge bg-amber-500/10 border-amber-500/20 text-amber-400 font-medium  text-xs',
+    Occupied: 'badge text-emerald-500 font-semibold text-xs',
+    Repairing: 'badge text-amber-500 font-semibold  text-xs',
   };
 
   return (
@@ -162,7 +167,7 @@ function RoomPage() {
             <RoomSearchFilter search={search} setSearch={setSearch} />
             <div className="flex gap-3">
               <button
-                className="btn bg-[#2C3038]"
+                className="btn bg-[#2C3038] shadow-none border-none hover:bg-black"
                 onClick={() => {
                   rooms.length < 8
                     ? document.getElementById('addModal').show()
@@ -174,11 +179,11 @@ function RoomPage() {
                   className="sm:w-4 sm:h-4 md:w-5 md:h-5 lg:w-6 lg:h-6"
                 />
                 <span className="sm:inline md:inline lg:inline font-bold">
-                  Add Room
+                  Create Room
                 </span>
               </button>
               <button
-                className="btn bg-[#2C3038] font-bold"
+                className="btn bg-[#2C3038] font-bold border-none shadow-none hover:bg-black"
                 onClick={() =>
                   document.getElementById('addPaymentModal').showModal()
                 }
@@ -187,12 +192,12 @@ function RoomPage() {
                   size={18}
                   className="sm:w-4 sm:h-4 md:w-5 md:h-5 lg:w-6 lg:h-6"
                 />
-                Add Payment
+                Create Payment
               </button>
             </div>
           </div>
         </div>
-        <div className="overflow-x-auto rounded-box border max-h-133.75 border-base-content/20 bg-[#Fff]">
+        <div className="overflow-x-auto rounded max-h-133.75">
           <RoomTable
             filteredRooms={filteredRooms}
             statusColor={statusColor}

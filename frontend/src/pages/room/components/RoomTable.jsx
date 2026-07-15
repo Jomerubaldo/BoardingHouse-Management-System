@@ -10,7 +10,7 @@ function RoomTable({
 }) {
   return (
     <>
-      <table className="table table-pin-rows">
+      <table className="table table-pin-rows bg-[#F4F4F5]">
         <thead>
           <tr className="bg-[#2C3038]">
             <th className="text-[#FFFFFF]">Tenant Name</th>
@@ -38,20 +38,23 @@ function RoomTable({
             </tr>
           ) : filteredRooms.length === 0 ? (
             <tr>
-              <td
-                colSpan={5}
-                className="text-center py-58 text-base-content/50"
-              >
+              <td colSpan={5} className="text-center py-58 text-black">
                 Not found. Click “Add Room” to create one.
               </td>
             </tr>
           ) : (
             filteredRooms.map((roomData) => (
-              <tr key={roomData.roomID}>
-                <td className="text-black">{roomData.tenantFullName}</td>
-                <td className="text-black">{roomData.roomNumber}</td>
-                <td className="text-black">{roomData.amountRent}</td>
-                <td>
+              <tr key={roomData.roomID} className="hover:bg-gray-200">
+                <td className="text-[#404244] border-b border-[#2C3038] font-semibold">
+                  {roomData.tenantFullName}
+                </td>
+                <td className="text-[#404244] border-b border-[#2C3038] font-semibold">
+                  {roomData.roomNumber}
+                </td>
+                <td className="text-[#404244] border-b border-[#2C3038] font-semibold">
+                  {roomData.amountRent}
+                </td>
+                <td className="border-b border-[#2C3038]">
                   <select
                     name="roomStatus"
                     value={roomData.roomStatus}
@@ -60,23 +63,35 @@ function RoomTable({
                         roomStatus: e.target.value,
                       })
                     }
-                    className={`appearance-none hover:cursor-pointer ${statusColor[roomData.roomStatus]}`}
+                    className={`
+                    appearance-none
+                    bg-transparent
+                    border-0
+                    outline-none
+                    ring-0
+                    shadow-none
+                    p-0
+                    -m-px
+                    focus:outline-none
+                    focus:ring-0
+                    focus:shadow-none
+                    hover:cursor-pointer
+                    ${statusColor[roomData.roomStatus]} `}
+                    style={{ WebkitAppearance: 'none', MozAppearance: 'none' }}
                   >
-                    <option className="" value="Occupied">
-                      Occupied
-                    </option>
+                    <option value="Occupied">Occupied</option>
                     <option value="Repairing">Repairing</option>
                   </select>
                 </td>
-                <td className="flex gap-2">
+                <td className="flex gap-2 border-b border-[#2C3038]">
                   <button
-                    className="btn btn-[#2C3038] btn-xs"
+                    className="btn bg-gray-500 shadow-none border-none btn-xs hover:bg-gray-600"
                     onClick={() => handleEditClick(roomData)}
                   >
                     <SquarePen size={15} />
                   </button>
                   <button
-                    className="btn btn-error btn-xs"
+                    className="btn bg-red-500 shadow-none border-none btn-xs hover:bg-red-600"
                     onClick={() => handleDeleteClick(roomData)}
                   >
                     <Trash2 size={15} />

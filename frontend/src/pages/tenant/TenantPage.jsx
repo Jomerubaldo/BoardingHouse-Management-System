@@ -9,9 +9,6 @@ import { useTenant } from '../../hooks/useTenant.js';
 import Swal from 'sweetalert2';
 
 function TenantPage() {
-  // phone validation
-  const [errorPhone, setErrorPhone] = useState('');
-
   // useTenant
   const {
     tenants,
@@ -24,7 +21,16 @@ function TenantPage() {
     isDeleteLoading,
   } = useTenant();
 
-  // handles
+  // modal variable show
+  const addModal = document.getElementById('addModal');
+  const editModal = document.getElementById('editModal');
+  const deleteModal = document.getElementById('deleteModal');
+
+  // phone validation
+  const [addPhoneError, setAddPhoneError] = useState('');
+  const [editPhoneError, setEditPhoneError] = useState('');
+
+  // handles submit
   const [createFormData, setCreateFormData] = useState({
     firstName: '',
     lastName: '',
@@ -40,30 +46,47 @@ function TenantPage() {
   // search filter in tablelist
   const [search, setSearch] = useState('');
 
+  // para makapag add mag oopen ng modal add tapos check kung full na or hindi
+  const handleCreateClick = (e) => {
+    e.preventDefault();
+
+    if (tenants.length < 8) {
+      addModal.showModal();
+    } else {
+      Swal.fire({
+        title: 'Warning',
+        icon: 'warning',
+        text: 'Sorry, Cannot add tenant, Room is Full!',
+        showConfirmButton: true,
+        confirmButtonColor: '#2C3038',
+      });
+    }
+  };
+
   // para sa pag kuha ng e cre-create na value
   const handleCreateChange = (e) => {
     setCreateFormData({ ...createFormData, [e.target.name]: e.target.value });
+
     // phone number must 11 digits
     if (e.target.name === 'phoneNumber' && e.target.value.length >= 11) {
-      setErrorPhone('');
+      setAddPhoneError('');
     }
   };
 
   // submit create form
   const handleCreateSubmit = async (e) => {
     e.preventDefault();
-    // phone number validation checking
+
+    // check phone number length
     if (createFormData.phoneNumber.length < 11) {
-      setErrorPhone('Contact Number must be 11 digits above!');
+      setAddPhoneError('* Please enter a valid 11-digit contact number.');
       return;
     }
-    setErrorPhone('');
+    setAddPhoneError('');
 
     const result = await addTenant(createFormData);
 
     if (result.success) {
-      setCreateFormData({ firstName: '', lastName: '', phoneNumber: '' });
-      document.getElementById('addModal').close();
       Swal.fire({
         title: 'Success',
         icon: 'success',
@@ -71,27 +94,31 @@ function TenantPage() {
         showConfirmButton: false,
         timer: 1000,
       });
-    } else if (result.code === 'ER_DUP_ENTRY') {
-      document.getElementById('addModal').close();
+      setCreateFormData({ firstName: '', lastName: '', phoneNumber: '' });
+      addModal.close();
+    }
+    // check existing phone number in db
+    else if (result.code === 'ER_DUP_ENTRY') {
+      addModal.close();
       await Swal.fire({
         title: 'Warning',
         icon: 'warning',
         text: 'This contact number already exists.',
         showConfirmButton: true,
-        confirmButtonColor: '#000',
+        confirmButtonColor: '#2C3038',
       });
-      document.getElementById('addModal').showModal();
+      addModal.showModal();
     } else {
-      document.getElementById('addModal').close();
-      setCreateFormData({ firstName: '', lastName: '', phoneNumber: '' });
-      console.error('Something went wrong:' + result.message);
-      Swal.fire({
+      console.error('Something went wrong:', result.message);
+      addModal.close();
+      await Swal.fire({
         title: 'Error',
         icon: 'error',
         text: 'Unable to add tenant. Please check your connection and try again.',
         showConfirmButton: true,
-        confirmButtonColor: '#000',
+        confirmButtonColor: '#2C3038',
       });
+      addModal.showModal();
     }
   };
 
@@ -103,7 +130,7 @@ function TenantPage() {
       lastName: '',
       phoneNumber: '',
     });
-    document.getElementById('addModal').close();
+    addModal.close();
   };
 
   // kapag nag click ng specific na edit sa btn tablelist makukuha ang existing data
@@ -114,21 +141,33 @@ function TenantPage() {
       lastName: tenant.lastName,
       phoneNumber: tenant.phoneNumber,
     });
-    document.getElementById('editModal').showModal();
+    editModal.showModal();
   };
 
   // para sa pagkuha ng bagong na edit na value
   const handleEditChange = (e) => {
     setEditFormData({ ...editFormData, [e.target.name]: e.target.value });
+
+    // edit contact number validation checking
+    if (e.target.name === 'phoneNumber' && e.target.value.length >= 11) {
+      setEditPhoneError('');
+    }
   };
 
   // submit update form
   const handleEditSubmit = async (e) => {
     e.preventDefault();
 
+    if (editFormData.phoneNumber.length < 11) {
+      setEditPhoneError('* Please enter a valid 11-digit contact number.');
+      return;
+    }
+    setEditPhoneError('');
+
     const result = await editTenant(editFormData.tenantID, editFormData);
+
     if (result.success) {
-      document.getElementById('editModal').close();
+      editModal.close();
       Swal.fire({
         title: 'Success',
         icon: 'success',
@@ -136,34 +175,35 @@ function TenantPage() {
         showConfirmButton: false,
         timer: 1000,
       });
-    } else if (result.code === 'ER_DUP_ENTRY') {
-      document.getElementById('editModal').close();
+    } // check existing phone number in db
+    else if (result.code === 'ER_DUP_ENTRY') {
+      editModal.close();
       await Swal.fire({
         title: 'Warning',
         icon: 'warning',
         text: 'This contact number already exists.',
         showConfirmButton: true,
-        confirmButtonColor: '#000',
+        confirmButtonColor: '#2C3038',
       });
-      document.getElementById('editModal').showModal();
+      editModal.showModal();
     } else {
-      document.getElementById('editModal').close();
-      // setCreateFormData({ firstName: '', lastName: '', phoneNumber: '' });
-      console.error('Something went wrong:' + result.message);
+      editModal.close();
+      console.error('Something went wrong:', result.message);
       Swal.fire({
         title: 'Error',
         icon: 'error',
         text: 'Unable to update tenant. Please check your connection and try again.',
         showConfirmButton: true,
-        confirmButtonColor: '#000',
+        confirmButtonColor: '#2C3038',
       });
+      editModal.showModal();
     }
   };
 
   // para kapag na click alam yung tenantID na e dedelete sa db
   const handleDeleteClick = (tenant) => {
     setDeleteTenantData(tenant);
-    document.getElementById('deleteModal').showModal();
+    deleteModal.showModal();
   };
 
   // submit delete form
@@ -173,7 +213,7 @@ function TenantPage() {
     const result = await removeTenant(deleteTenantData.tenantID);
 
     if (result.success) {
-      document.getElementById('deleteModal').close();
+      deleteModal.close();
       Swal.fire({
         title: 'Deleted!',
         icon: 'success',
@@ -181,23 +221,24 @@ function TenantPage() {
         timer: 1000,
         showConfirmButton: false,
       });
-    } else if (result.code === 'ER_ROW_IS_REFERENCED_2') {
-      document.getElementById('deleteModal').close();
+    } //check existing user roompage
+    else if (result.code === 'ER_ROW_IS_REFERENCED_2') {
+      deleteModal.close();
       await Swal.fire({
         title: 'Warning',
         icon: 'warning',
         text: 'This tenant is existing in roompage, cannot delete it for now.',
         showConfirmButton: true,
-        confirmButtonColor: '#000',
+        confirmButtonColor: '#2C3038',
       });
     } else {
-      console.error('Something went wrong:' + result.message);
+      console.error('Something went wrong:', result.message);
       Swal.fire({
         title: 'Error',
         icon: 'error',
         text: 'Unable to delete tenant. Please check your connection and try again.',
         showConfirmButton: true,
-        confirmButtonColor: '#000',
+        confirmButtonColor: '#2C3038',
       });
     }
   };
@@ -219,30 +260,20 @@ function TenantPage() {
           <div className="flex justify-between items-center sm:flex gap-30">
             <TenantSearchFilter search={search} setSearch={setSearch} />
             <button
-              className="btn border-none shadow-none btn-xs bg-[#2C3038] sm:btn-sm md:btn-md"
-              onClick={() => {
-                tenants.length < 8
-                  ? document.getElementById('addModal').showModal()
-                  : Swal.fire({
-                      title: 'Warning',
-                      icon: 'warning',
-                      text: 'Sorry, Cannot add tenant, Room is Full!',
-                      showConfirmButton: true,
-                      confirmButtonColor: '#000',
-                    });
-              }}
+              className="btn border-none shadow-none btn-xs hover:bg-black bg-[#2C3038] sm:btn-sm md:btn-md"
+              onClick={handleCreateClick}
             >
               <CirclePlus
                 size={16}
                 className="sm:w-4 sm:h-4 md:w-5 md:h-5 lg:w-6 lg:h-6"
               />
               <span className="sm:inline md:inline lg:inline text-[#FFFFFF] font-bold">
-                Add Tenant
+                Register Tenant
               </span>
             </button>
           </div>
         </div>
-        <div className="overflow-x-auto overflow-y-auto max-h-133.75 rounded-box border border-base-content/20 bg-[#Fff]">
+        <div className="overflow-x-auto overflow-y-auto max-h-133.75 rounded">
           <TenantTable
             filteredTenants={filteredTenants}
             handleEditClick={handleEditClick}
@@ -257,13 +288,14 @@ function TenantPage() {
           clearCreateButtonWhenClose={clearCreateButtonWhenClose}
           isCreateLoading={isCreateLoading}
           tenants={tenants}
-          errorPhone={errorPhone}
+          addPhoneError={addPhoneError}
         />
         <EditTenantModal
           handleEditSubmit={handleEditSubmit}
           editFormData={editFormData}
           handleEditChange={handleEditChange}
           isUpdateLoading={isUpdateLoading}
+          editPhoneError={editPhoneError}
         />
         <DeleteTenantModal
           handleDeleteSubmit={handleDeleteSubmit}

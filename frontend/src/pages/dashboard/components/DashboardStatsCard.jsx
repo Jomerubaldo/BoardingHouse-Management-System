@@ -1,6 +1,6 @@
 function DashboardStatsCard({ title, value, subTitle, icon, valueColor }) {
   return (
-    <div className="card border border-base-content/20 bg-[#282C34] text-primary-content w-auto md:card-md lg:card-lg xl:card-xl">
+    <div className="card rounded bg-[#282C34] hover:bg-black text-primary-content w-auto md:card-md lg:card-lg xl:card-xl">
       <div className="stat">
         <div className="stat-title text-[#FFFFFF] font-bold text-2xl">
           {title}

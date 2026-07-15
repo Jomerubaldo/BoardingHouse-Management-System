@@ -27,7 +27,7 @@ function MainLayout() {
           <label
             htmlFor="my-drawer-4"
             aria-label="open sidebar"
-            className="btn btn-square hover:bg-[#F4F4F5] bg-white border-none shadow-none"
+            className="btn btn-square hover:bg-[#2C3038] bg-white border-none shadow-none"
           >
             {isDrawerOpen ? (
               <PanelLeftClose color="#DC2626" size={16} />

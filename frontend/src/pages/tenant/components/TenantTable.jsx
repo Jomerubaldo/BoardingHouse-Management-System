@@ -6,16 +6,19 @@ function TenantTable({
   handleDeleteClick,
   isFetchLoading,
 }) {
+  const hasData = !isFetchLoading && filteredTenants.length > 0;
   return (
-    <table className="table table-pin-rows">
-      <thead>
-        <tr className="bg-[#2C3038]">
-          <th className="text-[#FFFFFE]">First Name</th>
-          <th className="text-[#FFFFFE]">Last Name</th>
-          <th className="text-[#FFFFFE]">Contact Number</th>
-          <th className="text-[#FFFFFE]">Actions</th>
-        </tr>
-      </thead>
+    <table className="table table-pin-rows bg-[#F4F4F5]">
+      {hasData && (
+        <thead>
+          <tr className="bg-[#2C3038]">
+            <th className="text-[#FFFFFE]">First Name</th>
+            <th className="text-[#FFFFFE]">Last Name</th>
+            <th className="text-[#FFFFFE]">Contact Number</th>
+            <th className="text-[#FFFFFE]">Actions</th>
+          </tr>
+        </thead>
+      )}
       <tbody>
         {isFetchLoading ? (
           <tr>
@@ -34,25 +37,31 @@ function TenantTable({
           </tr>
         ) : filteredTenants.length === 0 ? (
           <tr>
-            <td colSpan={4} className="text-center py-58 text-base-content/50">
+            <td colSpan={4} className="text-center text-lg py-58 text-black">
               Not found. Click “Add Tenant” to create one.
             </td>
           </tr>
         ) : (
           filteredTenants.map((tenantData) => (
-            <tr key={tenantData.tenantID}>
-              <td className="text-black">{tenantData.firstName}</td>
-              <td className="text-black">{tenantData.lastName}</td>
-              <td className="text-black">{tenantData.phoneNumber}</td>
-              <td className="flex gap-2">
+            <tr key={tenantData.tenantID} className='hover:bg-gray-200'>
+              <td className="text-[#404244] border-b border-[#2C3038] font-semibold">
+                {tenantData.firstName}
+              </td>
+              <td className="text-[#404244] border-b border-[#2C3038] font-semibold">
+                {tenantData.lastName}
+              </td>
+              <td className="text-[#404244] border-b border-[#2C3038] font-semibold">
+                {tenantData.phoneNumber}
+              </td>
+              <td className="flex gap-2 border-b border-[#2C3038]">
                 <button
-                  className="btn bg-[#2C3038] btn-xs"
+                  className="btn bg-gray-500 shadow-none border-none btn-xs hover:bg-gray-600"
                   onClick={() => handleEditClick(tenantData)}
                 >
                   <SquarePen size={15} />
                 </button>
                 <button
-                  className="btn btn-error btn-xs"
+                  className="btn bg-red-500 shadow-none border-none btn-xs hover:bg-red-600"
                   onClick={() => handleDeleteClick(tenantData)}
                 >
                   <Trash2 size={15} />
