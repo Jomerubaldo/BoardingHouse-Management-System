@@ -178,10 +178,23 @@ function RoomPage() {
     e.preventDefault();
     const result = await removeRoom(deleteRoomData.roomID);
     if (result.success) {
-      alert('Delete room successfully!');
+      Swal.fire({
+        title: 'Deleted!',
+        icon: 'success',
+        text: 'Room deleted successfully.',
+        timer: 1000,
+        showConfirmButton: false,
+      });
       deleteModal.close();
     } else {
-      alert('Something went wrong:', result.message);
+      console.error('Something went wrong:', result.message);
+      Swal.fire({
+        title: 'Error',
+        icon: 'error',
+        text: 'Unable to delete room. Please check your connection and try again.',
+        showConfirmButton: true,
+        confirmButtonColor: '#2C3038',
+      });
     }
   };
 
@@ -192,8 +205,10 @@ function RoomPage() {
   });
 
   const statusColor = {
-    Occupied: 'badge text-emerald-500 font-semibold text-xs',
-    Repairing: 'badge text-amber-500 font-semibold  text-xs',
+    Occupied:
+      'badge text-emerald-400 font-semibold text-xs bg-emerald-500/10  border-emerald-500/20 ',
+    Repairing:
+      'badge text-amber-400 font-semibold text-xs bg-amber-500/10 border-amber-500/20',
   };
 
   return (
