@@ -65,8 +65,7 @@ function RoomTable({
                     }
                     className={`
                     appearance-none
-                    bg-transparent
-                    border-0
+                    border
                     outline-none
                     ring-0
                     shadow-none
@@ -75,7 +74,7 @@ function RoomTable({
                     focus:outline-none
                     focus:ring-0
                     focus:shadow-none
-                    hover:cursor-pointer
+                    hover:cursor-pointer px-2
                     ${statusColor[roomData.roomStatus]} `}
                     style={{ WebkitAppearance: 'none', MozAppearance: 'none' }}
                   >
