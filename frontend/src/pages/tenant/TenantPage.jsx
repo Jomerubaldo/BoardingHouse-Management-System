@@ -21,7 +21,7 @@ function TenantPage() {
     isDeleteLoading,
   } = useTenant();
 
-  // modal variable
+  // show modal variable
   const addModal = document.getElementById('addModal');
   const editModal = document.getElementById('editModal');
   const deleteModal = document.getElementById('deleteModal');
