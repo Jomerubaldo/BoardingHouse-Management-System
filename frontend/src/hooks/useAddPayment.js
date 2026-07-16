@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import { createPayment } from '../api/paymentApi';
+import Swal from 'sweetalert2';
 
 export function useAddPayment() {
+  // show modal variable
+  const addPaymentModal = document.getElementById('addPaymentModal');
   const [isCreatePaymentLoading, setIsCreatePaymentLoading] = useState(false);
   // const [showSelectedRoom, setShowSelectedRoom] = useState([]);
   const [createPaymentFormData, setCreatePaymentFormData] = useState({
@@ -9,20 +12,6 @@ export function useAddPayment() {
     roomNumber: '',
     amountPayment: '',
   });
-
-  //fetch selection room for payment
-
-  // useEffect(() => {
-  //   const getRoomForSelection = async () => {
-  //     try {
-  //       const result = await selectionRooms();
-  //       setShowSelectedRoom(result);
-  //     } catch (err) {
-  //       console.error(err);
-  //     }
-  //   };
-  //   getRoomForSelection();
-  // }, []);
 
   const handlePaymentChange = (e) => {
     setCreatePaymentFormData({
@@ -32,24 +21,45 @@ export function useAddPayment() {
   };
 
   const handleCreateSubmit = async (e) => {
-    setIsCreatePaymentLoading(true);
     e.preventDefault();
+
+    setIsCreatePaymentLoading(true);
     try {
       const result = await createPayment(createPaymentFormData);
       if (result.success) {
-        alert(`Payment added successfully`);
+        Swal.fire({
+          title: 'Success',
+          icon: 'success',
+          text: 'Payment created successfully.',
+          showConfirmButton: false,
+          timer: 1000,
+        });
         setCreatePaymentFormData({
           tenantName: '',
           roomNumber: '',
           amountPayment: '',
         });
-        document.getElementById('addPaymentModal').close();
+        addPaymentModal.close();
       } else {
         console.error('Something went wrong:', result.message);
+        await Swal.fire({
+          title: 'Error',
+          icon: 'error',
+          text: 'Unable to create room. Please check your connection and try again.',
+          showConfirmButton: true,
+          confirmButtonColor: '#2C3038',
+        });
+        addPaymentModal.showModal();
       }
     } catch (err) {
       console.error('Error:', err);
-      alert('Cannot connect to server, Please check you connection');
+      await Swal.fire({
+        title: 'Connection Error',
+        icon: 'error',
+        text: 'Cannot connect to server. Please check your connection.',
+        showConfirmButton: true,
+        confirmButtonColor: '#2C3038',
+      });
     } finally {
       setIsCreatePaymentLoading(false);
     }
@@ -62,7 +72,7 @@ export function useAddPayment() {
       roomNumber: '',
       amountPayment: '',
     });
-    document.getElementById('addPaymentModal').close();
+    addPaymentModal.close();
   };
 
   return {
