@@ -32,6 +32,8 @@ function RoomPage() {
   const { tenants } = useTenantSelection();
   const [search, setSearch] = useState(''); // for filter tablelist
   const [deleteRoomData, setDeleteRoomData] = useState(null);
+
+  //handles
   const [createFormData, setCreateFormData] = useState({
     tenantID: '',
     roomNumber: '',

@@ -5,9 +5,12 @@ import Swal from 'sweetalert2';
 import React, { useState } from 'react';
 
 function CreatePaymentAction() {
+
+  // useHook payment
   const { addPayment } = useAddPayment();
   const addPaymentModal = document.getElementById('addPaymentModal');
 
+  // handle
   const [createPaymentFormData, setCreatePaymentFormData] = useState({
     tenantName: '',
     roomNumber: '',

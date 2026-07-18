@@ -43,7 +43,7 @@ function PaymentHistoryPage() {
           </div>
           <TotalRevenueDashCard getTotalRevenue={getTotalRevenue} />
         </div>
-        <div className="overflow-x-auto rounded max-h-133.75">
+        <div className="overflow-x-auto rounded max-h-130">
           <PaymentHistoryTable
             tableSearchPayment={tableSearchPayment}
             isFetchLoading={isFetchLoading}

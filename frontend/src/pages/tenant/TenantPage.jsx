@@ -34,7 +34,7 @@ function TenantPage() {
   // search filter in tablelist
   const [search, setSearch] = useState('');
 
-  // handles submit
+  // handles
   const [createFormData, setCreateFormData] = useState({
     firstName: '',
     lastName: '',
