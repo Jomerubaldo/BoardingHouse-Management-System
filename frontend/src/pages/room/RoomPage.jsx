@@ -6,22 +6,11 @@ import RoomTable from './components/RoomTable.jsx';
 import AddRoomModal from './components/AddRoomModal.jsx';
 import EditRoomModal from './components/EditRoomModal.jsx';
 import DeleteRoomModal from './components/DeleteRoomModal.jsx';
-import AddPaymentModal from './components/AddPaymentModal.jsx';
-import { useAddPayment } from '../../hooks/useAddPayment.js';
 import RoomSearchFilter from './components/RoomSearchFilter.jsx';
 import Swal from 'sweetalert2';
+import CreatePaymentAction from '../payment/components/CreatePaymentAction.jsx';
 
 function RoomPage() {
-  // payment useHooks
-  const {
-    showSelectedRoom,
-    handlePaymentChange,
-    handleCreateSubmit,
-    clearPaymentButtonWhenClose,
-    createPaymentFormData,
-    isCreatePaymentLoading,
-  } = useAddPayment();
-
   // room useHooks
   const {
     rooms,
@@ -235,18 +224,7 @@ function RoomPage() {
                   Create Room
                 </span>
               </button>
-              <button
-                className="btn bg-[#2C3038] font-bold border-none shadow-none hover:bg-black"
-                onClick={() =>
-                  document.getElementById('addPaymentModal').showModal()
-                }
-              >
-                <CirclePlus
-                  size={18}
-                  className="sm:w-4 sm:h-4 md:w-5 md:h-5 lg:w-6 lg:h-6"
-                />
-                Create Payment
-              </button>
+              <CreatePaymentAction />
             </div>
           </div>
         </div>
@@ -278,14 +256,6 @@ function RoomPage() {
         <DeleteRoomModal
           handleSubmitDelete={handleSubmitDelete}
           isDeleteLoading={isDeleteLoading}
-        />
-        <AddPaymentModal
-          showSelectedRoom={showSelectedRoom}
-          handleCreateChange={handlePaymentChange}
-          handleCreateSubmit={handleCreateSubmit}
-          clearPaymentButtonWhenClose={clearPaymentButtonWhenClose}
-          createPaymentFormData={createPaymentFormData}
-          isCreatePaymentLoading={isCreatePaymentLoading}
         />
       </div>
     </div>

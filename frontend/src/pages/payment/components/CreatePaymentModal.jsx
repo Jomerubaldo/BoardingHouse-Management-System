@@ -1,6 +1,6 @@
 import { Plus } from 'lucide-react';
 
-function AddPaymentModal({
+function CreatePaymentModal({
   handleCreateSubmit,
   handleCreateChange,
   createPaymentFormData,
@@ -19,22 +19,6 @@ function AddPaymentModal({
         <p className="py-4 text-black">Fill out the payment information</p>
         <form onSubmit={handleCreateSubmit} className="space-y-4">
           <div className="flex flex-col gap-1">
-            {/* <select
-              onChange={handleCreateChange}
-              value={createPaymentFormData.roomID}
-              name="roomID"
-              required
-              className="select w-full"
-            >
-              <option value="" disabled={true}>
-                Select room
-              </option>
-              {showSelectedRoom.map((room) => (
-                <option key={room.roomID} value={room.roomID}>
-                  {room.roomNumber}
-                </option>
-              ))}
-            </select> */}
             <label className="text-black text-xs font-semibold">
               Tenant name
             </label>
@@ -79,7 +63,10 @@ function AddPaymentModal({
             />
           </div>
           <div className="flex justify-end gap-3 pt-2">
-            <button type="submit" className="btn bg-blue-500 shadow-none border-none hover:bg-blue-600">
+            <button
+              type="submit"
+              className="btn bg-blue-500 shadow-none border-none hover:bg-blue-600"
+            >
               {isCreatePaymentLoading ? 'Processing...' : 'Save'}
             </button>
             <button
@@ -95,4 +82,4 @@ function AddPaymentModal({
     </dialog>
   );
 }
-export default AddPaymentModal;
+export default CreatePaymentModal;

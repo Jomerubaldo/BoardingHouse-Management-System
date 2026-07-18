@@ -23,7 +23,7 @@ function MainLayout() {
         onChange={(e) => setIsDrawerOpen(e.target.checked)}
       />
       <div className="drawer-content">
-        <nav className="navbar w-full border-b border-[#2C3038] bg-[#FFFFFF] flex gap-1">
+        <nav className="navbar w-full border-b border-[#2C3038] bg-[#FFFFFF] flex gap-1 fixed z-10">
           <label
             htmlFor="my-drawer-4"
             aria-label="open sidebar"
@@ -39,7 +39,7 @@ function MainLayout() {
             HouseMate Boarding House Management System
           </h2>
         </nav>
-        <div className="py-4">
+        <div className="py-4 pt-20">
           <Outlet />
         </div>
       </div>

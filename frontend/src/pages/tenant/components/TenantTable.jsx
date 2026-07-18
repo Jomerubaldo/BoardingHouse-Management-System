@@ -6,19 +6,16 @@ function TenantTable({
   handleDeleteClick,
   isFetchLoading,
 }) {
-  const hasData = !isFetchLoading && filteredTenants.length > 0;
   return (
     <table className="table table-pin-rows bg-[#F4F4F5]">
-      {hasData && (
-        <thead>
-          <tr className="bg-[#2C3038]">
-            <th className="text-[#FFFFFE]">First Name</th>
-            <th className="text-[#FFFFFE]">Last Name</th>
-            <th className="text-[#FFFFFE]">Contact Number</th>
-            <th className="text-[#FFFFFE]">Actions</th>
-          </tr>
-        </thead>
-      )}
+      <thead>
+        <tr className="bg-[#2C3038]">
+          <th className="text-[#FFFFFE]">First Name</th>
+          <th className="text-[#FFFFFE]">Last Name</th>
+          <th className="text-[#FFFFFE]">Contact Number</th>
+          <th className="text-[#FFFFFE]">Actions</th>
+        </tr>
+      </thead>
       <tbody>
         {isFetchLoading ? (
           <tr>
@@ -37,13 +34,13 @@ function TenantTable({
           </tr>
         ) : filteredTenants.length === 0 ? (
           <tr>
-            <td colSpan={4} className="text-center text-lg py-58 text-black">
+            <td colSpan={4} className="text-center py-58 text-black">
               Not found. Click “Add Tenant” to create one.
             </td>
           </tr>
         ) : (
           filteredTenants.map((tenantData) => (
-            <tr key={tenantData.tenantID} className='hover:bg-gray-200'>
+            <tr key={tenantData.tenantID} className="hover:bg-gray-200">
               <td className="text-[#404244] border-b border-[#2C3038] font-semibold">
                 {tenantData.firstName}
               </td>

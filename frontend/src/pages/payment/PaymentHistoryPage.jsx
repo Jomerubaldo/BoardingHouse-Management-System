@@ -1,33 +1,19 @@
 import { useEffect, useState } from 'react';
-import { getAllPaymentsHistory } from '../../api/paymentApi';
 import { totalRevenue } from '../../api/paymentApi.js';
 import TableSearchFilter from './components/TableSearchFilter.jsx';
 import TotalRevenueDashCard from './components/TotalRevenueDashCard.jsx';
 import PaymentHistoryTable from './components/PaymentHistoryTable.jsx';
+import { useAddPayment } from '../../hooks/useAddPayment.js';
+// need na dito call yung useAddPayment.js para magamit dito
 
 function PaymentHistoryPage() {
-  const [showPayment, setShowPayment] = useState([]);
+  const { paymentHistory, isFetchLoading } = useAddPayment();
+  // const [showPayment, setShowPayment] = useState([]);
   const [search, setSearch] = useState('');
   const [getTotalRevenue, setGetTotalRevenue] = useState(0);
-  const [isFetchLoading, setIsFetchLoading] = useState(false);
-
-  useEffect(() => {
-    const fetchViewPayment = async () => {
-      setIsFetchLoading(true);
-      try {
-        const result = await getAllPaymentsHistory();
-        setShowPayment(result);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setIsFetchLoading(false);
-      }
-    };
-    fetchViewPayment();
-  }, []);
 
   // searching filter tablePayment
-  const tableSearchPayment = showPayment.filter((payment) => {
+  const tableSearchPayment = paymentHistory.filter((payment) => {
     return payment.tenantName.toLowerCase().includes(search.toLowerCase());
   });
 

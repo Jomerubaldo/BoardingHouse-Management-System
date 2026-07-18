@@ -2,7 +2,7 @@ import { LoaderCircle } from 'lucide-react';
 
 function PaymentHistoryTable({ tableSearchPayment, isFetchLoading }) {
   return (
-    <table className="table table-pin-rows">
+    <table className="table table-pin-rows bg-[#F4F4F5]">
       <thead>
         <tr className="bg-[#2C3038]">
           <th className="text-[#FFFFFF]">Tenant Name</th>

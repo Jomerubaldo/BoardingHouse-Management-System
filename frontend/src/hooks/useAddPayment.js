@@ -1,85 +1,55 @@
-import { useState } from 'react';
-import { createPayment } from '../api/paymentApi';
-import Swal from 'sweetalert2';
+import { useEffect, useState } from 'react';
+import { createPayment, getAllPaymentsHistory } from '../api/paymentApi';
 
 export function useAddPayment() {
-  // show modal variable
-  const addPaymentModal = document.getElementById('addPaymentModal');
+  // loading state
   const [isCreatePaymentLoading, setIsCreatePaymentLoading] = useState(false);
-  // const [showSelectedRoom, setShowSelectedRoom] = useState([]);
-  const [createPaymentFormData, setCreatePaymentFormData] = useState({
-    tenantName: '',
-    roomNumber: '',
-    amountPayment: '',
-  });
+  const [isFetchLoading, setIsFetchLoading] = useState(false);
 
-  const handlePaymentChange = (e) => {
-    setCreatePaymentFormData({
-      ...createPaymentFormData,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const [paymentHistory, setPaymentHistory] = useState([]);
 
-  const handleCreateSubmit = async (e) => {
-    e.preventDefault();
-
+  // create payment
+  const addPayment = async (createPaymentFormData) => {
     setIsCreatePaymentLoading(true);
     try {
       const result = await createPayment(createPaymentFormData);
       if (result.success) {
-        Swal.fire({
-          title: 'Success',
-          icon: 'success',
-          text: 'Payment created successfully.',
-          showConfirmButton: false,
-          timer: 1000,
-        });
-        setCreatePaymentFormData({
-          tenantName: '',
-          roomNumber: '',
-          amountPayment: '',
-        });
-        addPaymentModal.close();
-      } else {
-        console.error('Something went wrong:', result.message);
-        await Swal.fire({
-          title: 'Error',
-          icon: 'error',
-          text: 'Unable to create room. Please check your connection and try again.',
-          showConfirmButton: true,
-          confirmButtonColor: '#2C3038',
-        });
-        addPaymentModal.showModal();
+        fetchViewPaymentHistory();
+        return result;
       }
     } catch (err) {
-      console.error('Error:', err);
-      await Swal.fire({
-        title: 'Connection Error',
-        icon: 'error',
-        text: 'Cannot connect to server. Please check your connection.',
-        showConfirmButton: true,
-        confirmButtonColor: '#2C3038',
-      });
+      console.error(err);
+      return {
+        success: false,
+        message:
+          'Cannot connect to server. Please check you internet connection',
+      };
     } finally {
       setIsCreatePaymentLoading(false);
     }
   };
 
-  const clearPaymentButtonWhenClose = (e) => {
-    e.preventDefault();
-    setCreatePaymentFormData({
-      tenantName: '',
-      roomNumber: '',
-      amountPayment: '',
-    });
-    addPaymentModal.close();
+  // get fetch payment history
+  const fetchViewPaymentHistory = async () => {
+    setIsFetchLoading(true);
+    try {
+      const result = await getAllPaymentsHistory();
+      setPaymentHistory(result);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsFetchLoading(false);
+    }
   };
+  useEffect(() => {
+    fetchViewPaymentHistory();
+  }, []);
 
   return {
-    handlePaymentChange,
-    handleCreateSubmit,
-    clearPaymentButtonWhenClose,
-    createPaymentFormData,
+    addPayment,
+    fetchViewPaymentHistory,
     isCreatePaymentLoading,
+    isFetchLoading,
+    paymentHistory,
   };
 }
