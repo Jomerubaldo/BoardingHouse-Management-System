@@ -4,7 +4,6 @@ import TableSearchFilter from './components/TableSearchFilter.jsx';
 import TotalRevenueDashCard from './components/TotalRevenueDashCard.jsx';
 import PaymentHistoryTable from './components/PaymentHistoryTable.jsx';
 import { useAddPayment } from '../../hooks/useAddPayment.js';
-// need na dito call yung useAddPayment.js para magamit dito
 
 function PaymentHistoryPage() {
   const { paymentHistory, isFetchLoading } = useAddPayment();
@@ -17,6 +16,7 @@ function PaymentHistoryPage() {
     return payment.tenantName.toLowerCase().includes(search.toLowerCase());
   });
 
+  // fetch total revenue
   useEffect(() => {
     const fetchTotalRevenue = async () => {
       try {
@@ -47,7 +47,6 @@ function PaymentHistoryPage() {
           <PaymentHistoryTable
             tableSearchPayment={tableSearchPayment}
             isFetchLoading={isFetchLoading}
-            tableSearchPayment={tableSearchPayment}
           />
         </div>
       </div>

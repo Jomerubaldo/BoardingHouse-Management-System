@@ -2,7 +2,7 @@ import { CirclePlus } from 'lucide-react';
 import { useAddPayment } from '../../../hooks/useAddPayment';
 import CreatePaymentModal from './CreatePaymentModal';
 import Swal from 'sweetalert2';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 function CreatePaymentAction() {
   const { addPayment } = useAddPayment();
@@ -63,7 +63,7 @@ function CreatePaymentAction() {
   };
 
   return (
-    <>
+    <React.Fragment>
       <button
         className="btn bg-[#2C3038] font-bold border-none shadow-none hover:bg-black"
         onClick={() => document.getElementById('addPaymentModal').showModal()}
@@ -80,7 +80,7 @@ function CreatePaymentAction() {
         createPaymentFormData={createPaymentFormData}
         clearPaymentButtonWhenClose={clearPaymentButtonWhenClose}
       />
-    </>
+    </React.Fragment>
   );
 }
 export default CreatePaymentAction;

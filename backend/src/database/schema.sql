@@ -1,0 +1,23 @@
+CREATE TABLE tblTenant(
+tenantID INT AUTO_INCREMENT PRIMARY KEY,
+firstName VARCHAR(50) NOT NULL,
+lastName VARCHAR(50) NOT NULL,
+phoneNumber VARCHAR(11) NOT NULL UNIQUE
+);
+
+CREATE TABLE tblRoom(
+roomID INT AUTO_INCREMENT PRIMARY KEY,
+tenantID INT NULL,
+roomNumber VARCHAR(20) NOT NULL UNIQUE,
+amountRent DECIMAL(10,2) NOT NULL,
+roomStatus ENUM('Occupied', 'Repairing') DEFAULT 'Occupied',
+FOREIGN KEY(tenantID) REFERENCES tblTenant(tenantID)
+);
+
+CREATE TABLE tblPayment(
+paymentID INT AUTO_INCREMENT PRIMARY KEY,
+datePayment DATE DEFAULT (CURRENT_DATE),
+tenantName VARCHAR(50) NOT NULL,
+roomNumber VARCHAR(50) NOT NULL,
+amountPayment DECIMAL (10,2)
+);
