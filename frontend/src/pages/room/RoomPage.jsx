@@ -215,7 +215,7 @@ function RoomPage() {
             <RoomSearchFilter search={search} setSearch={setSearch} />
             <div className="flex gap-3">
               <button
-                className="btn bg-[#2C3038] shadow-none border-none hover:bg-black"
+                className="btn bg-neutral shadow-none border-none hover:opacity-80"
                 onClick={handleCreateClick}
               >
                 <CirclePlus

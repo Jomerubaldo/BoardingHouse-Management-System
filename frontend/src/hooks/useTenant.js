@@ -8,10 +8,13 @@ import {
 
 export function useTenant() {
   // loading state
-  const [isCreateLoading, setIsCreateLoading] = useState(false);
-  const [isFetchLoading, setIsFetchLoading] = useState(false);
-  const [isUpdateLoading, setIsUpdateLoading] = useState(false);
-  const [isDeleteLoading, setIsDeleteLoading] = useState(false);
+  // need ng true para hindi sumabay yung
+  // Not found. Click “Add Tenant” to create one.
+  // kasi initial value ng filteredTenants.length ay empty array []
+  const [isCreateLoading, setIsCreateLoading] = useState(true);
+  const [isFetchLoading, setIsFetchLoading] = useState(true);
+  const [isUpdateLoading, setIsUpdateLoading] = useState(true);
+  const [isDeleteLoading, setIsDeleteLoading] = useState(true);
 
   // fetch data tenats
   const [tenants, setTenants] = useState([]);

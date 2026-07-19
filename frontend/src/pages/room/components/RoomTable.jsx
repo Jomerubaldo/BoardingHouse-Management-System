@@ -11,7 +11,7 @@ function RoomTable({
   return (
     <table className="table table-pin-rows bg-[#F4F4F5]">
       <thead>
-        <tr className="bg-[#2C3038]">
+        <tr className="bg-neutral">
           <th className="text-[#FFFFFF]">Tenant Name</th>
           <th className="text-[#FFFFFF]">Room</th>
           <th className="text-[#FFFFFF]">Rent</th>
@@ -26,19 +26,17 @@ function RoomTable({
               <div className="flex flex-col items-center justify-center gap-2">
                 <LoaderCircle
                   className="animate-spin"
-                  size={34}
+                  size={54}
                   color="#2C3038"
                 />
-                <span className="text-2xl text-[#2C3038]">
-                  Loading rooms...
-                </span>
+                <span className="text-[#2C3038]">Loading rooms...</span>
               </div>
             </td>
           </tr>
         ) : filteredRooms.length === 0 ? (
           <tr>
-            <td colSpan={5} className="text-center py-58 text-black">
-              Not found. Click “Add Room” to create one.
+            <td colSpan={5} className="text-center py-56 text-black">
+              <span>Not found. Click “Add Room” to create one.</span>
             </td>
           </tr>
         ) : (
@@ -83,13 +81,13 @@ function RoomTable({
               </td>
               <td className="flex gap-2 border-b border-[#2C3038]">
                 <button
-                  className="btn bg-gray-500 shadow-none border-none btn-xs hover:bg-gray-600"
+                  className="btn bg-neutral shadow-none border-none btn-xs hover:opacity-80"
                   onClick={() => handleEditClick(roomData)}
                 >
                   <SquarePen size={15} />
                 </button>
                 <button
-                  className="btn bg-red-500 shadow-none border-none btn-xs hover:bg-red-600"
+                  className="btn bg-error shadow-none border-none btn-xs hover:opacity-80"
                   onClick={() => handleDeleteClick(roomData)}
                 >
                   <Trash2 size={15} />

@@ -12,7 +12,7 @@ function AddRoomModal({
     <dialog id="addModal" className="modal modal-middle sm:modal-middle">
       <div className="modal-box bg-white shadow-none">
         <div className="flex items-center gap-2">
-          <span className="bg-blue-500 px-2 py-2 rounded-full">
+          <span className="bg-info px-2 py-2 rounded-full">
             <Plus color="#FFF" size={20} />
           </span>
           <h3 className="text-2xl font-bold text-black">Create Room</h3>
@@ -108,13 +108,13 @@ function AddRoomModal({
           <div className="flex justify-end gap-3 pt-2">
             <button
               type="submit"
-              className="btn bg-blue-500 shadow-none border-none hover:bg-blue-600"
+              className="btn bg-success shadow-none border-none hover:opacity-80"
             >
               {isCreateLoading ? 'Saving...' : 'Save'}
             </button>
             <button
               type="button"
-              className="btn bg-gray-500 shadow-none border-none hover:bg-gray-600"
+              className="btn bg-neutral shadow-none border-none hover:opacity-80"
               onClick={clearCreateButtonWhenClose}
             >
               Cancel

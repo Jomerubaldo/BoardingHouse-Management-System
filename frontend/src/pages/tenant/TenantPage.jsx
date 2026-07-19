@@ -260,7 +260,7 @@ function TenantPage() {
           <div className="flex justify-between items-center sm:flex gap-30">
             <TenantSearchFilter search={search} setSearch={setSearch} />
             <button
-              className="btn border-none shadow-none btn-xs hover:bg-black bg-[#2C3038] sm:btn-sm md:btn-md"
+              className="btn border-none shadow-none btn-xs hover:opacity-80 bg-[#2C3038] sm:btn-sm md:btn-md"
               onClick={handleCreateClick}
             >
               <CirclePlus

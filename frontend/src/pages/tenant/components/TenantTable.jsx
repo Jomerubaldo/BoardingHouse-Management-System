@@ -9,7 +9,7 @@ function TenantTable({
   return (
     <table className="table table-pin-rows bg-[#F4F4F5]">
       <thead>
-        <tr className="bg-[#2C3038]">
+        <tr className="bg-neutral">
           <th className="text-[#FFFFFE]">First Name</th>
           <th className="text-[#FFFFFE]">Last Name</th>
           <th className="text-[#FFFFFE]">Contact Number</th>
@@ -23,19 +23,17 @@ function TenantTable({
               <div className="flex flex-col items-center justify-center gap-2">
                 <LoaderCircle
                   className="animate-spin"
-                  size={34}
+                  size={54}
                   color="#2C3038"
                 />
-                <span className="text-2xl text-[#2C3038]">
-                  Loading tenants...
-                </span>
+                <span className="text-[#2C3038]">Loading tenants...</span>
               </div>
             </td>
           </tr>
         ) : filteredTenants.length === 0 ? (
           <tr>
-            <td colSpan={4} className="text-center py-58 text-black">
-              Not found. Click “Add Tenant” to create one.
+            <td colSpan={4} className="text-center py-56 text-black">
+              <span>Not found. Click “Add Tenant” to create one.</span>
             </td>
           </tr>
         ) : (
@@ -52,13 +50,13 @@ function TenantTable({
               </td>
               <td className="flex gap-2 border-b border-[#2C3038]">
                 <button
-                  className="btn bg-gray-500 shadow-none border-none btn-xs hover:bg-gray-600"
+                  className="btn bg-neutral shadow-none border-none btn-xs hover:opacity-80"
                   onClick={() => handleEditClick(tenantData)}
                 >
                   <SquarePen size={15} />
                 </button>
                 <button
-                  className="btn bg-red-500 shadow-none border-none btn-xs hover:bg-red-600"
+                  className="btn bg-error shadow-none border-none btn-xs hover:opacity-80"
                   onClick={() => handleDeleteClick(tenantData)}
                 >
                   <Trash2 size={15} />

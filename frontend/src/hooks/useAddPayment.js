@@ -3,6 +3,9 @@ import { createPayment, getAllPaymentsHistory } from '../api/paymentApi';
 
 export function useAddPayment() {
   // loading state
+  // need ng true para hindi sumabay yung
+  // Not found. Click “Add Payment” to create one.
+  // kasi initial value ng filteredRooms.length ay empty array []
   const [isCreatePaymentLoading, setIsCreatePaymentLoading] = useState(false);
   const [isFetchLoading, setIsFetchLoading] = useState(false);
 

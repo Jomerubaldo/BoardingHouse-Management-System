@@ -6,7 +6,7 @@ function TotalRevenueDashCard({ getTotalRevenue }) {
           Total Revenue
         </p>
         <div className="stat-value font-bold">
-          <span className="text-amber-300">₱ </span>
+          <span className="text-warning">₱ </span>
           {getTotalRevenue}
         </div>
       </div>

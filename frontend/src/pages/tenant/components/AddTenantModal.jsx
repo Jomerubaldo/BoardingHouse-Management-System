@@ -12,7 +12,7 @@ function AddTenantModal({
     <dialog id="addModal" className="modal modal-middle sm:modal-middle">
       <div className="modal-box bg-white shadow-none">
         <div className="flex items-center gap-2">
-          <span className="bg-blue-500 rounded-full px-2 py-2">
+          <span className="bg-info rounded-full px-2 py-2">
             <Plus color="#FFF" size={20} />
           </span>
           <h3 className="text-2xl text-black font-bold">New Tenant</h3>
@@ -63,19 +63,19 @@ function AddTenantModal({
               [&::-webkit-inner-spin-button]:appearance-none"
             />
             {addPhoneError && (
-              <span className="text-red-500 text-xs">{addPhoneError}</span>
+              <span className="text-error text-xs">{addPhoneError}</span>
             )}
           </div>
           <div className="flex justify-end gap-3 pt-2">
             <button
               type="submit"
-              className="btn bg-blue-500 border-none shadow-none hover:bg-blue-600"
+              className="btn bg-success border-none shadow-none hover:opacity-80"
             >
               {isCreateLoading ? 'Saving...' : 'Save'}
             </button>
             <button
               type="button"
-              className="btn bg-gray-500 border-none shadow-none hover:bg-gray-600"
+              className="btn bg-ghost border-none shadow-none hover:opacity-80"
               onClick={clearCreateButtonWhenClose}
             >
               Cancel

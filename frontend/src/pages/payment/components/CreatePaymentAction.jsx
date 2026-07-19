@@ -5,7 +5,6 @@ import Swal from 'sweetalert2';
 import React, { useState } from 'react';
 
 function CreatePaymentAction() {
-
   // useHook payment
   const { addPayment } = useAddPayment();
   const addPaymentModal = document.getElementById('addPaymentModal');
@@ -68,7 +67,7 @@ function CreatePaymentAction() {
   return (
     <React.Fragment>
       <button
-        className="btn bg-[#2C3038] font-bold border-none shadow-none hover:bg-black"
+        className="btn bg-neutral font-bold border-none shadow-none hover:opacity-80"
         onClick={() => document.getElementById('addPaymentModal').showModal()}
       >
         <CirclePlus
