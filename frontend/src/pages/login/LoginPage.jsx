@@ -5,7 +5,7 @@ function LoginPage() {
     <div className="bg-[#F4F4F5] w-full min-h-screen flex items-center justify-center px-4 sm:px-10">
       <div className="card flex-col sm:flex-row bg-[#2C3038] shadow-sm w-full max-w-3xl min-h-96">
         {/* Image side - width constrained, object-cover para hindi ma-distort */}
-        <figure className="sm:w-96 w-full h-48 sm:h-auto rounded-r-none">
+        <figure className="sm:w-96 w-full h-48 sm:h-auto rounded-md rounded-r-none">
           <img
             src={LoginImageHouse}
             alt="Modern house exterior"
@@ -22,7 +22,7 @@ function LoginPage() {
           </p>
 
           <form>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-3">
               <fieldset className="fieldset">
                 <legend className="fieldset-legend text-gray-200">
                   <label htmlFor="username">Username</label>
@@ -96,14 +96,6 @@ function LoginPage() {
                   />
                 </label>
               </fieldset>
-
-              <button
-                type="submit"
-                className="btn btn-accent font-bold shadow-none border-none text-white"
-              >
-                Login
-              </button>
-
               <div className="flex justify-between mt-1">
                 <p className="text-xs text-gray-300">
                   Don't have an account?{' '}
@@ -118,6 +110,12 @@ function LoginPage() {
                   Forgot password?
                 </a>
               </div>
+              <button
+                type="submit"
+                className="btn btn-accent font-bold shadow-none border-none text-white"
+              >
+                Login
+              </button>
             </div>
           </form>
         </div>
