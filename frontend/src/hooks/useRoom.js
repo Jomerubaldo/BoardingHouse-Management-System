@@ -13,10 +13,10 @@ export function useRoom() {
   // need ng true para hindi sumabay yung
   // Not found. Click “Add Room” to create one.
   // kasi initial value ng filteredRooms.length ay empty array []
-  const [isCreateLoading, setIsCreateLoading] = useState(true);
+  const [isCreateLoading, setIsCreateLoading] = useState(false);
   const [isFetchLoading, setIsFetchLoading] = useState(true);
-  const [isUpdateLoading, setIsUpdateLoading] = useState(true);
-  const [isDeleteLoading, setIsDeleteLoading] = useState(true);
+  const [isUpdateLoading, setIsUpdateLoading] = useState(false);
+  const [isDeleteLoading, setIsDeleteLoading] = useState(false);
 
   const [rooms, setRooms] = useState([]);
 

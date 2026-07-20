@@ -49,7 +49,7 @@ function LoginPage() {
                     name="username"
                     type="text"
                     required
-                    placeholder="Username"
+                    placeholder="Enter your username"
                     pattern="[A-Za-z][A-Za-z0-9\-]*"
                     minLength="3"
                     maxLength="30"
@@ -89,7 +89,7 @@ function LoginPage() {
                     name="password"
                     type="password"
                     required
-                    placeholder="Password"
+                    placeholder="Enter your password"
                     minLength="8"
                     pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                     title="Must be more than 8 characters, including number, lowercase letter, uppercase letter"
