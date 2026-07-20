@@ -75,8 +75,18 @@ function RoomTable({
                     ${statusColor[roomData.roomStatus]} `}
                   style={{ WebkitAppearance: 'none', MozAppearance: 'none' }}
                 >
-                  <option value="Occupied">Occupied</option>
-                  <option value="Repairing">Repairing</option>
+                  <option
+                    value="Occupied"
+                    className="text-emerald-400 font-semibold text-xs bg-emerald-500/10  border-emerald-500/20"
+                  >
+                    Occupied
+                  </option>
+                  <option
+                    value="Repairing"
+                    className="text-amber-400 font-semibold text-xs bg-amber-500/10 border-amber-500/20"
+                  >
+                    Repairing
+                  </option>
                 </select>
               </td>
               <td className="flex gap-2 border-b border-[#2C3038]">
