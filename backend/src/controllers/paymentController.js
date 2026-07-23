@@ -17,7 +17,6 @@ export const createPayment = (req, res) => {
       id: result.insertId,
     });
   });
-  // });
 };
 
 // getAllHistory

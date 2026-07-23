@@ -9,9 +9,11 @@ import {
   PanelLeftClose,
 } from 'lucide-react';
 import { useState } from 'react';
+import { useAuth } from '../../context/AuthContext';
 
 function MainLayout() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const { logout } = useAuth();
 
   return (
     <div className="drawer lg:drawer-open bg-[#F4F4F5]">
@@ -38,6 +40,9 @@ function MainLayout() {
           <h2 className="text-[#404244] text-lg font-semibold">
             HouseMate Boarding House Management System
           </h2>
+          <p className="text-black" onClick={logout}>
+            Logout
+          </p>
         </nav>
         <div className="py-4 pt-20">
           <Outlet />
