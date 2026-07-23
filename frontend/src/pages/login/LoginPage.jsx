@@ -2,7 +2,7 @@ import { adminAuth } from '../../api/adminApi';
 import LoginImageHouse from '../../assets/download.jpg';
 import { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 // gumawa ako ng useState na boolean to comfirm yung kapag result.successs is true ang binato is
 // makakapag access sa outlet pero kapag false naman is nanavigate padin niya ako sa login
 // ngayon problema ko is paano ko siya ibabato yung login na may boolean ngayon papunta sa
@@ -13,7 +13,7 @@ function LoginPage() {
   const navigation = useNavigate();
 
   const [data, setData] = useState({ username: '', password: '' });
-  const { setIsLogin } = useAuth();
+  const { isLogin, setIsLogin } = useAuth();
   const handleChangeAdminAuth = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
@@ -31,6 +31,12 @@ function LoginPage() {
       alert(result.message || 'Invalid username or password');
     }
   };
+
+  // check if naka login then kahit mag type ng url sa taas ng /login is
+  // hindi siya madirect don kasi chenecheck niya na naka login kapa
+  if (isLogin) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <div className="bg-black w-full min-h-screen flex items-center justify-center px-4 sm:px-10">
