@@ -7,6 +7,8 @@ import {
   Users,
   PanelLeftOpen,
   PanelLeftClose,
+  LogOut,
+  Settings,
 } from 'lucide-react';
 import { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
@@ -25,7 +27,7 @@ function MainLayout() {
         onChange={(e) => setIsDrawerOpen(e.target.checked)}
       />
       <div className="drawer-content">
-        <nav className="navbar w-full border-b border-[#2C3038] bg-[#FFFFFF] flex gap-1 fixed z-10">
+        <nav className="navbar w-full border-b border-[#2C3038] bg-[#FFFFFF] flex gap-1 sticky top-0 z-10">
           <label
             htmlFor="my-drawer-4"
             aria-label="open sidebar"
@@ -40,11 +42,42 @@ function MainLayout() {
           <h2 className="text-[#404244] text-lg font-semibold">
             HouseMate Boarding House Management System
           </h2>
-          <p className="text-black" onClick={logout}>
-            Logout
-          </p>
+          <div className="flex items-stretch ml-auto">
+            <div className="dropdown dropdown-end">
+              <div
+                tabIndex={0}
+                role="button"
+                className=" btn hover:bg-[#2C3038] rounded-full shadow-none btn-sm font-bold"
+              >
+                J
+              </div>
+              <ul
+                tabIndex="-1"
+                className="menu dropdown-content bg-base-200 rounded-box z-1 mt-2 w-52 p-2 shadow-sm font-bold"
+              >
+                <li>
+                  <button
+                    onClick={logout}
+                    className="flex justify-between items-center"
+                  >
+                    <span>Logout</span>
+                    <LogOut size={18} />
+                  </button>
+                </li>
+                <li>
+                  <a
+                    onClick={() => alert('Opps!! Under construction')}
+                    className="flex justify-between items-center"
+                  >
+                    <span>Settings</span>
+                    <Settings size={18} />
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
         </nav>
-        <div className="py-4 pt-20">
+        <div className="py-4">
           <Outlet />
         </div>
       </div>

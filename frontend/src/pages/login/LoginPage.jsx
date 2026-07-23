@@ -3,10 +3,6 @@ import LoginImageHouse from '../../assets/download.jpg';
 import { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { Navigate, useNavigate } from 'react-router-dom';
-// gumawa ako ng useState na boolean to comfirm yung kapag result.successs is true ang binato is
-// makakapag access sa outlet pero kapag false naman is nanavigate padin niya ako sa login
-// ngayon problema ko is paano ko siya ibabato yung login na may boolean ngayon papunta sa
-// protectedroutes kasi meron ako don logic na kapag true for outlet siya kapag false for navigate to login ulit
 
 function LoginPage() {
   // initialize navigate to used if true login
@@ -24,7 +20,7 @@ function LoginPage() {
     const result = await adminAuth(data);
     console.log(result);
     if (result.success) {
-      alert('Successfully Login!');
+      alert('Login Successfully!');
       setIsLogin(true);
       navigation('/');
     } else {
@@ -39,7 +35,7 @@ function LoginPage() {
   }
 
   return (
-    <div className="bg-black w-full min-h-screen flex items-center justify-center px-4 sm:px-10">
+    <div className="bg-[#F4F4F5] w-full min-h-screen flex items-center justify-center px-4 sm:px-10">
       <div className="card flex-col sm:flex-row bg-[#2C3038] shadow-sm w-full max-w-3xl min-h-96">
         {/* Image side - width constrained, object-cover para hindi ma-distort */}
         <figure className="sm:w-96 w-full h-48 sm:h-auto rounded-md rounded-r-none">
@@ -133,11 +129,16 @@ function LoginPage() {
               <div className="flex justify-between">
                 <p className="text-xs text-gray-300">
                   Don't have an account?{' '}
-                  <a href="#signup" className="text-accent underline">
+                  <a
+                    onClick={() => alert('Opps!! Under construction')}
+                    href="#signup"
+                    className="text-accent underline"
+                  >
                     Sign Up
                   </a>
                 </p>
                 <a
+                  onClick={() => alert('Opps!! Under construction')}
                   href="#forgetPassword"
                   className="text-xs underline text-accent"
                 >
