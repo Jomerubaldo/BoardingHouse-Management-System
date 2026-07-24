@@ -32,8 +32,8 @@ function PaymentHistoryTable({ tableSearchPayment, isFetchLoading }) {
             </td>
           </tr>
         ) : (
-          tableSearchPayment.map((payment, index) => (
-            <tr key={index} className="hover:bg-gray-200">
+          tableSearchPayment.map((payment) => (
+            <tr key={payment.paymentID} className="hover:bg-gray-200">
               <td className="text-[#404244] border-b border-[#2C3038] font-semibold">
                 {payment.tenantName}
               </td>

@@ -5,27 +5,42 @@ import { useAuth } from '../../context/AuthContext';
 import { Navigate, useNavigate } from 'react-router-dom';
 
 function LoginPage() {
+  // lagayan ng error kapag invalid user or password
+  const [error, setError] = useState('');
+  // loading state
+  const [isLoginLoading, setIsLoginLoading] = useState(false);
   // initialize navigate to used if true login
   const navigation = useNavigate();
 
   const [data, setData] = useState({ username: '', password: '' });
   const { isLogin, setIsLogin } = useAuth();
+
   const handleChangeAdminAuth = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
+
+    // check lang dito less na sa 1 ang string or delete
+    // is mag empty string na mawawala na erro message
+    if (
+      (e.target.name === 'username' && e.target.value.length === 0) ||
+      (e.target.name === 'password' && e.target.value.length === 0)
+    ) {
+      setError('');
+    }
   };
 
   const handleSubmitAdminAuth = async (e) => {
     e.preventDefault();
 
+    setIsLoginLoading(true);
     const result = await adminAuth(data);
     console.log(result);
     if (result.success) {
-      alert('Login Successfully!');
       setIsLogin(true);
       navigation('/');
     } else {
-      alert(result.message || 'Invalid username or password');
+      setError('Invalid username or password!');
     }
+    setIsLoginLoading(false);
   };
 
   // check if naka login then kahit mag type ng url sa taas ng /login is
@@ -53,7 +68,7 @@ function LoginPage() {
           <p className="text-center font-semibold text-gray-300">
             Enter your login credentials
           </p>
-
+          <p className="min-h-5 text-sm text-red-500 text-center">{error}</p>
           <form onSubmit={handleSubmitAdminAuth}>
             <div className="flex flex-col gap-3">
               <fieldset className="fieldset">
@@ -130,7 +145,7 @@ function LoginPage() {
                 <p className="text-xs text-gray-300">
                   Don't have an account?{' '}
                   <a
-                    onClick={() => alert('Opps!! Under construction')}
+                    onClick={() => alert('This feature is under development.')}
                     href="#signup"
                     className="text-accent underline"
                   >
@@ -138,7 +153,7 @@ function LoginPage() {
                   </a>
                 </p>
                 <a
-                  onClick={() => alert('Opps!! Under construction')}
+                  onClick={() => alert('This feature is under development.')}
                   href="#forgetPassword"
                   className="text-xs underline text-accent"
                 >
@@ -149,7 +164,7 @@ function LoginPage() {
                 type="submit"
                 className="btn btn-accent font-bold shadow-none border-none text-white mt-3"
               >
-                Login
+                {isLoginLoading ? 'Login...' : 'Login'}
               </button>
             </div>
           </form>

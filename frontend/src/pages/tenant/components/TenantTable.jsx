@@ -12,7 +12,7 @@ function TenantTable({
         <tr className="bg-neutral">
           <th className="text-[#FFFFFE]">First Name</th>
           <th className="text-[#FFFFFE]">Last Name</th>
-          <th className="text-[#FFFFFE]">Contact Number</th>
+          <th className="text-[#FFFFFE]">Contact</th>
           <th className="text-[#FFFFFE]">Actions</th>
         </tr>
       </thead>
