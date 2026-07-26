@@ -33,7 +33,6 @@ function LoginPage() {
 
     setIsLoginLoading(true);
     const result = await adminAuth(data);
-    console.log(result);
     if (result.success) {
       setIsLogin(true);
       navigation('/');
@@ -75,7 +74,7 @@ function LoginPage() {
                 <legend className="fieldset-legend text-gray-200">
                   <label htmlFor="username">Username</label>
                 </legend>
-                <label className="input validator w-full focus-within:outline-none">
+                <label className="input w-full focus-within:outline-none">
                   <svg
                     className="h-[1em] opacity-50"
                     xmlns="http://www.w3.org/2000/svg"
@@ -108,7 +107,7 @@ function LoginPage() {
                 <legend className="fieldset-legend text-gray-200">
                   <label htmlFor="password">Password</label>
                 </legend>
-                <label className="input validator w-full focus-within:outline-none">
+                <label className="input w-full focus-within:outline-none">
                   <svg
                     className="h-[1em] opacity-50"
                     xmlns="http://www.w3.org/2000/svg"

@@ -8,6 +8,7 @@ const password = 'admin1';
 
 const seedAdmin = async () => {
   try {
+    // hash password
     const hashPassword = await bcrypt.hash(password, saltRounds);
 
     const sql = `INSERT INTO admin (username, password) VALUES (?, ?) `;
