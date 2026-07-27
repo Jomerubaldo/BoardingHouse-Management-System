@@ -10,7 +10,7 @@ function AddRoomModal({
 }) {
   return (
     <dialog id="addModal" className="modal modal-middle sm:modal-middle">
-      <div className="modal-box bg-white shadow-none">
+      <div className="modal-box bg-white shadow-none rounded-sm">
         <div className="flex items-center gap-2">
           <span className="bg-info px-2 py-2 rounded-full">
             <Plus color="#FFF" size={20} />
@@ -27,7 +27,7 @@ function AddRoomModal({
               name="tenantID"
               value={createFormData.tenantID}
               onChange={handleCreateChange}
-              className="select w-full bg-white border-black text-black"
+              className="select w-full bg-white border-black text-black rounded-sm"
             >
               <option disabled={true} value="">
                 Select tenant
@@ -36,7 +36,7 @@ function AddRoomModal({
                 <option
                   key={tenant.tenantID}
                   value={tenant.tenantID}
-                  className="hover:bg-gray-200"
+                  className="hover:bg-gray-200 rounded-sm"
                 >
                   {tenant.firstName} {tenant.lastName}
                 </option>
@@ -49,33 +49,33 @@ function AddRoomModal({
               name="roomNumber"
               value={createFormData.roomNumber}
               onChange={handleCreateChange}
-              className="select w-full bg-white text-black border-black"
+              className="select w-full bg-white text-black border-black rounded-sm"
             >
               <option disabled={true} value="">
                 Select room
               </option>
-              <option value="Room 1" className="hover:bg-gray-200">
+              <option value="Room 1" className="hover:bg-gray-200 rounded-sm">
                 Room 1
               </option>
-              <option value="Room 2" className="hover:bg-gray-200">
+              <option value="Room 2" className="hover:bg-gray-200 rounded-sm">
                 Room 2
               </option>
-              <option value="Room 3" className="hover:bg-gray-200">
+              <option value="Room 3" className="hover:bg-gray-200 rounded-sm">
                 Room 3
               </option>
-              <option value="Room 4" className="hover:bg-gray-200">
+              <option value="Room 4" className="hover:bg-gray-200 rounded-sm">
                 Room 4
               </option>
-              <option value="Room 5" className="hover:bg-gray-200">
+              <option value="Room 5" className="hover:bg-gray-200 rounded-sm">
                 Room 5
               </option>
-              <option value="Room 6" className="hover:bg-gray-200">
+              <option value="Room 6" className="hover:bg-gray-200 rounded-sm">
                 Room 6
               </option>
-              <option value="Room 7" className="hover:bg-gray-200">
+              <option value="Room 7" className="hover:bg-gray-200 rounded-sm">
                 Room 7
               </option>
-              <option value="Room 8" className="hover:bg-gray-200">
+              <option value="Room 8" className="hover:bg-gray-200 rounded-sm">
                 Room 8
               </option>
             </select>
@@ -86,21 +86,21 @@ function AddRoomModal({
               name="amountRent"
               value={createFormData.amountRent}
               onChange={handleCreateChange}
-              className="select w-full bg-white border-black text-black"
+              className="select w-full bg-white border-black text-black rounded-sm"
             >
               <option disabled={true} value="">
                 Select rent
               </option>
-              <option value="750.00" className="hover:bg-gray-200">
+              <option value="750.00" className="hover:bg-gray-200 rounded-sm">
                 750.00
               </option>
-              <option value="1500.00" className="hover:bg-gray-200">
+              <option value="1500.00" className="hover:bg-gray-200 rounded-sm">
                 1500.00
               </option>
-              <option value="2000.00" className="hover:bg-gray-200">
+              <option value="2000.00" className="hover:bg-gray-200 rounded-sm">
                 2000.00
               </option>
-              <option value="5000.00" className="hover:bg-gray-200">
+              <option value="5000.00" className="hover:bg-gray-200 rounded-sm">
                 5000.00
               </option>
             </select>
@@ -108,13 +108,13 @@ function AddRoomModal({
           <div className="flex justify-end gap-3 pt-2">
             <button
               type="submit"
-              className="btn bg-success shadow-none border-none hover:opacity-80"
+              className="btn hover:bg-success shadow-none border-none bg-success/80 rounded-sm"
             >
               {isCreateLoading ? 'Saving...' : 'Save'}
             </button>
             <button
               type="button"
-              className="btn bg-neutral shadow-none border-none hover:opacity-80"
+              className="btn bg-[#2C3038] shadow-none border-none hover:bg-black rounded-sm"
               onClick={clearCreateButtonWhenClose}
             >
               Cancel

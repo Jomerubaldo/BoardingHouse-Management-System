@@ -9,7 +9,7 @@ function CreatePaymentModal({
 }) {
   return (
     <dialog id="addPaymentModal" className="modal modal-middle sm:modal-middle">
-      <div className="modal-box bg-white shadow-none">
+      <div className="modal-box bg-white shadow-none rounded-sm">
         <div className="flex items-center gap-2">
           <span className="bg-info px-2 py-2 rounded-full">
             <Plus color="#FFF" size={20} />
@@ -29,7 +29,7 @@ function CreatePaymentModal({
               type="text"
               name="tenantName"
               placeholder="Tenant name..."
-              className="input input-border w-full bg-white border-black text-black focus:outline-none"
+              className="input input-border w-full bg-white border-black text-black focus:outline-none rounded-sm"
             />
           </div>
           <div className="flex flex-col gap-1">
@@ -43,7 +43,7 @@ function CreatePaymentModal({
               type="text"
               name="roomNumber"
               placeholder="Room number..."
-              className="input input-border w-full bg-white border-black text-black focus:outline-none"
+              className="input input-border w-full bg-white border-black text-black focus:outline-none rounded-sm"
             />
           </div>
           <div className="flex flex-col gap-1">
@@ -57,7 +57,7 @@ function CreatePaymentModal({
               type="number"
               name="amountPayment"
               placeholder="Amount..."
-              className="input input-bordered w-full bg-white border-black text-black focus:outline-none [appearance:textfield] 
+              className="input input-bordered w-full bg-white border-black text-black focus:outline-none rounded-sm [appearance:textfield] 
               [&::-webkit-outer-spin-button]:appearance-none 
               [&::-webkit-inner-spin-button]:appearance-none"
             />
@@ -65,13 +65,13 @@ function CreatePaymentModal({
           <div className="flex justify-end gap-3 pt-2">
             <button
               type="submit"
-              className="btn bg-success shadow-none border-none hover:opacity-80"
+              className="btn hover:bg-success shadow-none border-none bg-success/80 rounded-sm"
             >
               {isCreatePaymentLoading ? 'Processing...' : 'Save'}
             </button>
             <button
               type="button"
-              className="btn bg-neutral shadow-none border-none hover:opacity-80"
+              className="btn bg-[#2C3038] shadow-none border-none hover:bg-black rounded-sm"
               onClick={clearPaymentButtonWhenClose}
             >
               Cancel

@@ -3,9 +3,9 @@ import { Trash2 } from 'lucide-react';
 function DeleteRoomModal({ handleSubmitDelete, isDeleteLoading }) {
   return (
     <dialog id="deleteModal" className="modal modal-bottom sm:modal-middle">
-      <div className="modal-box bg-white shadow-none">
+      <div className="modal-box bg-white shadow-none rounded-sm">
         <div className="flex items-center gap-2">
-          <span className="bg-error px-2 py-2 rounded-full">
+          <span className="bg-red-500 px-2 py-2 rounded-full">
             <Trash2 color="#FFF" size={20} />
           </span>
           <h3 className="text-2xl font-bold text-black">Delete Confirmation</h3>
@@ -16,14 +16,14 @@ function DeleteRoomModal({ handleSubmitDelete, isDeleteLoading }) {
             <div className="flex justify-end gap-3 pt-2">
               <button
                 type="submit"
-                className="btn bg-error shadow-none border-none hover:opacity-80"
+                className="btn bg-red-500 shadow-none border-none hover:bg-red-600 rounded-sm"
               >
                 {isDeleteLoading ? 'Deleting...' : 'Yes, Delete it'}
               </button>
               <button
                 onClick={() => document.getElementById('deleteModal').close()}
                 type="button"
-                className="btn bg-neutral shadow-none border-none hover:opacity-80"
+                className="btn bg-[#2C3038] shadow-none border-none hover:bg-black rounded-sm"
               >
                 Cancel
               </button>

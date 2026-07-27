@@ -1,4 +1,4 @@
-import { LoaderCircle, SquarePen, Trash2 } from 'lucide-react';
+import { LoaderCircle } from 'lucide-react';
 
 function TenantTable({
   filteredTenants,
@@ -9,7 +9,7 @@ function TenantTable({
   return (
     <table className="table table-pin-rows bg-[#F4F4F5]">
       <thead>
-        <tr className="bg-neutral">
+        <tr className="bg-[#2C3038]">
           <th className="text-[#FFFFFE]">First Name</th>
           <th className="text-[#FFFFFE]">Last Name</th>
           <th className="text-[#FFFFFE]">Contact</th>
@@ -32,7 +32,7 @@ function TenantTable({
           </tr>
         ) : filteredTenants.length === 0 ? (
           <tr>
-            <td colSpan={4} className="text-center py-56 text-black">
+            <td colSpan={4} className="text-center py-56 text-[#2C3038]">
               <span>Not found. Click “Add Tenant” to create one.</span>
             </td>
           </tr>
@@ -50,16 +50,16 @@ function TenantTable({
               </td>
               <td className="flex gap-2 border-b border-[#2C3038]">
                 <button
-                  className="btn bg-neutral shadow-none border-none btn-xs hover:opacity-80"
+                  className="btn shadow-none border-none text-xs btn-xs bg-gray-500 hover:bg-gray-600 rounded-sm"
                   onClick={() => handleEditClick(tenantData)}
                 >
-                  <SquarePen size={15} />
+                  Edit
                 </button>
                 <button
-                  className="btn bg-error shadow-none border-none btn-xs hover:opacity-80"
+                  className="btn shadow-none border-none bg-red-500 text-xs hover:bg-red-600 btn-xs rounded-sm"
                   onClick={() => handleDeleteClick(tenantData)}
                 >
-                  <Trash2 size={15} />
+                  Delete
                 </button>
               </td>
             </tr>

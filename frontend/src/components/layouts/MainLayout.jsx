@@ -31,43 +31,43 @@ function MainLayout() {
           <label
             htmlFor="my-drawer-4"
             aria-label="open sidebar"
-            className="btn btn-square hover:bg-[#2C3038] bg-white border-none shadow-none"
+            className="m-3 cursor-pointer"
           >
             {isDrawerOpen ? (
-              <PanelLeftClose color="#DC2626" size={16} />
+              <PanelLeftClose color="#DC2626" size={20} />
             ) : (
-              <PanelLeftOpen color="#2cb67d" size={16} />
+              <PanelLeftOpen color="#2cb67d" size={20} />
             )}
           </label>
-          <h2 className="text-[#404244] text-lg font-semibold">
+          {/* <h2 className="text-[#404244] text-lg font-semibold">
             HouseMate Boarding House Management System
-          </h2>
+          </h2> */}
           <div className="flex items-stretch ml-auto">
             <div className="dropdown dropdown-end">
               <div
                 tabIndex={0}
                 role="button"
-                className=" btn hover:bg-[#2C3038] rounded-full shadow-none btn-sm font-bold"
+                className=" btn hover:bg-black bg-[#2C3038] rounded-full shadow-none btn-sm font-bold mr-3"
               >
                 J
               </div>
               <ul
                 tabIndex="-1"
-                className="menu dropdown-content bg-base-200 rounded-box z-1 mt-2 w-52 p-2 shadow-sm font-bold"
+                className="menu dropdown-content bg-base-200 rounded-sm z-1 mt-2 w-52 p-2 shadow-sm font-bold"
               >
                 <li>
                   <button
                     onClick={logout}
-                    className="flex justify-between items-center"
+                    className="flex justify-between items-center rounded-sm"
                   >
-                    <span>Logout</span>
-                    <LogOut size={18} />
+                    <span className="text-red-500">Logout</span>
+                    <LogOut color="red" size={18} />
                   </button>
                 </li>
                 <li>
                   <a
                     onClick={() => alert('Opps!! Under construction')}
-                    className="flex justify-between items-center"
+                    className="flex justify-between items-center rounded-sm"
                   >
                     <span>Settings</span>
                     <Settings size={18} />
@@ -89,15 +89,15 @@ function MainLayout() {
           className="drawer-overlay"
         ></label>
         <div className="flex min-h-full flex-col items-start bg-[#2C3038] is-drawer-close:w-14 is-drawer-open:w-64">
-          <ul className="menu w-full grow gap-2 text-md">
+          <ul className="menu w-full grow gap-2 text-md pt-4">
             <li>
-              <NavLink to="/">
+              <NavLink to="/" className="rounded-none">
                 <button
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center gap-3"
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center gap-3 rounded-none"
                   data-tip="Dashboard"
                 >
                   <LayoutDashboardIcon color="#6F2CF3" size={16} />
-                  <span className="is-drawer-close:hidden font-semibold text-[#FFFFFE] text-[16px]">
+                  <span className="is-drawer-close:hidden font-semibold text-[#F4F4F5] text-[16px]">
                     Dashboard
                   </span>
                 </button>
@@ -105,13 +105,13 @@ function MainLayout() {
             </li>
 
             <li>
-              <NavLink to="/tenant">
+              <NavLink to="/tenant" className="rounded-none">
                 <button
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center gap-3"
                   data-tip="Tenant"
                 >
                   <Users color="#2cb67d" size={16} />
-                  <span className="is-drawer-close:hidden font-semibold text-[#FFFFFE] text-[16px]">
+                  <span className="is-drawer-close:hidden font-semibold text-[#F4F4F5] text-[16px]">
                     Tenant
                   </span>
                 </button>
@@ -119,13 +119,13 @@ function MainLayout() {
             </li>
 
             <li>
-              <NavLink to="/room">
+              <NavLink to="/room" className="rounded-none">
                 <button
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center gap-3"
                   data-tip="Room"
                 >
                   <BedSingle color="#3B82F6" size={16} />
-                  <span className="is-drawer-close:hidden font-semibold text-[#FFFFFE] text-[16px]">
+                  <span className="is-drawer-close:hidden font-semibold text-[#F4F4F5] text-[16px]">
                     Room
                   </span>
                 </button>
@@ -133,13 +133,13 @@ function MainLayout() {
             </li>
 
             <li>
-              <NavLink to="/payment">
+              <NavLink to="/payment" className="rounded-none">
                 <button
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center gap-3"
                   data-tip="Payment"
                 >
                   <Wallet color="#f2c94c" size={16} />
-                  <span className="is-drawer-close:hidden font-semibold text-[#FFFFFE] text-[16px]">
+                  <span className="is-drawer-close:hidden font-semibold text-[#F4F4F5] text-[16px]">
                     Payment
                   </span>
                 </button>

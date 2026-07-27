@@ -197,9 +197,9 @@ function RoomPage() {
 
   const statusColor = {
     Occupied:
-      'badge text-emerald-400 font-semibold text-xs bg-emerald-500/10  border-emerald-500/20 ',
+      'badge text-emerald-500 font-semibold text-xs bg-emerald-500/10  border-emerald-600/20',
     Repairing:
-      'badge text-amber-400 font-semibold text-xs bg-amber-500/10 border-amber-500/20',
+      'badge text-amber-500 font-semibold text-xs bg-amber-500/10 border-amber-600/20',
   };
 
   return (
@@ -207,7 +207,7 @@ function RoomPage() {
       <div className="flex flex-col gap-5">
         <div className="flex flex-col gap-5">
           <div className="sm:text-sm md:text-md lg:text-lg xl:text-2xl">
-            <h1 className="font-bold text-3xl text-[#404244]">
+            <h1 className="font-bold text-3xl text-[#2C3038]">
               Room Management
             </h1>
           </div>
@@ -215,7 +215,7 @@ function RoomPage() {
             <RoomSearchFilter search={search} setSearch={setSearch} />
             <div className="flex gap-3">
               <button
-                className="btn bg-neutral shadow-none border-none hover:opacity-80"
+                className="btn bg-[#2C3038] shadow-none rounded-sm border-none hover:bg-black"
                 onClick={handleCreateClick}
               >
                 <CirclePlus
@@ -230,7 +230,7 @@ function RoomPage() {
             </div>
           </div>
         </div>
-        <div className="overflow-x-auto rounded max-h-133.75">
+        <div className="overflow-x-auto rounded-none max-h-133.75 ">
           <RoomTable
             filteredRooms={filteredRooms}
             statusColor={statusColor}

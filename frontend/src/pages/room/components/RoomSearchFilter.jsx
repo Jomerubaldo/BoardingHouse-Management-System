@@ -2,7 +2,7 @@ import { Search, X } from 'lucide-react';
 
 function RoomSearchFilter({ search, setSearch }) {
   return (
-    <label className="input outline-none bg-[#FFF] border-[#2C3038]">
+    <label className="input outline-none rounded-sm bg-[#FFF] border-[#2C3038]">
       <Search size={14} color="#000" />
       <input
         type="text"

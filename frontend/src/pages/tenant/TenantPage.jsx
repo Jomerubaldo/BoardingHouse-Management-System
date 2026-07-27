@@ -253,14 +253,14 @@ function TenantPage() {
       <div className="flex flex-col gap-5">
         <div className="flex flex-col gap-5">
           <div className=" sm:text-md md:text-lg lg:text-lg xl:text-2xl">
-            <h1 className="font-bold text-[#404244] text-3xl">
+            <h1 className="font-bold text-[#2C3038] text-3xl">
               Tenant Management
             </h1>
           </div>
           <div className="flex justify-between items-center sm:flex gap-30">
             <TenantSearchFilter search={search} setSearch={setSearch} />
             <button
-              className="btn border-none shadow-none btn-xs hover:opacity-80 bg-[#2C3038] sm:btn-sm md:btn-md"
+              className="btn border-none rounded-sm shadow-none btn-xs hover:bg-black bg-[#2C3038] sm:btn-sm md:btn-md"
               onClick={handleCreateClick}
             >
               <CirclePlus
@@ -273,7 +273,7 @@ function TenantPage() {
             </button>
           </div>
         </div>
-        <div className="overflow-x-auto overflow-y-auto max-h-133.75 rounded">
+        <div className="overflow-x-auto overflow-y-auto max-h-133.75 rounded-sm">
           <TenantTable
             filteredTenants={filteredTenants}
             handleEditClick={handleEditClick}

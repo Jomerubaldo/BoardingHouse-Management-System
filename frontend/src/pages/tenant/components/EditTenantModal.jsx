@@ -9,9 +9,9 @@ function EditTenantModal({
 }) {
   return (
     <dialog id="editModal" className="modal modal-middle sm:modal-middle">
-      <div className="modal-box bg-white shadow-none">
+      <div className="modal-box bg-white shadow-none rounded-sm">
         <div className="flex items-center gap-2">
-          <span className="bg-info rounded-full px-2 py-2">
+          <span className="bg-info px-2 py-2 rounded-full">
             <SquarePen color="#FFF" size={20} />
           </span>
           <h3 className="text-2xl font-bold text-black">Edit Tenant</h3>
@@ -29,7 +29,7 @@ function EditTenantModal({
               value={editFormData.firstName}
               onChange={handleEditChange}
               placeholder="First Name"
-              className="input input-bordered w-full border-black text-black border bg-white placeholder:text-gray-400 focus:outline-none"
+              className="input input-bordered rounded-sm w-full border-black text-black border bg-white placeholder:text-gray-400 focus:outline-none"
             />
           </div>
           <div className="flex flex-col gap-1">
@@ -43,7 +43,7 @@ function EditTenantModal({
               value={editFormData.lastName}
               onChange={handleEditChange}
               placeholder="Last Name"
-              className="input input-bordered w-full border-black text-black border bg-white placeholder:text-gray-400 focus:outline-none"
+              className="input input-bordered rounded-sm w-full border-black text-black border bg-white placeholder:text-gray-400 focus:outline-none"
             />
           </div>
           <div className="flex flex-col gap-1">
@@ -57,7 +57,7 @@ function EditTenantModal({
               value={editFormData.phoneNumber}
               onChange={handleEditChange}
               placeholder="Contact"
-              className="input input-bordered w-full border-black text-black border bg-white placeholder:text-gray-400 focus:outline-none [appearance:textfield] 
+              className="input input-bordered rounded-sm w-full border-black text-black border bg-white placeholder:text-gray-400 focus:outline-none [appearance:textfield] 
               [&::-webkit-outer-spin-button]:appearance-none 
               [&::-webkit-inner-spin-button]:appearance-none"
             />
@@ -68,13 +68,13 @@ function EditTenantModal({
           <div className="flex justify-end gap-3 pt-2">
             <button
               type="submit"
-              className="btn bg-success border-none shadow-none hover:opacity-80"
+              className="btn hover:bg-success border-none rounded-sm shadow-none bg-success/80"
             >
               {isUpdateLoading ? 'Saving...' : 'Save Changes'}
             </button>
             <button
               type="button"
-              className="btn bg-neutral shadow-none border-none hover:opacity-80"
+              className="btn bg-[#2C3038] shadow-none rounded-sm border-none hover:bg-black"
               onClick={() => document.getElementById('editModal').close()}
             >
               Cancel

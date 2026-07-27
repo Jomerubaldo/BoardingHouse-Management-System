@@ -47,7 +47,7 @@ function DashboardPage() {
     <div className="@container px-5">
       <div className="flex flex-col gap-5">
         <div className="sm:text-sm md:text-md lg:text-lg xl:text-2xl">
-          <h1 className="text-[#404244] font-bold text-3xl">Dashboard</h1>
+          <h1 className="text-[#2C3038] font-bold text-3xl">Dashboard</h1>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4">
           <DashboardStatsCard

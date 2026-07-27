@@ -2,7 +2,7 @@ import { Search, X } from 'lucide-react';
 
 function TableSearchFilter({ search, setSearch }) {
   return (
-    <label className="input w-80 outline-none bg-[#FFF] border-[#2C3038]">
+    <label className="input w-80 outline-none bg-[#FFF] border-[#2C3038] rounded-sm">
       <Search size={14} color="#000" />
       <input
         type="search"

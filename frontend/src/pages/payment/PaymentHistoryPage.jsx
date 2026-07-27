@@ -35,7 +35,7 @@ function PaymentHistoryPage() {
         <div className="flex justify-between items-center">
           <div className="flex flex-col pb-1 gap-5">
             <div className=" sm:text-sm md:text-md lg:text-lg xl:text-2xl">
-              <h1 className="text-3xl text-[#404244] font-bold">
+              <h1 className="text-3xl text-[#2C3038] font-bold">
                 Payment History
               </h1>
             </div>
@@ -43,7 +43,7 @@ function PaymentHistoryPage() {
           </div>
           <TotalRevenueDashCard getTotalRevenue={getTotalRevenue} />
         </div>
-        <div className="overflow-x-auto rounded max-h-130">
+        <div className="overflow-x-auto max-h-130 rounded-sm">
           <PaymentHistoryTable
             tableSearchPayment={tableSearchPayment}
             isFetchLoading={isFetchLoading}

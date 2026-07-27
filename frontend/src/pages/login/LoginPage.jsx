@@ -50,9 +50,9 @@ function LoginPage() {
 
   return (
     <div className="bg-[#F4F4F5] w-full min-h-screen flex items-center justify-center px-4 sm:px-10">
-      <div className="card flex-col sm:flex-row bg-[#2C3038] shadow-sm w-full max-w-3xl min-h-96">
+      <div className="card flex-col sm:flex-row bg-[#2C3038] rounded-sm shadow-sm w-full max-w-3xl min-h-96">
         {/* Image side - width constrained, object-cover para hindi ma-distort */}
-        <figure className="sm:w-96 w-full h-48 sm:h-auto rounded-md rounded-r-none">
+        <figure className="sm:w-96 w-full h-48 sm:h-auto rounded-sm rounded-r-none">
           <img
             src={LoginImageHouse}
             alt="Modern house exterior"
@@ -61,7 +61,7 @@ function LoginPage() {
         </figure>
 
         <div className="card-body w-full sm:w-96">
-          <h2 className="card-title flex justify-center font-bold text-2xl text-accent">
+          <h2 className="card-title flex justify-center font-bold text-2xl text-accent/80">
             Login
           </h2>
           <p className="text-center font-semibold text-gray-300">
@@ -146,7 +146,7 @@ function LoginPage() {
                   <a
                     onClick={() => alert('This feature is under development.')}
                     href="#signup"
-                    className="text-accent underline"
+                    className="text-accent/80 underline"
                   >
                     Sign Up
                   </a>
@@ -154,14 +154,14 @@ function LoginPage() {
                 <a
                   onClick={() => alert('This feature is under development.')}
                   href="#forgetPassword"
-                  className="text-xs underline text-accent"
+                  className="text-xs underline text-accent/80"
                 >
                   Forgot password?
                 </a>
               </div>
               <button
                 type="submit"
-                className="btn btn-accent font-bold shadow-none border-none text-white mt-3"
+                className="btn hover:bg-accent font-bold shadow-none bg-accent/80 border-none text-white mt-3"
               >
                 {isLoginLoading ? 'Login...' : 'Login'}
               </button>

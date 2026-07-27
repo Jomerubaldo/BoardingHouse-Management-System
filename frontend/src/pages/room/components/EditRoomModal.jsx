@@ -9,7 +9,7 @@ function EditRoomModal({
 }) {
   return (
     <dialog id="editModal" className="modal modal-middle sm:modal-middle">
-      <div className="modal-box bg-white shadow-none">
+      <div className="modal-box bg-white shadow-none rounded-sm">
         <div className="flex items-center gap-2">
           <span className="bg-info px-2 py-2 rounded-full">
             <SquarePen color="#FFF" size={20} />
@@ -25,14 +25,14 @@ function EditRoomModal({
               name="tenantFullName"
               value={editFormData.tenantFullName}
               onChange={handleEditChange}
-              className="select w-full bg-white border-black text-black focus:outline-none"
+              className="select w-full bg-white border-black text-black focus:outline-none rounded-sm"
             >
               <option disabled={true}>Select tenant</option>
               {tenants.map((tenant) => (
                 <option
                   key={tenant.tenantID}
                   value={tenant.tenantFullName}
-                  className="hover:bg-gray-200"
+                  className="hover:bg-gray-200 rounded-sm"
                 >
                   {tenant.firstName} {tenant.lastName}
                 </option>
@@ -44,31 +44,31 @@ function EditRoomModal({
               name="roomNumber"
               value={editFormData.roomNumber}
               onChange={handleEditChange}
-              className="select w-full bg-white border-black text-black focus:outline-none"
+              className="select w-full bg-white border-black text-black focus:outline-none rounded-sm"
             >
               <option disabled={true}>Select room</option>
-              <option value="Room 1" className="hover:bg-gray-200">
+              <option value="Room 1" className="hover:bg-gray-200 rounded-sm">
                 Room 1
               </option>
-              <option value="Room 2" className="hover:bg-gray-200">
+              <option value="Room 2" className="hover:bg-gray-200 rounded-sm">
                 Room 2
               </option>
-              <option value="Room 3" className="hover:bg-gray-200">
+              <option value="Room 3" className="hover:bg-gray-200 rounded-sm">
                 Room 3
               </option>
-              <option value="Room 4" className="hover:bg-gray-200">
+              <option value="Room 4" className="hover:bg-gray-200 rounded-sm">
                 Room 4
               </option>
-              <option value="Room 5" className="hover:bg-gray-200">
+              <option value="Room 5" className="hover:bg-gray-200 rounded-sm">
                 Room 5
               </option>
-              <option value="Room 6" className="hover:bg-gray-200">
+              <option value="Room 6" className="hover:bg-gray-200 rounded-sm">
                 Room 6
               </option>
-              <option value="Room 7" className="hover:bg-gray-200">
+              <option value="Room 7" className="hover:bg-gray-200 rounded-sm">
                 Room 7
               </option>
-              <option value="Room 8" className="hover:bg-gray-200">
+              <option value="Room 8" className="hover:bg-gray-200 rounded-sm">
                 Room 8
               </option>
             </select>
@@ -78,19 +78,19 @@ function EditRoomModal({
               name="amountRent"
               value={editFormData.amountRent}
               onChange={handleEditChange}
-              className="select w-full bg-white border-black text-black focus:outline-none"
+              className="select w-full bg-white border-black text-black focus:outline-none rounded-sm"
             >
               <option disabled={true}>Select rent</option>
-              <option value="750.00" className="hover:bg-gray-200">
+              <option value="750.00" className="hover:bg-gray-200 rounded-sm">
                 750.00
               </option>
-              <option value="1500.00" className="hover:bg-gray-200">
+              <option value="1500.00" className="hover:bg-gray-200 rounded-sm">
                 1500.00
               </option>
-              <option value="2000.00" className="hover:bg-gray-200">
+              <option value="2000.00" className="hover:bg-gray-200 rounded-sm">
                 2000.00
               </option>
-              <option value="5000.00" className="hover:bg-gray-200">
+              <option value="5000.00" className="hover:bg-gray-200 rounded-sm">
                 5000.00
               </option>
             </select>
@@ -98,13 +98,13 @@ function EditRoomModal({
           <div className="flex justify-end gap-3 pt-2">
             <button
               type="submit"
-              className="btn bg-success shadow-none border-none hover:opacity-80"
+              className="btn hover:bg-success shadow-none border-none bg-success/80 rounded-sm"
             >
               {isUpdateLoading ? 'Saving...' : 'Save Changes'}
             </button>
             <button
               type="button"
-              className="btn bg-neutral shadow-none border-none hover:opacity-80"
+              className="btn bg-[#2C3038] shadow-none border-none hover:bg-black rounded-sm"
               onClick={() => document.getElementById('editModal').close()}
             >
               Cancel

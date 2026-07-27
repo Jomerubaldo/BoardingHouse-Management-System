@@ -67,7 +67,7 @@ function CreatePaymentAction() {
   return (
     <React.Fragment>
       <button
-        className="btn bg-neutral font-bold border-none shadow-none hover:opacity-80"
+        className="btn bg-[#2C3038] font-bold border-none shadow-none hover:bg-black rounded-sm"
         onClick={() => document.getElementById('addPaymentModal').showModal()}
       >
         <CirclePlus

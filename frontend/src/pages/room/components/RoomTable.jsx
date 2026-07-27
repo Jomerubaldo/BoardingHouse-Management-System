@@ -1,4 +1,4 @@
-import { LoaderCircle, SquarePen, Trash2 } from 'lucide-react';
+import { LoaderCircle } from 'lucide-react';
 
 function RoomTable({
   filteredRooms,
@@ -11,7 +11,7 @@ function RoomTable({
   return (
     <table className="table table-pin-rows bg-[#F4F4F5]">
       <thead>
-        <tr className="bg-neutral">
+        <tr className="bg-[#282C34]">
           <th className="text-[#FFFFFF]">Tenant Name</th>
           <th className="text-[#FFFFFF]">Room</th>
           <th className="text-[#FFFFFF]">Rent</th>
@@ -63,6 +63,7 @@ function RoomTable({
                   className={`
                     appearance-none
                     border
+                    rounded-sm
                     outline-none
                     ring-0
                     shadow-none
@@ -74,22 +75,32 @@ function RoomTable({
                     hover:cursor-pointer px-2
                     ${statusColor[roomData.roomStatus]} `}
                 >
-                  <option value="Occupied">Occupied</option>
-                  <option value="Repairing">Repairing</option>
+                  <option
+                    value="Occupied"
+                    className="text-emerald-500 bg-emerald-500/10"
+                  >
+                    Occupied
+                  </option>
+                  <option
+                    value="Repairing"
+                    className="text-amber-500 bg-amber-500/10"
+                  >
+                    Repairing
+                  </option>
                 </select>
               </td>
               <td className="flex gap-2 border-b border-[#2C3038]">
                 <button
-                  className="btn bg-neutral shadow-none border-none btn-xs hover:opacity-80"
+                  className="btn bg-gray-500 shadow-none border-none btn-xs text-xs hover:bg-gray-600 rounded-sm"
                   onClick={() => handleEditClick(roomData)}
                 >
-                  <SquarePen size={15} />
+                  Edit
                 </button>
                 <button
-                  className="btn bg-error shadow-none border-none btn-xs hover:opacity-80"
+                  className="btn bg-red-500 shadow-none border-none btn-xs text-xs hover:bg-red-600 rounded-sm"
                   onClick={() => handleDeleteClick(roomData)}
                 >
-                  <Trash2 size={15} />
+                  Delete
                 </button>
               </td>
             </tr>

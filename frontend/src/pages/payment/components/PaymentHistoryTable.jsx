@@ -4,7 +4,7 @@ function PaymentHistoryTable({ tableSearchPayment, isFetchLoading }) {
   return (
     <table className="table table-pin-rows bg-[#F4F4F5]">
       <thead>
-        <tr className="bg-neutral">
+        <tr className="bg-[#282C34]">
           <th className="text-[#FFFFFF]">Tenant Name</th>
           <th className="text-[#FFFFFF]">Room</th>
           <th className="text-[#FFFFFF]">Amount</th>
