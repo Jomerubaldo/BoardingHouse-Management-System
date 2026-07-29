@@ -18,7 +18,7 @@ function LoginPage() {
   const handleChangeAdminAuth = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
 
-    // check lang dito less na sa 1 ang string or delete
+    // check lang dito kung less na sa 1 ang string or delete
     // is mag empty string na mawawala na erro message
     if (
       (e.target.name === 'username' && e.target.value.length === 0) ||
