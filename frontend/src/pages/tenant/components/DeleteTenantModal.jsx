@@ -2,7 +2,10 @@ import { Trash2 } from 'lucide-react';
 
 function DeleteTenantModal({ handleDeleteSubmit, isDeleteLoading }) {
   return (
-    <dialog id="deleteModal" className="modal modal-bottom sm:modal-middle">
+    <dialog
+      id="deleteModal"
+      className="modal modal-bottom sm:modal-middle flex items-center justify-center"
+    >
       <div className="modal-box bg-white shadow-none rounded-sm">
         <div className="flex items-center gap-2">
           <span className="bg-red-500 px-2 py-2 rounded-full">

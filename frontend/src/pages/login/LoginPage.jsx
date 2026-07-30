@@ -49,14 +49,13 @@ function LoginPage() {
   }
 
   return (
-    <div className="bg-[#F4F4F5] w-full min-h-screen flex items-center justify-center px-4 sm:px-10">
-      <div className="card flex-col sm:flex-row bg-[#2C3038] rounded-sm shadow-sm w-full max-w-3xl min-h-96">
-        {/* Image side - width constrained, object-cover para hindi ma-distort */}
-        <figure className="sm:w-96 w-full h-48 sm:h-auto rounded-sm rounded-r-none">
+    <div className="bg-[#F4F4F5] w-full min-h-screen flex items-center justify-center sm:px-10">
+      <div className="card flex-col sm:flex-row bg-[#2C3038] rounded-none sm:rounded-sm shadow-sm w-full max-w-3xl min-h-96">
+        <figure className="w-full rounded-none h-48  sm:w-96 sm:h-auto sm:rounded-l-sm sm:rounded-r-none">
           <img
             src={LoginImageHouse}
             alt="Modern house exterior"
-            className="w-full h-full object-cover"
+            className="w-full h-full"
           />
         </figure>
 
@@ -141,7 +140,7 @@ function LoginPage() {
                 </label>
               </fieldset>
               <div className="flex justify-between">
-                <p className="text-xs text-gray-300">
+                <p className="text-xs text-gray-300 sm:text-[10px]">
                   Don't have an account?{' '}
                   <a
                     onClick={() => alert('This feature is under development.')}
@@ -154,7 +153,7 @@ function LoginPage() {
                 <a
                   onClick={() => alert('This feature is under development.')}
                   href="#forgetPassword"
-                  className="text-xs underline text-accent/80"
+                  className="text-xs underline text-accent/80 sm:text-[10px]"
                 >
                   Forgot password?
                 </a>

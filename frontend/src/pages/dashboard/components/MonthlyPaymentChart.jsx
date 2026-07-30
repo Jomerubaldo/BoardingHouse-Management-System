@@ -32,7 +32,6 @@ function MonthlyPaymentChart() {
 
         const labels = result.map((row) => row.month);
         const totals = result.map((row) => parseFloat(row.total));
-        console.log('totals:', totals);
 
         setChartData({
           labels,

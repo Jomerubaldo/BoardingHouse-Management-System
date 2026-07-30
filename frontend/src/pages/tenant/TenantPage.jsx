@@ -252,34 +252,34 @@ function TenantPage() {
     <div className="@container px-5 h-auto">
       <div className="flex flex-col gap-5">
         <div className="flex flex-col gap-5">
-          <div className=" sm:text-md md:text-lg lg:text-lg xl:text-2xl">
-            <h1 className="font-bold text-[#2C3038] text-3xl">
-              Tenant Management
-            </h1>
-          </div>
-          <div className="flex justify-between items-center sm:flex gap-30">
+          <h1 className="font-bold text-[#2C3038] text-center sm:text-left text-4xl sm:text-3xl">
+            Tenant Management
+          </h1>
+          <div className="flex justify-between items-center gap-3 sm:gap-30">
             <TenantSearchFilter search={search} setSearch={setSearch} />
             <button
-              className="btn border-none rounded-sm shadow-none btn-xs hover:bg-black bg-[#2C3038] sm:btn-sm md:btn-md"
+              className="btn border-none rounded-sm shadow-none btn-sm hover:bg-black bg-[#2C3038]"
               onClick={handleCreateClick}
             >
               <CirclePlus
                 size={16}
                 className="sm:w-4 sm:h-4 md:w-5 md:h-5 lg:w-6 lg:h-6"
               />
-              <span className="sm:inline md:inline lg:inline text-[#FFFFFF] font-bold">
-                Register Tenant
-              </span>
+              <span className="text-[#FFFFFF] font-bold">Register Tenant</span>
             </button>
           </div>
         </div>
-        <div className="overflow-x-auto overflow-y-auto max-h-133.75 rounded-sm">
+        <div className="overflow-x-auto overflow-y-auto max-h-133.75 rounded-sm hidden sm:block ">
           <TenantTable
             filteredTenants={filteredTenants}
             handleEditClick={handleEditClick}
             handleDeleteClick={handleDeleteClick}
             isFetchLoading={isFetchLoading}
           />
+        </div>
+        {/* dito nag stop gagawin ko ay gagawa ako ng tablelist na pang mobile view na yung layout is nasa stitch na */}
+        <div className="block sm:hidden">
+          <p className="text-red-600">This is from mobile view screen!</p>
         </div>
         <AddTenantModal
           handleCreateSubmit={handleCreateSubmit}
