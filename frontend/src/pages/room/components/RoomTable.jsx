@@ -91,13 +91,13 @@ function RoomTable({
               </td>
               <td className="flex gap-2 border-b border-[#2C3038]">
                 <button
-                  className="btn bg-gray-500 shadow-none border-none btn-xs text-xs hover:bg-gray-600 rounded-sm"
+                  className="btn px-5 bg-gray-500 shadow-none border-none btn-xs text-xs hover:bg-gray-600 rounded-sm"
                   onClick={() => handleEditClick(roomData)}
                 >
                   Edit
                 </button>
                 <button
-                  className="btn bg-red-500 shadow-none border-none btn-xs text-xs hover:bg-red-600 rounded-sm"
+                  className="btn px-4 bg-red-500 shadow-none border-none btn-xs text-xs hover:bg-red-600 rounded-sm"
                   onClick={() => handleDeleteClick(roomData)}
                 >
                   Delete

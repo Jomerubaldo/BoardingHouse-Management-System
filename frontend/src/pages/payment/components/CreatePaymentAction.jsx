@@ -14,6 +14,7 @@ function CreatePaymentAction() {
     tenantName: '',
     roomNumber: '',
     amountPayment: '',
+    datePayment: '',
   });
 
   const handlePaymentChange = (e) => {
@@ -39,6 +40,7 @@ function CreatePaymentAction() {
         tenantName: '',
         roomNumber: '',
         amountPayment: '',
+        datePayment: '',
       });
       addPaymentModal.close();
     } else {
@@ -60,6 +62,7 @@ function CreatePaymentAction() {
       tenantName: '',
       roomNumber: '',
       amountPayment: '',
+      datePayment: '',
     });
     addPaymentModal.close();
   };

@@ -2,26 +2,30 @@ import db from '../config/db.js';
 
 // create payment
 export const createPayment = (req, res) => {
-  const { tenantName, roomNumber, amountPayment } = req.body;
+  const { tenantName, roomNumber, amountPayment, datePayment } = req.body;
 
-  const sql = `INSERT INTO tblPayment (tenantName, roomNumber, amountPayment) VALUES (?, ?, ?)`;
+  const sql = `INSERT INTO tblPayment (tenantName, roomNumber, amountPayment, datePayment) VALUES (?, ?, ?, ?)`;
 
-  db.query(sql, [tenantName, roomNumber, amountPayment], (err, result) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).json({ error: err.message });
+  db.query(
+    sql,
+    [tenantName, roomNumber, amountPayment, datePayment],
+    (err, result) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ error: err.message });
+      }
+      res.json({
+        success: true,
+        message: `Payment added successfully`,
+        id: result.insertId,
+      });
     }
-    res.json({
-      success: true,
-      message: `Payment added successfully`,
-      id: result.insertId,
-    });
-  });
+  );
 };
 
 // getAllHistory
 export const getAllPaymentHistory = (req, res) => {
-  const sql = `SELECT datePayment, amountPayment, tenantName, roomNumber FROM tblPayment ORDER BY paymentID DESC `;
+  const sql = `SELECT datePayment, amountPayment, tenantName, roomNumber, datePayment FROM tblPayment ORDER BY paymentID DESC `;
 
   db.query(sql, (err, result) => {
     if (err) {

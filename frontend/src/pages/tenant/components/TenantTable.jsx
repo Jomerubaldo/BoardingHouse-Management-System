@@ -50,13 +50,13 @@ function TenantTable({
               </td>
               <td className="flex gap-2 border-b border-[#2C3038]">
                 <button
-                  className="btn shadow-none border-none text-xs btn-xs bg-gray-500 hover:bg-gray-600 rounded-sm"
+                  className="btn px-5 shadow-none border-none text-xs btn-xs bg-gray-500 hover:bg-gray-600 rounded-sm"
                   onClick={() => handleEditClick(tenantData)}
                 >
                   Edit
                 </button>
                 <button
-                  className="btn shadow-none border-none bg-red-500 text-xs hover:bg-red-600 btn-xs rounded-sm"
+                  className="btn px-4 shadow-none border-none bg-red-500 text-xs hover:bg-red-600 btn-xs rounded-sm"
                   onClick={() => handleDeleteClick(tenantData)}
                 >
                   Delete

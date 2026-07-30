@@ -28,7 +28,7 @@ function CreatePaymentModal({
               required
               type="text"
               name="tenantName"
-              placeholder="Tenant name..."
+              placeholder="Enter tenant full name"
               className="input input-border w-full bg-white border-black text-black focus:outline-none rounded-sm"
             />
           </div>
@@ -42,7 +42,7 @@ function CreatePaymentModal({
               required
               type="text"
               name="roomNumber"
-              placeholder="Room number..."
+              placeholder="Enter room number"
               className="input input-border w-full bg-white border-black text-black focus:outline-none rounded-sm"
             />
           </div>
@@ -56,10 +56,23 @@ function CreatePaymentModal({
               required
               type="number"
               name="amountPayment"
-              placeholder="Amount..."
+              placeholder="Enter amount"
               className="input input-bordered w-full bg-white border-black text-black focus:outline-none rounded-sm [appearance:textfield] 
               [&::-webkit-outer-spin-button]:appearance-none 
               [&::-webkit-inner-spin-button]:appearance-none"
+            />
+          </div>
+          <div className="flex flex-col gap-1">
+            <label className="text-xs text-black font-semibold">
+              Date payment
+            </label>
+            <input
+              onChange={handleCreateChange}
+              value={createPaymentFormData.datePayment}
+              name="datePayment"
+              required
+              type="date"
+              className="input input-border border-black w-full bg-white text-black [&::-webkit-calendar-picker-indicator]:invert"
             />
           </div>
           <div className="flex justify-end gap-3 pt-2">
