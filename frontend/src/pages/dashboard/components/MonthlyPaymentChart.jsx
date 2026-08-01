@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { dashboardChart } from '../../../api/paymentApi';
-import { Line } from 'react-chartjs-2';
+import { useState, useEffect } from "react";
+import { dashboardChart } from "../../../api/paymentApi";
+import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -10,7 +10,7 @@ import {
   Title,
   Tooltip,
   Legend,
-} from 'chart.js';
+} from "chart.js";
 
 ChartJS.register(
   CategoryScale,
@@ -19,7 +19,7 @@ ChartJS.register(
   LineElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
 );
 
 function MonthlyPaymentChart() {
@@ -37,14 +37,14 @@ function MonthlyPaymentChart() {
           labels,
           datasets: [
             {
-              label: 'Total Payments',
+              label: "Total Payments",
               data: totals,
-              backgroundColor: 'rgba(54, 162, 235, 0.2)',
-              borderColor: 'rgb(54, 162, 235)',
+              backgroundColor: "rgba(54, 162, 235, 0.2)",
+              borderColor: "rgb(54, 162, 235)",
               borderWidth: 2,
               tension: 0.3,
-              pointBackgroundColor: 'rgb(54, 162, 235)',
-              pointBorderColor: '#fff',
+              pointBackgroundColor: "rgb(54, 162, 235)",
+              pointBorderColor: "#fff",
               pointRadius: 4,
               fill: true,
             },
@@ -61,13 +61,13 @@ function MonthlyPaymentChart() {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
-      legend: { position: 'top' },
-      title: { display: true, text: 'Monthly Total Payments' },
+      legend: { position: "top" },
+      title: { display: true, text: "Monthly Total Payments" },
     },
   };
 
   return (
-    <div style={{ position: 'relative', width: '100%', height: '400px' }}>
+    <div style={{ position: "relative", width: "100%", height: "400px" }}>
       {chartData ? (
         <Line data={chartData} options={options} />
       ) : (

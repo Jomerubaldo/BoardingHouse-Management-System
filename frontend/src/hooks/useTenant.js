@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import {
   createTenant,
   getAllTenants,
   updateTenant,
   deleteTenant,
-} from '../api/tenantApi';
+} from "../api/tenantApi";
 
 export function useTenant() {
   // loading state
@@ -33,7 +33,7 @@ export function useTenant() {
         success: false,
         code: err.code,
         message:
-          'Cannot connect to server. Please check you internet connection',
+          "Cannot connect to server. Please check you internet connection",
       };
     } finally {
       setIsCreateLoading(false);
@@ -70,7 +70,7 @@ export function useTenant() {
         success: false,
         code: err.code,
         message:
-          'Cannot connect to server. Please check you internet connection',
+          "Cannot connect to server. Please check you internet connection",
       };
     } finally {
       setIsUpdateLoading(false);
@@ -91,7 +91,7 @@ export function useTenant() {
         success: false,
         code: err.code,
         message:
-          'Cannot connect to server. Please check you internet connection',
+          "Cannot connect to server. Please check you internet connection",
       };
     } finally {
       setIsDeleteLoading(false);

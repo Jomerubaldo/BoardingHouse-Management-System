@@ -1,8 +1,8 @@
-import { Search, X } from 'lucide-react';
+import { Search, X } from "lucide-react";
 
 function RoomSearchFilter({ search, setSearch }) {
   return (
-    <label className="input outline-none rounded-sm bg-[#FFF] border-[#2C3038]">
+    <label className="input rounded-sm border-[#2C3038] bg-[#FFF] outline-none">
       <Search size={14} color="#000" />
       <input
         type="text"
@@ -12,7 +12,7 @@ function RoomSearchFilter({ search, setSearch }) {
         onChange={(e) => setSearch(e.target.value)}
       />
       {search && (
-        <button onClick={() => setSearch('')} className="cursor-pointer">
+        <button onClick={() => setSearch("")} className="cursor-pointer">
           <X size={15} color="#000" />
         </button>
       )}

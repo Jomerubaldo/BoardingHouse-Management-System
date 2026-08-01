@@ -11,17 +11,17 @@ const seedAdmin = async () => {
     // hash password
     const hashPassword = await bcrypt.hash(password, saltRounds);
 
-    const sql = `INSERT INTO admin (username, password) VALUES (?, ?) `;
+    const sql = 'INSERT INTO admin (username, password) VALUES (?, ?) ';
 
     db.query(sql, [username, hashPassword], (err, result) => {
       if (err) {
-        console.error('Error seeding admin', err);
+        console.error(`Error seeding admin ${err}`);
         return;
       }
-      console.log('Admin successfully seeded', result);
+      console.log(`Admin successfully seeded ${result}`);
     });
   } catch (err) {
-    console.error('Error hashing password:', err);
+    console.error(`Error hashing password: ${err}`);
   }
 };
 

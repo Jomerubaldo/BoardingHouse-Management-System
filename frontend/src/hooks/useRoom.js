@@ -1,12 +1,12 @@
 //creating reusable hooks for logic only and can used in other pages with same logic
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import {
   createRoom,
   getAllRooms,
   updateStatusRoom,
   updateRoom,
   deleteRoom,
-} from '../api/roomApi';
+} from "../api/roomApi";
 
 export function useRoom() {
   // loading state
@@ -35,7 +35,7 @@ export function useRoom() {
         success: false,
         code: err.code,
         message:
-          'Cannot connect to server. Please check you internet connection',
+          "Cannot connect to server. Please check you internet connection",
       };
     } finally {
       setIsCreateLoading(false);
@@ -71,7 +71,7 @@ export function useRoom() {
       return {
         success: false,
         message:
-          'Cannot connect to server. Please check your internet connection',
+          "Cannot connect to server. Please check your internet connection",
       };
     }
   };
@@ -91,7 +91,7 @@ export function useRoom() {
         success: false,
         code: err.code,
         message:
-          'Cannot connect to server. Please check your internet connection',
+          "Cannot connect to server. Please check your internet connection",
       };
     } finally {
       setIsUpdateLoading(false);
@@ -112,7 +112,7 @@ export function useRoom() {
       return {
         success: false,
         message:
-          'Cannot connect to server. Please check your internet connection',
+          "Cannot connect to server. Please check your internet connection",
       };
     } finally {
       setIsDeleteLoading(false);

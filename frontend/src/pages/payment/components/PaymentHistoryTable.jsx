@@ -1,8 +1,8 @@
-import { LoaderCircle } from 'lucide-react';
+import { LoaderCircle } from "lucide-react";
 
 function PaymentHistoryTable({ tableSearchPayment, isFetchLoading }) {
   return (
-    <table className="table table-pin-rows bg-[#F4F4F5]">
+    <table className="table-pin-rows table bg-[#F4F4F5]">
       <thead>
         <tr className="bg-[#282C34]">
           <th className="text-[#FFFFFF]">Tenant Name</th>
@@ -27,27 +27,27 @@ function PaymentHistoryTable({ tableSearchPayment, isFetchLoading }) {
           </tr>
         ) : tableSearchPayment === 0 ? (
           <tr>
-            <td colSpan={4} className="text-center py-58 text-base-content/50">
+            <td colSpan={4} className="text-base-content/50 py-58 text-center">
               <span> Not found. Click “Add Payment” to create one.</span>
             </td>
           </tr>
         ) : (
           tableSearchPayment.map((payment) => (
             <tr key={payment.paymentID} className="hover:bg-gray-200">
-              <td className="text-[#404244] border-b border-[#2C3038] font-semibold">
+              <td className="border-b border-[#2C3038] font-semibold text-[#404244]">
                 {payment.tenantName}
               </td>
-              <td className="text-[#404244] border-b border-[#2C3038] font-semibold">
+              <td className="border-b border-[#2C3038] font-semibold text-[#404244]">
                 {payment.roomNumber}
               </td>
-              <td className="text-[#404244] border-b border-[#2C3038] font-semibold">
+              <td className="border-b border-[#2C3038] font-semibold text-[#404244]">
                 {payment.amountPayment}
               </td>
-              <td className="text-[#404244] border-b border-[#2C3038] font-semibold">
-                {new Date(payment.datePayment).toLocaleDateString('en-PH', {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric',
+              <td className="border-b border-[#2C3038] font-semibold text-[#404244]">
+                {new Date(payment.datePayment).toLocaleDateString("en-PH", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
                 })}
               </td>
             </tr>

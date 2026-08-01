@@ -1,5 +1,5 @@
-import { Outlet, Navigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { Outlet, Navigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 // dito is para ma protektahan ang mga routes
 // na kapag hindi nakalogin ang user is hindi siya basta basta

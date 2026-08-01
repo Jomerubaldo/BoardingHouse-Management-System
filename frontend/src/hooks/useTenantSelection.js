@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { selectionTenants } from '../api/roomApi';
+import { useState, useEffect } from "react";
+import { selectionTenants } from "../api/roomApi";
 
 export function useTenantSelection() {
   const [tenants, setTenants] = useState([]);

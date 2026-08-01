@@ -1,4 +1,4 @@
-const API_Tenant_URL = 'http://localhost:8080/api/tblTenant';
+const API_Tenant_URL = "http://localhost:8080/api/tblTenant";
 
 // get fetch
 export const getAllTenants = async () => {
@@ -15,15 +15,15 @@ export const getAllTenants = async () => {
 // no need ma confused kung bakit may data parameter dito kasi sa handleCreateSubmit function to galing na data
 export const createTenant = async (data) => {
   const response = await fetch(API_Tenant_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
   const resData = await response.json();
 
   if (!response.ok) {
     const error = new Error(
-      resData.message || `Server Error: ${response.status}`
+      resData.message || `Server Error: ${response.status}`,
     );
     error.code = resData.code;
     throw error;
@@ -34,15 +34,15 @@ export const createTenant = async (data) => {
 // update fetch
 export const updateTenant = async (id, data) => {
   const response = await fetch(`${API_Tenant_URL}/${id}`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
   const resData = await response.json();
 
   if (!response.ok) {
     const error = new Error(
-      resData.message || `Server Error: ${response.status}`
+      resData.message || `Server Error: ${response.status}`,
     );
     error.code = resData.code;
     throw error;
@@ -53,13 +53,13 @@ export const updateTenant = async (id, data) => {
 // delete fetch
 export const deleteTenant = async (id) => {
   const response = await fetch(`${API_Tenant_URL}/${id}`, {
-    method: 'DELETE',
+    method: "DELETE",
   });
   const resData = await response.json();
 
   if (!response.ok) {
     const error = new Error(
-      resData.message || `Server Error: ${response.status}`
+      resData.message || `Server Error: ${response.status}`,
     );
     error.code = resData.code;
   }

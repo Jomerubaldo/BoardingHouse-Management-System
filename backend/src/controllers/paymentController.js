@@ -4,7 +4,8 @@ import db from '../config/db.js';
 export const createPayment = (req, res) => {
   const { tenantName, roomNumber, amountPayment, datePayment } = req.body;
 
-  const sql = `INSERT INTO tblPayment (tenantName, roomNumber, amountPayment, datePayment) VALUES (?, ?, ?, ?)`;
+  const sql =
+    'INSERT INTO tblPayment (tenantName, roomNumber, amountPayment, datePayment) VALUES (?, ?, ?, ?)';
 
   db.query(
     sql,
@@ -16,7 +17,7 @@ export const createPayment = (req, res) => {
       }
       res.json({
         success: true,
-        message: `Payment added successfully`,
+        message: 'Payment added successfull',
         id: result.insertId,
       });
     }
@@ -25,7 +26,8 @@ export const createPayment = (req, res) => {
 
 // getAllHistory
 export const getAllPaymentHistory = (req, res) => {
-  const sql = `SELECT datePayment, amountPayment, tenantName, roomNumber, datePayment FROM tblPayment ORDER BY paymentID DESC `;
+  const sql =
+    'SELECT datePayment, amountPayment, tenantName, roomNumber, datePayment FROM tblPayment ORDER BY paymentID DESC';
 
   db.query(sql, (err, result) => {
     if (err) {
@@ -39,7 +41,7 @@ export const getAllPaymentHistory = (req, res) => {
 
 // totalSales
 export const totalRevenue = (req, res) => {
-  const sql = `SELECT SUM(amountPayment) AS totalRevenue FROM tblPayment;`;
+  const sql = 'SELECT SUM(amountPayment) AS totalRevenue FROM tblPayment;';
 
   db.query(sql, (err, result) => {
     if (err) {
@@ -54,7 +56,8 @@ export const totalRevenue = (req, res) => {
 
 //dashboard chart
 export const dashboardChart = (req, res) => {
-  const sql = `SELECT DATE_FORMAT(datePayment, '%Y-%m') AS month, SUM(amountPayment) AS total FROM tblPayment GROUP BY month ORDER BY month ASC;`;
+  const sql =
+    "SELECT DATE_FORMAT(datePayment, '%Y-%m') AS month, SUM(amountPayment) AS total FROM tblPayment GROUP BY month ORDER BY month ASC;";
 
   db.query(sql, (err, result) => {
     if (err) {

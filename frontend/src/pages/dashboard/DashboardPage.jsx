@@ -1,13 +1,13 @@
-import { useState, useEffect } from 'react';
-import { totalRepairRoom, totalRoom } from '../../api/roomApi.js';
+import { useState, useEffect } from "react";
+import { totalRepairRoom, totalRoom } from "../../api/roomApi.js";
 import {
   Construction,
   DoorClosed,
   DoorClosedLocked,
   DoorOpen,
-} from 'lucide-react';
-import MonthlyPaymentChart from './components/MonthlyPaymentChart.jsx';
-import DashboardStatsCard from './components/DashboardStatsCard.jsx';
+} from "lucide-react";
+import MonthlyPaymentChart from "./components/MonthlyPaymentChart.jsx";
+import DashboardStatsCard from "./components/DashboardStatsCard.jsx";
 
 const Max_Room = 8;
 
@@ -46,10 +46,10 @@ function DashboardPage() {
   return (
     <div className="@container px-5">
       <div className="flex flex-col gap-5">
-        <div className="sm:text-sm md:text-md lg:text-lg xl:text-2xl">
-          <h1 className="text-[#2C3038] font-bold text-3xl">Dashboard</h1>
+        <div className="md:text-md sm:text-sm lg:text-lg xl:text-2xl">
+          <h1 className="text-3xl font-bold text-[#2C3038]">Dashboard</h1>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4">
           <DashboardStatsCard
             valueColor="#3B82F6"
             title="Total Room"

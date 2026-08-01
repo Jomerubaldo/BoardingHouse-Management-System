@@ -1,10 +1,10 @@
-const API_Payment_URL = 'http://localhost:8080/api/tblPayment';
+const API_Payment_URL = "http://localhost:8080/api/tblPayment";
 
 // create
 export const createPayment = async (paymentData) => {
   const response = await fetch(API_Payment_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(paymentData),
   });
   const resData = await response.json();

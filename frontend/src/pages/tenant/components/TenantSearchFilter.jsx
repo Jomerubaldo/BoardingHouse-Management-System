@@ -1,8 +1,8 @@
-import { Search, X } from 'lucide-react';
+import { Search, X } from "lucide-react";
 
 function TenantSearchFilter({ search, setSearch }) {
   return (
-    <label className="input rounded-sm outline-none input-sm md:input-sm lg:input-md bg-[#FFFFFF] border-[#2C3038]">
+    <label className="input input-sm md:input-md lg:input-lg rounded-sm border-[#2C3038] bg-[#FFFFFF] outline-none lg:w-xl">
       <Search size={14} color="#000" />
       <input
         value={search}
@@ -14,7 +14,7 @@ function TenantSearchFilter({ search, setSearch }) {
       {search && (
         <button
           type="button"
-          onClick={() => setSearch('')}
+          onClick={() => setSearch("")}
           className="cursor-pointer text-[#2C3038]"
         >
           <X size={15} color="#000" />

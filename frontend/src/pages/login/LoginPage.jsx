@@ -1,18 +1,18 @@
-import { adminAuth } from '../../api/adminApi';
-import LoginImageHouse from '../../assets/download.jpg';
-import { useState } from 'react';
-import { useAuth } from '../../context/AuthContext';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { adminAuth } from "../../api/adminApi";
+import LoginImageHouse from "../../assets/download.jpg";
+import { useState } from "react";
+import { useAuth } from "../../context/AuthContext";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function LoginPage() {
   // lagayan ng error kapag invalid user or password
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   // loading state
   const [isLoginLoading, setIsLoginLoading] = useState(false);
   // initialize navigate to used if true login
   const navigation = useNavigate();
 
-  const [data, setData] = useState({ username: '', password: '' });
+  const [data, setData] = useState({ username: "", password: "" });
   const { isLogin, setIsLogin } = useAuth();
 
   const handleChangeAdminAuth = (e) => {
@@ -21,10 +21,10 @@ function LoginPage() {
     // check lang dito kung less na sa 1 ang string or delete
     // is mag empty string na mawawala na erro message
     if (
-      (e.target.name === 'username' && e.target.value.length === 0) ||
-      (e.target.name === 'password' && e.target.value.length === 0)
+      (e.target.name === "username" && e.target.value.length === 0) ||
+      (e.target.name === "password" && e.target.value.length === 0)
     ) {
-      setError('');
+      setError("");
     }
   };
 
@@ -35,9 +35,9 @@ function LoginPage() {
     const result = await adminAuth(data);
     if (result.success) {
       setIsLogin(true);
-      navigation('/');
+      navigation("/");
     } else {
-      setError('Invalid username or password!');
+      setError("Invalid username or password!");
     }
     setIsLoginLoading(false);
   };
@@ -49,24 +49,24 @@ function LoginPage() {
   }
 
   return (
-    <div className="bg-[#F4F4F5] w-full min-h-screen flex items-center justify-center sm:px-10">
-      <div className="card flex-col sm:flex-row bg-[#2C3038] rounded-none sm:rounded-sm shadow-sm w-full max-w-3xl min-h-96">
-        <figure className="w-full rounded-none h-48  sm:w-96 sm:h-auto sm:rounded-l-sm sm:rounded-r-none">
+    <div className="flex min-h-screen w-full items-center justify-center bg-[#F4F4F5] sm:px-10">
+      <div className="card min-h-96 w-full max-w-3xl flex-col rounded-none bg-[#2C3038] shadow-sm sm:flex-row sm:rounded-sm">
+        <figure className="h-48 w-full rounded-none sm:h-auto sm:w-96 sm:rounded-l-sm sm:rounded-r-none">
           <img
             src={LoginImageHouse}
             alt="Modern house exterior"
-            className="w-full h-full"
+            className="h-full w-full"
           />
         </figure>
 
         <div className="card-body w-full sm:w-96">
-          <h2 className="card-title flex justify-center font-bold text-2xl text-accent/80">
+          <h2 className="card-title text-accent/80 flex justify-center text-2xl font-bold">
             Login
           </h2>
           <p className="text-center font-semibold text-gray-300">
             Enter your login credentials
           </p>
-          <p className="min-h-5 text-sm text-red-500 text-center">{error}</p>
+          <p className="min-h-5 text-center text-xs text-red-500">{error}</p>
           <form onSubmit={handleSubmitAdminAuth}>
             <div className="flex flex-col gap-3">
               <fieldset className="fieldset">
@@ -141,9 +141,9 @@ function LoginPage() {
               </fieldset>
               <div className="flex justify-between">
                 <p className="text-xs text-gray-300 sm:text-[10px]">
-                  Don't have an account?{' '}
+                  Don't have an account?{" "}
                   <a
-                    onClick={() => alert('This feature is under development.')}
+                    onClick={() => alert("This feature is under development.")}
                     href="#signup"
                     className="text-accent/80 underline"
                   >
@@ -151,18 +151,18 @@ function LoginPage() {
                   </a>
                 </p>
                 <a
-                  onClick={() => alert('This feature is under development.')}
+                  onClick={() => alert("This feature is under development.")}
                   href="#forgetPassword"
-                  className="text-xs underline text-accent/80 sm:text-[10px]"
+                  className="text-accent/80 text-xs underline sm:text-[10px]"
                 >
                   Forgot password?
                 </a>
               </div>
               <button
                 type="submit"
-                className="btn hover:bg-accent font-bold shadow-none bg-accent/80 border-none text-white mt-3"
+                className="btn hover:bg-accent bg-accent/80 mt-3 border-none font-bold text-white shadow-none"
               >
-                {isLoginLoading ? 'Login...' : 'Login'}
+                {isLoginLoading ? "Login..." : "Login"}
               </button>
             </div>
           </form>

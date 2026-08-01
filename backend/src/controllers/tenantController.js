@@ -5,7 +5,7 @@ export const createTenant = (req, res) => {
   const { firstName, lastName, phoneNumber } = req.body;
   const MAX_TENANTS = 8;
 
-  const countSql = `SELECT COUNT(*) AS totalTenants FROM tblTenant`;
+  const countSql = 'SELECT COUNT(*) AS totalTenants FROM tblTenant';
 
   db.query(countSql, (err, countResult) => {
     if (err) {
@@ -22,7 +22,8 @@ export const createTenant = (req, res) => {
       });
     }
 
-    const sql = `INSERT INTO tblTenant (firstName, lastName, phoneNumber) VALUES (?, ?, ?)`;
+    const sql =
+      'INSERT INTO tblTenant (firstName, lastName, phoneNumber) VALUES (?, ?, ?)';
 
     db.query(sql, [firstName, lastName, phoneNumber], (err, result) => {
       if (err) {
@@ -41,7 +42,8 @@ export const createTenant = (req, res) => {
 
 // view specific
 export const getTenants = (req, res) => {
-  const sql = `SELECT tenantID, firstName, lastName, phoneNumber FROM tblTenant ORDER BY tenantID DESC`;
+  const sql =
+    'SELECT tenantID, firstName, lastName, phoneNumber FROM tblTenant ORDER BY tenantID DESC';
 
   db.query(sql, (err, result) => {
     if (err) {
@@ -57,7 +59,8 @@ export const updateTenant = (req, res) => {
   const { tenantID } = req.params;
   const { firstName, lastName, phoneNumber } = req.body;
 
-  const sql = `UPDATE tblTenant SET firstName = ?, lastName = ?, phoneNumber = ? WHERE tenantID = ?`;
+  const sql =
+    'UPDATE tblTenant SET firstName = ?, lastName = ?, phoneNumber = ? WHERE tenantID = ?';
 
   db.query(sql, [firstName, lastName, phoneNumber, tenantID], (err) => {
     if (err) {
@@ -66,7 +69,7 @@ export const updateTenant = (req, res) => {
     }
     res.json({
       success: true,
-      message: `Updated Tenant Successfully`,
+      message: 'Updated Tenant Successfully',
     });
   });
 };
@@ -75,7 +78,7 @@ export const updateTenant = (req, res) => {
 export const deleteTenant = (req, res) => {
   const { tenantID } = req.params;
 
-  const sql = `DELETE FROM tblTenant WHERE tenantID = ?`;
+  const sql = 'DELETE FROM tblTenant WHERE tenantID = ?';
 
   db.query(sql, [tenantID], (err, result) => {
     if (err) {
@@ -84,7 +87,7 @@ export const deleteTenant = (req, res) => {
     }
     res.json({
       success: true,
-      message: `Tenant Deleted Successfully`,
+      message: 'Tenant Deleted Successfully',
     });
   });
 };

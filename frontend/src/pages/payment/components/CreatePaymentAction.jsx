@@ -1,20 +1,20 @@
-import { CirclePlus } from 'lucide-react';
-import { useAddPayment } from '../../../hooks/useAddPayment';
-import CreatePaymentModal from './CreatePaymentModal';
-import Swal from 'sweetalert2';
-import React, { useState } from 'react';
+import { CirclePlus } from "lucide-react";
+import { useAddPayment } from "../../../hooks/useAddPayment";
+import CreatePaymentModal from "./CreatePaymentModal";
+import Swal from "sweetalert2";
+import React, { useState } from "react";
 
 function CreatePaymentAction() {
   // useHook payment
   const { addPayment } = useAddPayment();
-  const addPaymentModal = document.getElementById('addPaymentModal');
+  const addPaymentModal = document.getElementById("addPaymentModal");
 
   // handle
   const [createPaymentFormData, setCreatePaymentFormData] = useState({
-    tenantName: '',
-    roomNumber: '',
-    amountPayment: '',
-    datePayment: '',
+    tenantName: "",
+    roomNumber: "",
+    amountPayment: "",
+    datePayment: "",
   });
 
   const handlePaymentChange = (e) => {
@@ -30,27 +30,27 @@ function CreatePaymentAction() {
     const result = await addPayment(createPaymentFormData);
     if (result.success) {
       Swal.fire({
-        title: 'Success',
-        icon: 'success',
-        text: 'Payment created successfully.',
+        title: "Success",
+        icon: "success",
+        text: "Payment created successfully.",
         showConfirmButton: false,
         timer: 1000,
       });
       setCreatePaymentFormData({
-        tenantName: '',
-        roomNumber: '',
-        amountPayment: '',
-        datePayment: '',
+        tenantName: "",
+        roomNumber: "",
+        amountPayment: "",
+        datePayment: "",
       });
       addPaymentModal.close();
     } else {
-      console.error('Something went wrong:', result.message);
+      console.error("Something went wrong:", result.message);
       await Swal.fire({
-        title: 'Error',
-        icon: 'error',
-        text: 'Unable to create room. Please check your connection and try again.',
+        title: "Error",
+        icon: "error",
+        text: "Unable to create room. Please check your connection and try again.",
         showConfirmButton: true,
-        confirmButtonColor: '#2C3038',
+        confirmButtonColor: "#2C3038",
       });
       addPaymentModal.showModal();
     }
@@ -59,10 +59,10 @@ function CreatePaymentAction() {
   const clearPaymentButtonWhenClose = (e) => {
     e.preventDefault();
     setCreatePaymentFormData({
-      tenantName: '',
-      roomNumber: '',
-      amountPayment: '',
-      datePayment: '',
+      tenantName: "",
+      roomNumber: "",
+      amountPayment: "",
+      datePayment: "",
     });
     addPaymentModal.close();
   };
@@ -70,12 +70,12 @@ function CreatePaymentAction() {
   return (
     <React.Fragment>
       <button
-        className="btn bg-[#2C3038] font-bold border-none shadow-none hover:bg-black rounded-sm"
-        onClick={() => document.getElementById('addPaymentModal').showModal()}
+        className="btn rounded-sm border-none bg-[#2C3038] font-bold shadow-none hover:bg-black"
+        onClick={() => document.getElementById("addPaymentModal").showModal()}
       >
         <CirclePlus
           size={18}
-          className="sm:w-4 sm:h-4 md:w-5 md:h-5 lg:w-6 lg:h-6"
+          className="sm:h-4 sm:w-4 md:h-5 md:w-5 lg:h-6 lg:w-6"
         />
         Create Payment
       </button>

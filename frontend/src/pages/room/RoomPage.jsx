@@ -1,14 +1,14 @@
-import { useState } from 'react';
-import { CirclePlus } from 'lucide-react';
-import { useTenantSelection } from '../../hooks/useTenantSelection.js';
-import { useRoom } from '../../hooks/useRoom.js';
-import RoomTable from './components/RoomTable.jsx';
-import AddRoomModal from './components/AddRoomModal.jsx';
-import EditRoomModal from './components/EditRoomModal.jsx';
-import DeleteRoomModal from './components/DeleteRoomModal.jsx';
-import RoomSearchFilter from './components/RoomSearchFilter.jsx';
-import Swal from 'sweetalert2';
-import CreatePaymentAction from '../payment/components/CreatePaymentAction.jsx';
+import { useState } from "react";
+import { CirclePlus } from "lucide-react";
+import { useTenantSelection } from "../../hooks/useTenantSelection.js";
+import { useRoom } from "../../hooks/useRoom.js";
+import RoomTable from "./components/RoomTable.jsx";
+import AddRoomModal from "./components/AddRoomModal.jsx";
+import EditRoomModal from "./components/EditRoomModal.jsx";
+import DeleteRoomModal from "./components/DeleteRoomModal.jsx";
+import RoomSearchFilter from "./components/RoomSearchFilter.jsx";
+import Swal from "sweetalert2";
+import CreatePaymentAction from "../payment/components/CreatePaymentAction.jsx";
 
 function RoomPage() {
   // room useHooks
@@ -25,25 +25,25 @@ function RoomPage() {
   } = useRoom();
 
   // show modal variable
-  const addModal = document.getElementById('addModal');
-  const editModal = document.getElementById('editModal');
-  const deleteModal = document.getElementById('deleteModal');
+  const addModal = document.getElementById("addModal");
+  const editModal = document.getElementById("editModal");
+  const deleteModal = document.getElementById("deleteModal");
 
   const { tenants } = useTenantSelection();
-  const [search, setSearch] = useState(''); // for filter tablelist
+  const [search, setSearch] = useState(""); // for filter tablelist
   const [deleteRoomData, setDeleteRoomData] = useState(null);
 
   //handles
   const [createFormData, setCreateFormData] = useState({
-    tenantID: '',
-    roomNumber: '',
-    amountRent: '',
+    tenantID: "",
+    roomNumber: "",
+    amountRent: "",
   });
   const [editFormData, setEditFormData] = useState({
-    tenantFullName: '',
-    roomNumber: '',
+    tenantFullName: "",
+    roomNumber: "",
     amountRent: 0,
-    roomStatus: '',
+    roomStatus: "",
   });
 
   // click create modal checking room
@@ -52,11 +52,11 @@ function RoomPage() {
       addModal.showModal();
     } else {
       Swal.fire({
-        title: 'Warning',
-        icon: 'warning',
-        text: 'Room is full.',
+        title: "Warning",
+        icon: "warning",
+        text: "Room is full.",
         showConfirmButton: true,
-        confirmButtonColor: '#2C3038',
+        confirmButtonColor: "#2C3038",
       });
     }
   };
@@ -72,40 +72,40 @@ function RoomPage() {
     const result = await addRoom(createFormData);
     if (result.success) {
       Swal.fire({
-        title: 'Success',
-        icon: 'success',
-        text: 'Room created successfully.',
+        title: "Success",
+        icon: "success",
+        text: "Room created successfully.",
         showConfirmButton: false,
         timer: 1000,
       });
       // clear data dropdown after submit
       setCreateFormData({
-        tenantID: '',
-        roomNumber: '',
-        amountRent: '',
+        tenantID: "",
+        roomNumber: "",
+        amountRent: "",
       });
       addModal.close();
     }
     // check error from backend db throw error
-    else if (result.code === 'ROOM_NUMBER_EXISTS') {
+    else if (result.code === "ROOM_NUMBER_EXISTS") {
       addModal.close();
       await Swal.fire({
-        title: 'Warning',
-        icon: 'warning',
-        text: 'This room is already in use.',
+        title: "Warning",
+        icon: "warning",
+        text: "This room is already in use.",
         showConfirmButton: true,
-        confirmButtonColor: '#2C3038',
+        confirmButtonColor: "#2C3038",
       });
       addModal.showModal();
     } else {
-      console.error('Something went wrong:', result.message);
+      console.error("Something went wrong:", result.message);
       addModal.close();
       await Swal.fire({
-        title: 'Error',
-        icon: 'error',
-        text: 'Unable to create room. Please check your connection and try again.',
+        title: "Error",
+        icon: "error",
+        text: "Unable to create room. Please check your connection and try again.",
         showConfirmButton: true,
-        confirmButtonColor: '#2C3038',
+        confirmButtonColor: "#2C3038",
       });
       addModal.showModal();
     }
@@ -116,9 +116,9 @@ function RoomPage() {
     e.preventDefault();
     addModal.close();
     setCreateFormData({
-      tenantID: '',
-      roomNumber: '',
-      amountRent: '',
+      tenantID: "",
+      roomNumber: "",
+      amountRent: "",
     });
   };
 
@@ -126,7 +126,7 @@ function RoomPage() {
   const handleStatusRoomChange = async (roomID, data) => {
     const result = await editStatusRoom(roomID, data);
     if (!result.success) {
-      alert('Something went wrong', result.message);
+      alert("Something went wrong", result.message);
     }
   };
 
@@ -155,7 +155,7 @@ function RoomPage() {
     if (result.success) {
       editModal.close();
     } else {
-      alert('Something went wrong:', result.message);
+      alert("Something went wrong:", result.message);
     }
   };
 
@@ -170,21 +170,21 @@ function RoomPage() {
     const result = await removeRoom(deleteRoomData.roomID);
     if (result.success) {
       Swal.fire({
-        title: 'Deleted!',
-        icon: 'success',
-        text: 'Room deleted successfully.',
+        title: "Deleted!",
+        icon: "success",
+        text: "Room deleted successfully.",
         timer: 1000,
         showConfirmButton: false,
       });
       deleteModal.close();
     } else {
-      console.error('Something went wrong:', result.message);
+      console.error("Something went wrong:", result.message);
       Swal.fire({
-        title: 'Error',
-        icon: 'error',
-        text: 'Unable to delete room. Please check your connection and try again.',
+        title: "Error",
+        icon: "error",
+        text: "Unable to delete room. Please check your connection and try again.",
         showConfirmButton: true,
-        confirmButtonColor: '#2C3038',
+        confirmButtonColor: "#2C3038",
       });
     }
   };
@@ -197,32 +197,32 @@ function RoomPage() {
 
   const statusColor = {
     Occupied:
-      'badge text-emerald-500 font-semibold text-xs bg-emerald-500/10  border-emerald-600/20',
+      "badge text-emerald-500 font-semibold text-xs bg-emerald-500/10  border-emerald-600/20",
     Repairing:
-      'badge text-amber-500 font-semibold text-xs bg-amber-500/10 border-amber-600/20',
+      "badge text-amber-500 font-semibold text-xs bg-amber-500/10 border-amber-600/20",
   };
 
   return (
-    <div className="@container px-5 h-auto">
+    <div className="@container h-auto px-5">
       <div className="flex flex-col gap-5">
         <div className="flex flex-col gap-5">
-          <div className="sm:text-sm md:text-md lg:text-lg xl:text-2xl">
-            <h1 className="font-bold text-3xl text-[#2C3038]">
+          <div className="md:text-md sm:text-sm lg:text-lg xl:text-2xl">
+            <h1 className="text-3xl font-bold text-[#2C3038]">
               Room Management
             </h1>
           </div>
-          <div className="flex justify-between items-center">
+          <div className="flex items-center justify-between">
             <RoomSearchFilter search={search} setSearch={setSearch} />
             <div className="flex gap-3">
               <button
-                className="btn bg-[#2C3038] shadow-none rounded-sm border-none hover:bg-black"
+                className="btn rounded-sm border-none bg-[#2C3038] shadow-none hover:bg-black"
                 onClick={handleCreateClick}
               >
                 <CirclePlus
                   size={18}
-                  className="sm:w-4 sm:h-4 md:w-5 md:h-5 lg:w-6 lg:h-6"
+                  className="sm:h-4 sm:w-4 md:h-5 md:w-5 lg:h-6 lg:w-6"
                 />
-                <span className="sm:inline md:inline lg:inline font-bold">
+                <span className="font-bold sm:inline md:inline lg:inline">
                   Create Room
                 </span>
               </button>
@@ -230,7 +230,7 @@ function RoomPage() {
             </div>
           </div>
         </div>
-        <div className="overflow-x-auto rounded-none max-h-133.75 ">
+        <div className="max-h-133.75 overflow-x-auto rounded-none">
           <RoomTable
             filteredRooms={filteredRooms}
             statusColor={statusColor}

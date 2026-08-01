@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { createPayment, getAllPaymentsHistory } from '../api/paymentApi';
+import { useEffect, useState } from "react";
+import { createPayment, getAllPaymentsHistory } from "../api/paymentApi";
 
 export function useAddPayment() {
   // loading state
@@ -25,7 +25,7 @@ export function useAddPayment() {
       return {
         success: false,
         message:
-          'Cannot connect to server. Please check you internet connection',
+          "Cannot connect to server. Please check you internet connection",
       };
     } finally {
       setIsCreatePaymentLoading(false);

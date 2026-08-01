@@ -1,4 +1,4 @@
-import { LoaderCircle } from 'lucide-react';
+import { LoaderCircle } from "lucide-react";
 
 function RoomTable({
   filteredRooms,
@@ -9,7 +9,7 @@ function RoomTable({
   handleStatusRoomChange,
 }) {
   return (
-    <table className="table table-pin-rows bg-[#F4F4F5]">
+    <table className="table-pin-rows table bg-[#F4F4F5]">
       <thead>
         <tr className="bg-[#282C34]">
           <th className="text-[#FFFFFF]">Tenant Name</th>
@@ -35,20 +35,20 @@ function RoomTable({
           </tr>
         ) : filteredRooms.length === 0 ? (
           <tr>
-            <td colSpan={5} className="text-center py-56 text-black">
+            <td colSpan={5} className="py-56 text-center text-black">
               <span>Not found. Click “Add Room” to create one.</span>
             </td>
           </tr>
         ) : (
           filteredRooms.map((roomData) => (
             <tr key={roomData.roomID} className="hover:bg-gray-200">
-              <td className="text-[#404244] border-b border-[#2C3038] font-semibold">
+              <td className="border-b border-[#2C3038] font-semibold text-[#404244]">
                 {roomData.tenantFullName}
               </td>
-              <td className="text-[#404244] border-b border-[#2C3038] font-semibold">
+              <td className="border-b border-[#2C3038] font-semibold text-[#404244]">
                 {roomData.roomNumber}
               </td>
-              <td className="text-[#404244] border-b border-[#2C3038] font-semibold">
+              <td className="border-b border-[#2C3038] font-semibold text-[#404244]">
                 {roomData.amountRent}
               </td>
               <td className="border-b border-[#2C3038]">
@@ -60,30 +60,17 @@ function RoomTable({
                       roomStatus: e.target.value,
                     })
                   }
-                  className={`
-                    appearance-none
-                    border
-                    rounded-sm
-                    outline-none
-                    ring-0
-                    shadow-none
-                    p-0
-                    -m-px
-                    focus:outline-none
-                    focus:ring-0
-                    focus:shadow-none
-                    hover:cursor-pointer px-2
-                    ${statusColor[roomData.roomStatus]} `}
+                  className={`-m-px appearance-none rounded-sm border p-0 px-2 shadow-none ring-0 outline-none hover:cursor-pointer focus:shadow-none focus:ring-0 focus:outline-none ${statusColor[roomData.roomStatus]} `}
                 >
                   <option
                     value="Occupied"
-                    className="text-emerald-500 bg-emerald-500/10"
+                    className="bg-emerald-500/10 text-emerald-500"
                   >
                     Occupied
                   </option>
                   <option
                     value="Repairing"
-                    className="text-amber-500 bg-amber-500/10"
+                    className="bg-amber-500/10 text-amber-500"
                   >
                     Repairing
                   </option>
@@ -91,13 +78,13 @@ function RoomTable({
               </td>
               <td className="flex gap-2 border-b border-[#2C3038]">
                 <button
-                  className="btn px-5 bg-gray-500 shadow-none border-none btn-xs text-xs hover:bg-gray-600 rounded-sm"
+                  className="btn btn-xs rounded-sm border-none bg-gray-500 px-5 text-xs shadow-none hover:bg-gray-600"
                   onClick={() => handleEditClick(roomData)}
                 >
                   Edit
                 </button>
                 <button
-                  className="btn px-4 bg-red-500 shadow-none border-none btn-xs text-xs hover:bg-red-600 rounded-sm"
+                  className="btn btn-xs rounded-sm border-none bg-red-500 px-4 text-xs shadow-none hover:bg-red-600"
                   onClick={() => handleDeleteClick(roomData)}
                 >
                   Delete

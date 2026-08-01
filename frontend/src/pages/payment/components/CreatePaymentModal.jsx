@@ -1,4 +1,4 @@
-import { Plus } from 'lucide-react';
+import { Plus } from "lucide-react";
 
 function CreatePaymentModal({
   handleCreateSubmit,
@@ -9,9 +9,9 @@ function CreatePaymentModal({
 }) {
   return (
     <dialog id="addPaymentModal" className="modal modal-middle sm:modal-middle">
-      <div className="modal-box bg-white shadow-none rounded-sm">
+      <div className="modal-box rounded-sm bg-white shadow-none">
         <div className="flex items-center gap-2">
-          <span className="bg-info px-2 py-2 rounded-full">
+          <span className="bg-info rounded-full px-2 py-2">
             <Plus color="#FFF" size={20} />
           </span>
           <h3 className="text-2xl font-bold text-black">Create Payment</h3>
@@ -19,7 +19,7 @@ function CreatePaymentModal({
         <p className="py-4 text-black">Fill out the payment information</p>
         <form onSubmit={handleCreateSubmit} className="space-y-4">
           <div className="flex flex-col gap-1">
-            <label className="text-black text-xs font-semibold">
+            <label className="text-xs font-semibold text-black">
               Tenant name
             </label>
             <input
@@ -29,11 +29,11 @@ function CreatePaymentModal({
               type="text"
               name="tenantName"
               placeholder="Enter tenant full name"
-              className="input input-border w-full bg-white border-black text-black focus:outline-none rounded-sm"
+              className="input input-border w-full rounded-sm border-black bg-white text-black focus:outline-none"
             />
           </div>
           <div className="flex flex-col gap-1">
-            <label className="text-xs text-black font-semibold">
+            <label className="text-xs font-semibold text-black">
               Room number
             </label>
             <input
@@ -43,11 +43,11 @@ function CreatePaymentModal({
               type="text"
               name="roomNumber"
               placeholder="Enter room number"
-              className="input input-border w-full bg-white border-black text-black focus:outline-none rounded-sm"
+              className="input input-border w-full rounded-sm border-black bg-white text-black focus:outline-none"
             />
           </div>
           <div className="flex flex-col gap-1">
-            <label className="text-xs text-black font-semibold">
+            <label className="text-xs font-semibold text-black">
               Payment amount
             </label>
             <input
@@ -57,13 +57,11 @@ function CreatePaymentModal({
               type="number"
               name="amountPayment"
               placeholder="Enter amount"
-              className="input input-bordered w-full bg-white border-black text-black focus:outline-none rounded-sm [appearance:textfield] 
-              [&::-webkit-outer-spin-button]:appearance-none 
-              [&::-webkit-inner-spin-button]:appearance-none"
+              className="input input-bordered w-full [appearance:textfield] rounded-sm border-black bg-white text-black focus:outline-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
             />
           </div>
           <div className="flex flex-col gap-1">
-            <label className="text-xs text-black font-semibold">
+            <label className="text-xs font-semibold text-black">
               Date payment
             </label>
             <input
@@ -72,19 +70,19 @@ function CreatePaymentModal({
               name="datePayment"
               required
               type="date"
-              className="input input-border border-black w-full bg-white text-black [&::-webkit-calendar-picker-indicator]:invert"
+              className="input input-border w-full border-black bg-white text-black [&::-webkit-calendar-picker-indicator]:invert"
             />
           </div>
           <div className="flex justify-end gap-3 pt-2">
             <button
               type="submit"
-              className="btn hover:bg-success shadow-none border-none bg-success/80 rounded-sm"
+              className="btn hover:bg-success bg-success/80 rounded-sm border-none shadow-none"
             >
-              {isCreatePaymentLoading ? 'Processing...' : 'Save'}
+              {isCreatePaymentLoading ? "Processing..." : "Save"}
             </button>
             <button
               type="button"
-              className="btn bg-[#2C3038] shadow-none border-none hover:bg-black rounded-sm"
+              className="btn rounded-sm border-none bg-[#2C3038] shadow-none hover:bg-black"
               onClick={clearPaymentButtonWhenClose}
             >
               Cancel

@@ -1,4 +1,4 @@
-import { Trash2 } from 'lucide-react';
+import { Trash2 } from "lucide-react";
 
 function DeleteTenantModal({ handleDeleteSubmit, isDeleteLoading }) {
   return (
@@ -6,9 +6,9 @@ function DeleteTenantModal({ handleDeleteSubmit, isDeleteLoading }) {
       id="deleteModal"
       className="modal modal-bottom sm:modal-middle flex items-center justify-center"
     >
-      <div className="modal-box bg-white shadow-none rounded-sm">
+      <div className="modal-box rounded-sm bg-white shadow-none">
         <div className="flex items-center gap-2">
-          <span className="bg-red-500 px-2 py-2 rounded-full">
+          <span className="rounded-full bg-red-500 px-2 py-2">
             <Trash2 color="#FFF" size={20} />
           </span>
           <h3 className="text-2xl font-bold text-black">Delete Confirmation</h3>
@@ -19,14 +19,14 @@ function DeleteTenantModal({ handleDeleteSubmit, isDeleteLoading }) {
             <div className="flex justify-end gap-3 pt-2">
               <button
                 type="submit"
-                className="btn hover:bg-red-500 shadow-none rounded-sm border-none bg-red-600"
+                className="btn rounded-sm border-none bg-red-600 shadow-none hover:bg-red-500"
               >
-                {isDeleteLoading ? 'Deleting...' : 'Yes, Delete it'}
+                {isDeleteLoading ? "Deleting..." : "Yes, Delete it"}
               </button>
               <button
-                onClick={() => document.getElementById('deleteModal').close()}
+                onClick={() => document.getElementById("deleteModal").close()}
                 type="button"
-                className="btn bg-neutral shadow-none rounded-sm border-none hover:opacity-80"
+                className="btn bg-neutral rounded-sm border-none shadow-none hover:opacity-80"
               >
                 Cancel
               </button>
