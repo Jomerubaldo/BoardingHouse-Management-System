@@ -26,8 +26,8 @@ function MainLayout() {
         checked={isDrawerOpen}
         onChange={(e) => setIsDrawerOpen(e.target.checked)}
       />
-      <div className="drawer-content">
-        <nav className="navbar sticky top-0 z-10 flex w-full gap-1 border-b border-[#2C3038] bg-[#FFFFFF]">
+      <div className="drawer-content flex h-dvh flex-col overflow-hidden">
+        <nav className="navbar sticky top-0 z-10 flex w-full shrink-0 gap-1 border-b border-[#2C3038] bg-[#FFFFFF]">
           <label
             htmlFor="my-drawer-4"
             aria-label="open sidebar"
@@ -77,7 +77,7 @@ function MainLayout() {
             </div>
           </div>
         </nav>
-        <div className="py-4">
+        <div className="min-h-0 flex-1">
           <Outlet />
         </div>
       </div>
