@@ -1,4 +1,6 @@
-import TableStatus from "./TableStatus";
+import { SquarePen, Trash2 } from "lucide-react";
+import TableLoadingStatus from "./TableLoadingStatus";
+import TenantNotFoundState from "./TenantNotFoundState";
 
 function TenantTable({
   filteredTenants,
@@ -7,26 +9,25 @@ function TenantTable({
   isFetchLoading,
 }) {
   return (
-    <>
-      <div className="hidden h-full max-h-133.75 overflow-x-auto overflow-y-auto rounded-sm lg:block">
+    <div className="h-full">
+      {/* desktop view */}
+      <div className="hidden h-full overflow-y-auto rounded-sm md:block">
         <table className="table-pin-rows table bg-[#F4F4F5]">
           <thead>
             <tr className="bg-[#2C3038]">
-              <th className="text-[#FFFFFE] md:p-3">First Name</th>
-              <th className="text-[#FFFFFE] md:p-3">Last Name</th>
-              <th className="text-[#FFFFFE] md:p-3">Contact</th>
-              <th className="text-[#FFFFFE] md:p-3">Actions</th>
+              <th className="font-semibold text-[#FFFFFE] md:p-3">
+                First Name
+              </th>
+              <th className="font-semibold text-[#FFFFFE] md:p-3">Last Name</th>
+              <th className="font-semibold text-[#FFFFFE] md:p-3">Contact</th>
+              <th className="font-semibold text-[#FFFFFE] md:p-3">Actions</th>
             </tr>
           </thead>
           <tbody>
             {isFetchLoading ? (
-              <TableStatus />
+              <TableLoadingStatus />
             ) : filteredTenants.length === 0 ? (
-              <tr>
-                <td colSpan={4} className="py-56 text-center text-[#2C3038]">
-                  <span>Not found. Click “Add Tenant” to create one.</span>
-                </td>
-              </tr>
+              <TenantNotFoundState />
             ) : (
               filteredTenants.map((tenantData) => (
                 <tr key={tenantData.tenantID} className="hover:bg-gray-200">
@@ -41,13 +42,13 @@ function TenantTable({
                   </td>
                   <td className="flex gap-2 border-b border-[#2C3038] md:p-3">
                     <button
-                      className="btn btn-xs rounded-sm border-none bg-gray-500 px-5 text-xs shadow-none hover:bg-gray-600"
+                      className="btn btn-xs rounded-sm border-none bg-gray-500 px-5 text-xs font-semibold shadow-none hover:bg-gray-600"
                       onClick={() => handleEditClick(tenantData)}
                     >
                       Edit
                     </button>
                     <button
-                      className="btn btn-xs rounded-sm border-none bg-red-500 px-4 text-xs shadow-none hover:bg-red-600"
+                      className="btn btn-xs rounded-sm border-none bg-red-500 px-4 text-xs font-semibold shadow-none hover:bg-red-600"
                       onClick={() => handleDeleteClick(tenantData)}
                     >
                       Delete
@@ -59,61 +60,43 @@ function TenantTable({
           </tbody>
         </table>
       </div>
-      <div className="h-full max-h-133.75 overflow-x-auto overflow-y-auto rounded-sm lg:hidden">
-        <table className="table w-full">
-          <tbody>
-            {isFetchLoading ? (
-              <TableStatus />
-            ) : filteredTenants.length === 0 ? (
-              <tr>
-                <td colSpan={4} className="py-56 text-center text-[#2C3038]">
-                  <span>Not found. Click add tenant to create one</span>
-                </td>
-              </tr>
-            ) : (
-              filteredTenants.map((tenantData) => (
-                <tr
-                  key={tenantData.tenantID}
-                  className="flex items-center justify-between border border-[#2C3038] p-2"
-                >
-                  <td>
-                    <div className="flex flex-col justify-center">
-                      <div className="flex items-center gap-1">
-                        <span className="text-lg font-semibold text-[#404244]">
-                          {tenantData.firstName}
-                        </span>
-                        <span className="text-lg font-semibold text-[#404244]">
-                          {tenantData.lastName}
-                        </span>
-                      </div>
-                      <span className="text-xs font-semibold text-[#404244]">
-                        {tenantData.phoneNumber}
-                      </span>
-                    </div>
-                  </td>
-                  <td>
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => handleEditClick(tenantData)}
-                        className="btn btn-xs rounded-sm border-none bg-gray-500 px-4 text-xs shadow-none hover:bg-gray-600"
-                      >
-                        Edit
-                      </button>
-                      <button
-                        onClick={() => handleDeleteClick(tenantData)}
-                        className="btn btn-xs rounded-sm border-none bg-red-500 px-2 text-xs shadow-none hover:bg-red-600"
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+
+      {/* mobile view */}
+      <div className="block h-full space-y-3 overflow-y-auto md:hidden">
+        {isFetchLoading ? (
+          <TableLoadingStatus />
+        ) : filteredTenants.length === 0 ? (
+          <TenantNotFoundState />
+        ) : (
+          filteredTenants.map((tenantData) => (
+            <div
+              key={tenantData.tenantID}
+              className="rounded-md border border-[#2C3038] bg-[#F4F4F5] p-3 shadow-sm"
+            >
+              <div className="flex items-start justify-between gap-2">
+                <div className="flex flex-col">
+                  <span className="text-base font-semibold text-[#282C34]">
+                    {tenantData.firstName} {tenantData.lastName}
+                  </span>
+                  <span className="text-sm font-medium text-[#6B7280]">
+                    {tenantData.phoneNumber}
+                  </span>
+                </div>
+
+                <div className="flex shrink-0 gap-4">
+                  <button onClick={() => handleEditClick(tenantData)}>
+                    <SquarePen size={18} color="#404244" />
+                  </button>
+                  <button onClick={() => handleDeleteClick(tenantData)}>
+                    <Trash2 size={18} color="red" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))
+        )}
       </div>
-    </>
+    </div>
   );
 }
 export default TenantTable;

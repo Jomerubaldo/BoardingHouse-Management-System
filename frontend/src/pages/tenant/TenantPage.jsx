@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CirclePlus } from "lucide-react";
+import { Plus } from "lucide-react";
 import AddTenantModal from "./components/AddTenantModal.jsx";
 import EditTenantModal from "./components/EditTenantModal.jsx";
 import DeleteTenantModal from "./components/DeleteTenantModal.jsx";
@@ -249,53 +249,64 @@ function TenantPage() {
   );
 
   return (
-    <div className="@container h-full px-5 sm:h-full">
+    <div className="flex h-full flex-col overflow-hidden px-5 py-5">
       <div className="flex flex-col gap-5">
-        <div className="flex flex-col gap-5">
-          <h1 className="text-2xl font-bold text-[#2C3038] sm:text-3xl lg:text-5xl">
+        <div className="flex shrink-0 flex-col gap-5">
+          <h1 className="text-2xl font-bold text-[#2C3038] md:text-3xl">
             Tenant Management
           </h1>
-          <div className="flex items-center justify-between gap-3 sm:gap-30">
+          <div className="mb-5 flex justify-between md:gap-30">
             <TenantSearchFilter search={search} setSearch={setSearch} />
             <button
-              className="btn btn-sm md:btn-md lg:btn-lg rounded-sm border-none bg-[#2C3038] shadow-none hover:bg-black"
+              className="md:btn-md hidden rounded-sm border-none bg-[#2C3038] px-4 shadow-none hover:bg-black md:block"
               onClick={handleCreateClick}
             >
-              <CirclePlus
-                size={16}
-                className="sm:h-4 sm:w-4 md:h-5 md:w-5 lg:h-6 lg:w-6"
-              />
-              <span className="font-bold text-[#FFFFFF]">Register Tenant</span>
+              <div className="flex h-auto items-center gap-1">
+                <Plus size={17} color="#FFF" />
+                <span className="text-sm font-semibold">Register Tenant</span>
+              </div>
             </button>
           </div>
+
+          {/* add floating button */}
+          <button
+            className="fixed right-10 bottom-10 z-999 block h-15 w-15 rounded-full bg-[#2C3038] hover:bg-black md:hidden"
+            onClick={handleCreateClick}
+          >
+            <div className="flex h-auto items-center justify-center gap-2">
+              <Plus size={30} color="#FFF" />
+            </div>
+          </button>
         </div>
+      </div>
+      <div className="min-h-0 flex-1">
         <TenantTable
           filteredTenants={filteredTenants}
           handleEditClick={handleEditClick}
           handleDeleteClick={handleDeleteClick}
           isFetchLoading={isFetchLoading}
         />
-        <AddTenantModal
-          handleCreateSubmit={handleCreateSubmit}
-          createFormData={createFormData}
-          handleCreateChange={handleCreateChange}
-          clearCreateButtonWhenClose={clearCreateButtonWhenClose}
-          isCreateLoading={isCreateLoading}
-          tenants={tenants}
-          addPhoneError={addPhoneError}
-        />
-        <EditTenantModal
-          handleEditSubmit={handleEditSubmit}
-          editFormData={editFormData}
-          handleEditChange={handleEditChange}
-          isUpdateLoading={isUpdateLoading}
-          editPhoneError={editPhoneError}
-        />
-        <DeleteTenantModal
-          handleDeleteSubmit={handleDeleteSubmit}
-          isDeleteLoading={isDeleteLoading}
-        />
       </div>
+      <AddTenantModal
+        handleCreateSubmit={handleCreateSubmit}
+        createFormData={createFormData}
+        handleCreateChange={handleCreateChange}
+        clearCreateButtonWhenClose={clearCreateButtonWhenClose}
+        isCreateLoading={isCreateLoading}
+        tenants={tenants}
+        addPhoneError={addPhoneError}
+      />
+      <EditTenantModal
+        handleEditSubmit={handleEditSubmit}
+        editFormData={editFormData}
+        handleEditChange={handleEditChange}
+        isUpdateLoading={isUpdateLoading}
+        editPhoneError={editPhoneError}
+      />
+      <DeleteTenantModal
+        handleDeleteSubmit={handleDeleteSubmit}
+        isDeleteLoading={isDeleteLoading}
+      />
     </div>
   );
 }

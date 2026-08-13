@@ -8,7 +8,7 @@ function EditRoomModal({
   isUpdateLoading,
 }) {
   return (
-    <dialog id="editModal" className="modal modal-middle sm:modal-middle">
+    <dialog id="editModal" className="modal modal-middle">
       <div className="modal-box rounded-sm bg-white shadow-none">
         <div className="flex items-center gap-2">
           <span className="bg-info rounded-full px-2 py-2">

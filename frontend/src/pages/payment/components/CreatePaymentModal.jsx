@@ -60,7 +60,7 @@ function CreatePaymentModal({
               className="input input-bordered w-full [appearance:textfield] rounded-sm border-black bg-white text-black focus:outline-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
             />
           </div>
-          <div className="flex flex-col gap-1">
+          <div className="relative flex flex-col gap-1">
             <label className="text-xs font-semibold text-black">
               Date payment
             </label>

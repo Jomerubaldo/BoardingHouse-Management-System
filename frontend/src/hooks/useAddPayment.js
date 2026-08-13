@@ -7,7 +7,7 @@ export function useAddPayment() {
   // Not found. Click “Add Payment” to create one.
   // kasi initial value ng filteredRooms.length ay empty array []
   const [isCreatePaymentLoading, setIsCreatePaymentLoading] = useState(false);
-  const [isFetchLoading, setIsFetchLoading] = useState(false);
+  const [isFetchLoading, setIsFetchLoading] = useState(true);
 
   const [paymentHistory, setPaymentHistory] = useState([]);
 

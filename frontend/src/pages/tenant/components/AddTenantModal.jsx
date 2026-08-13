@@ -1,4 +1,4 @@
-import { Plus } from "lucide-react";
+import { UserPlus } from "lucide-react";
 
 function AddTenantModal({
   handleCreateSubmit,
@@ -9,12 +9,12 @@ function AddTenantModal({
   addPhoneError,
 }) {
   return (
-    <dialog id="addModal" className="modal modal-middle sm:modal-middle">
+    <dialog id="addModal" className="modal modal-middle">
       <div className="modal-box rounded-sm bg-white shadow-none">
         <div className="flex items-center gap-2">
-          <span className="bg-info rounded-full px-2 py-2">
-            <Plus color="#FFF" size={20} />
-          </span>
+          <div className="bg-info rounded-full px-2 py-2">
+            <UserPlus color="#FFF" size={20} />
+          </div>
           <h3 className="text-2xl font-bold text-black">New Tenant</h3>
         </div>
         <p className="py-4 text-black">Fill out the tenant information</p>

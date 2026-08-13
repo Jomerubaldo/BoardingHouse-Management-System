@@ -1,4 +1,4 @@
-import { SquarePen } from "lucide-react";
+import { UserPen } from "lucide-react";
 
 function EditTenantModal({
   handleEditSubmit,
@@ -8,11 +8,11 @@ function EditTenantModal({
   editPhoneError,
 }) {
   return (
-    <dialog id="editModal" className="modal modal-middle sm:modal-middle">
+    <dialog id="editModal" className="modal modal-middle">
       <div className="modal-box rounded-sm bg-white shadow-none">
         <div className="flex items-center gap-2">
           <span className="bg-info rounded-full px-2 py-2">
-            <SquarePen color="#FFF" size={20} />
+            <UserPen color="#FFF" size={20} />
           </span>
           <h3 className="text-2xl font-bold text-black">Edit Tenant</h3>
         </div>

@@ -44,7 +44,7 @@ function DashboardPage() {
   const countVacantRoom = Max_Room - countOccupiedRoom;
 
   return (
-    <div className="@container px-5">
+    <div className="h-full overflow-y-auto px-5 py-5">
       <div className="flex flex-col gap-5">
         <div className="md:text-md sm:text-sm lg:text-lg xl:text-2xl">
           <h1 className="text-3xl font-bold text-[#2C3038]">Dashboard</h1>

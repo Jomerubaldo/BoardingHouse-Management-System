@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CirclePlus } from "lucide-react";
+import { HousePlus, Plus } from "lucide-react";
 import { useTenantSelection } from "../../hooks/useTenantSelection.js";
 import { useRoom } from "../../hooks/useRoom.js";
 import RoomTable from "./components/RoomTable.jsx";
@@ -197,69 +197,75 @@ function RoomPage() {
 
   const statusColor = {
     Occupied:
-      "badge text-emerald-500 font-semibold text-xs bg-emerald-500/10  border-emerald-600/20",
+      "text-emerald-500 font-semibold py-1 text-md md:text-xs bg-transparent md:bg-emerald-500/10  md:border-emerald-600/20",
     Repairing:
-      "badge text-amber-500 font-semibold text-xs bg-amber-500/10 border-amber-600/20",
+      "text-amber-500 font-semibold py-1 text-md md:text-xs bg-transparent md:bg-amber-500/10 md:border-amber-600/20",
   };
 
   return (
-    <div className="@container h-auto px-5">
+    <div className="flex h-full flex-col overflow-hidden px-5 py-5">
       <div className="flex flex-col gap-5">
-        <div className="flex flex-col gap-5">
-          <div className="md:text-md sm:text-sm lg:text-lg xl:text-2xl">
-            <h1 className="text-3xl font-bold text-[#2C3038]">
-              Room Management
-            </h1>
-          </div>
-          <div className="flex items-center justify-between">
+        <div className="flex shrink-0 flex-col gap-5">
+          <h1 className="text-2xl font-bold text-[#2C3038] sm:text-3xl">
+            Room Management
+          </h1>
+          <div className="mb-5 flex justify-between md:gap-30">
             <RoomSearchFilter search={search} setSearch={setSearch} />
             <div className="flex gap-3">
               <button
-                className="btn rounded-sm border-none bg-[#2C3038] shadow-none hover:bg-black"
+                className="btn hidden rounded-sm border-none bg-[#2C3038] shadow-none hover:bg-black md:block"
                 onClick={handleCreateClick}
               >
-                <CirclePlus
-                  size={18}
-                  className="sm:h-4 sm:w-4 md:h-5 md:w-5 lg:h-6 lg:w-6"
-                />
-                <span className="font-bold sm:inline md:inline lg:inline">
-                  Create Room
-                </span>
+                <div className="flex items-center gap-1">
+                  <Plus size={17} color="#FFF" />
+                  <span className="text-sm font-semibold">Create Room</span>
+                </div>
               </button>
+              {/* floating create payment */}
               <CreatePaymentAction />
             </div>
           </div>
+          {/* floating create room */}
+          <button
+            className="fixed right-10 bottom-10 z-999 block h-15 w-15 rounded-full bg-[#2C3038] hover:bg-black md:hidden"
+            onClick={handleCreateClick}
+          >
+            <div className="flex h-auto items-center justify-center gap-2">
+              <HousePlus size={30} color="#FFF" />
+            </div>
+          </button>
         </div>
-        <div className="max-h-133.75 overflow-x-auto rounded-none">
-          <RoomTable
-            filteredRooms={filteredRooms}
-            statusColor={statusColor}
-            handleEditClick={handleEditClick}
-            handleDeleteClick={handleDeleteClick}
-            isFetchLoading={isFetchLoading}
-            handleStatusRoomChange={handleStatusRoomChange}
-          />
-        </div>
-        <AddRoomModal
-          isCreateLoading={isCreateLoading}
-          handleSubmitCreateRoom={handleSubmitCreateRoom}
-          createFormData={createFormData}
-          handleCreateChange={handleCreateChange}
-          tenants={tenants}
-          clearCreateButtonWhenClose={clearCreateButtonWhenClose}
-        />
-        <EditRoomModal
-          handleSubmitEdit={handleSubmitEdit}
-          editFormData={editFormData}
-          handleEditChange={handleEditChange}
-          tenants={tenants}
-          isUpdateLoading={isUpdateLoading}
-        />
-        <DeleteRoomModal
-          handleSubmitDelete={handleSubmitDelete}
-          isDeleteLoading={isDeleteLoading}
+      </div>
+
+      <div className="min-h-0 flex-1">
+        <RoomTable
+          filteredRooms={filteredRooms}
+          statusColor={statusColor}
+          handleEditClick={handleEditClick}
+          handleDeleteClick={handleDeleteClick}
+          isFetchLoading={isFetchLoading}
+          handleStatusRoomChange={handleStatusRoomChange}
         />
       </div>
+      <AddRoomModal
+        isCreateLoading={isCreateLoading}
+        handleSubmitCreateRoom={handleSubmitCreateRoom}
+        createFormData={createFormData}
+        handleCreateChange={handleCreateChange}
+        tenants={tenants}
+        clearCreateButtonWhenClose={clearCreateButtonWhenClose}
+      />
+      <EditRoomModal
+        handleSubmitEdit={handleSubmitEdit}
+        editFormData={editFormData}
+        handleEditChange={handleEditChange}
+        tenants={tenants}
+        isUpdateLoading={isUpdateLoading}
+      />
+      <DeleteRoomModal
+        handleSubmitDelete={handleSubmitDelete}
+        isDeleteLoading={isDeleteLoading}
+      />
     </div>
   );
 }

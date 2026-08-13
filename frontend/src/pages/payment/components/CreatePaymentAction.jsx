@@ -1,4 +1,4 @@
-import { CirclePlus } from "lucide-react";
+import { CreditCard, Plus } from "lucide-react";
 import { useAddPayment } from "../../../hooks/useAddPayment";
 import CreatePaymentModal from "./CreatePaymentModal";
 import Swal from "sweetalert2";
@@ -70,14 +70,22 @@ function CreatePaymentAction() {
   return (
     <React.Fragment>
       <button
-        className="btn rounded-sm border-none bg-[#2C3038] font-bold shadow-none hover:bg-black"
+        className="btn hidden rounded-sm border-none bg-[#2C3038] font-bold shadow-none hover:bg-black md:block"
         onClick={() => document.getElementById("addPaymentModal").showModal()}
       >
-        <CirclePlus
-          size={18}
-          className="sm:h-4 sm:w-4 md:h-5 md:w-5 lg:h-6 lg:w-6"
-        />
-        Create Payment
+        <div className="flex items-center gap-1">
+          <Plus size={18} color="#FFF" />
+          <span className="text-sm font-semibold">Create Payment</span>
+        </div>
+      </button>
+      {/* floating create payment */}
+      <button
+        className="fixed right-10 bottom-30 z-999 block h-15 w-15 rounded-full bg-[#2C3038] hover:bg-black md:hidden"
+        onClick={() => document.getElementById("addPaymentModal").showModal()}
+      >
+        <div className="flex h-auto items-center justify-center gap-2">
+          <CreditCard size={30} color="#FFF" />
+        </div>
       </button>
       <CreatePaymentModal
         handleCreateChange={handlePaymentChange}
