@@ -133,6 +133,20 @@ function MainLayout() {
             </li>
 
             <li>
+              <NavLink to="/rent" className="rounded-none">
+                <button
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center gap-3"
+                  data-tip="Rent"
+                >
+                  <BedSingle color="#3B82F6" size={16} />
+                  <span className="is-drawer-close:hidden text-[16px] font-semibold text-[#F4F4F5]">
+                    Rent
+                  </span>
+                </button>
+              </NavLink>
+            </li>
+
+            <li>
               <NavLink to="/payment" className="rounded-none">
                 <button
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center gap-3"

@@ -1,0 +1,272 @@
+import { useState } from "react";
+import { HousePlus, Plus } from "lucide-react";
+import { useTenantSelection } from "../../hooks/useTenantSelection.js";
+import { useRoom } from "../../hooks/useRoom.js";
+import RoomTable from "./components/RentTable.jsx";
+import AddRoomModal from "./components/AddRentModal.jsx";
+import EditRoomModal from "./components/EditRentModal.jsx";
+import DeleteRoomModal from "./components/DeleteRentModal.jsx";
+import RoomSearchFilter from "./components/RentSearchFilter.jsx";
+import Swal from "sweetalert2";
+import CreatePaymentAction from "../payment/components/CreatePaymentAction.jsx";
+
+function RentPage() {
+  // room useHooks
+  const {
+    rooms,
+    addRoom,
+    editStatusRoom,
+    editRoom,
+    removeRoom,
+    isCreateLoading,
+    isFetchLoading,
+    isUpdateLoading,
+    isDeleteLoading,
+  } = useRoom();
+
+  // show modal variable
+  const addModal = document.getElementById("addModal");
+  const editModal = document.getElementById("editModal");
+  const deleteModal = document.getElementById("deleteModal");
+
+  const { tenants } = useTenantSelection();
+  const [search, setSearch] = useState(""); // for filter tablelist
+  const [deleteRoomData, setDeleteRoomData] = useState(null);
+
+  //handles
+  const [createFormData, setCreateFormData] = useState({
+    tenantID: "",
+    roomNumber: "",
+    amountRent: "",
+  });
+  const [editFormData, setEditFormData] = useState({
+    tenantFullName: "",
+    roomNumber: "",
+    amountRent: 0,
+    roomStatus: "",
+  });
+
+  // click create modal checking room
+  const handleCreateClick = () => {
+    if (rooms.length < 8) {
+      addModal.showModal();
+    } else {
+      Swal.fire({
+        title: "Warning",
+        icon: "warning",
+        text: "Room is full.",
+        showConfirmButton: true,
+        confirmButtonColor: "#2C3038",
+      });
+    }
+  };
+
+  // para sa pag kuha ng e cre-create na value
+  const handleCreateChange = (e) => {
+    setCreateFormData({ ...createFormData, [e.target.name]: e.target.value });
+  };
+
+  // final submit room created
+  const handleSubmitCreateRoom = async (e) => {
+    e.preventDefault();
+    const result = await addRoom(createFormData);
+    if (result.success) {
+      Swal.fire({
+        title: "Success",
+        icon: "success",
+        text: "Room created successfully.",
+        showConfirmButton: false,
+        timer: 1000,
+      });
+      // clear data dropdown after submit
+      setCreateFormData({
+        tenantID: "",
+        roomNumber: "",
+        amountRent: "",
+      });
+      addModal.close();
+    }
+    // check error from backend db throw error
+    else if (result.code === "ROOM_NUMBER_EXISTS") {
+      addModal.close();
+      await Swal.fire({
+        title: "Warning",
+        icon: "warning",
+        text: "This room is already in use.",
+        showConfirmButton: true,
+        confirmButtonColor: "#2C3038",
+      });
+      addModal.showModal();
+    } else {
+      console.error("Something went wrong:", result.message);
+      addModal.close();
+      await Swal.fire({
+        title: "Error",
+        icon: "error",
+        text: "Unable to create room. Please check your connection and try again.",
+        showConfirmButton: true,
+        confirmButtonColor: "#2C3038",
+      });
+      addModal.showModal();
+    }
+  };
+
+  // if cancel the button to submit the value recent reset to empty again
+  const clearCreateButtonWhenClose = (e) => {
+    e.preventDefault();
+    addModal.close();
+    setCreateFormData({
+      tenantID: "",
+      roomNumber: "",
+      amountRent: "",
+    });
+  };
+
+  // edit room status
+  const handleStatusRoomChange = async (roomID, data) => {
+    const result = await editStatusRoom(roomID, data);
+    if (!result.success) {
+      alert("Something went wrong", result.message);
+    }
+  };
+
+  // para makuha yung value na eedit
+  // yung .name is para sa name na attribute sa input at .value kung ano ipapalit na value
+  const handleEditChange = (e) => {
+    setEditFormData({ ...editFormData, [e.target.name]: e.target.value });
+  };
+
+  // indicate na kapag nag click kuha niya value agad ng gusto e edit
+  const handleEditClick = (room) => {
+    setEditFormData({
+      roomID: room.roomID,
+      tenantFullName: room.tenantFullName,
+      roomNumber: room.roomNumber,
+      amountRent: room.amountRent, //changed number from string // fixed it in edting
+      roomStatus: room.roomStatus,
+    });
+    editModal.showModal();
+  };
+
+  // need to fix
+  const handleSubmitEdit = async (e) => {
+    e.preventDefault();
+    const result = await editRoom(editFormData.roomID, editFormData); //kunin ang id at body/data na ipapasa sa api
+    if (result.success) {
+      editModal.close();
+    } else {
+      alert("Something went wrong:", result.message);
+    }
+  };
+
+  // delete
+  const handleDeleteClick = (room) => {
+    setDeleteRoomData(room);
+    deleteModal.showModal();
+  };
+
+  const handleSubmitDelete = async (e) => {
+    e.preventDefault();
+    const result = await removeRoom(deleteRoomData.roomID);
+    if (result.success) {
+      Swal.fire({
+        title: "Deleted!",
+        icon: "success",
+        text: "Room deleted successfully.",
+        timer: 1000,
+        showConfirmButton: false,
+      });
+      deleteModal.close();
+    } else {
+      console.error("Something went wrong:", result.message);
+      Swal.fire({
+        title: "Error",
+        icon: "error",
+        text: "Unable to delete room. Please check your connection and try again.",
+        showConfirmButton: true,
+        confirmButtonColor: "#2C3038",
+      });
+    }
+  };
+
+  // for searching filter room in tablelist
+  // confusing na part dito
+  const filteredRooms = rooms.filter((room) => {
+    return room.tenantFullName.toLowerCase().includes(search.toLowerCase());
+  });
+
+  const statusColor = {
+    Occupied:
+      "text-emerald-500 font-semibold py-1 text-md md:text-xs bg-transparent md:bg-emerald-500/10  md:border-emerald-600/20",
+    Repairing:
+      "text-amber-500 font-semibold py-1 text-md md:text-xs bg-transparent md:bg-amber-500/10 md:border-amber-600/20",
+  };
+
+  return (
+    <div className="flex h-full flex-col overflow-hidden px-5 py-5">
+      <div className="flex flex-col gap-5">
+        <div className="flex shrink-0 flex-col gap-5">
+          <h1 className="text-2xl font-bold text-[#2C3038] sm:text-3xl">
+            Rent Management
+          </h1>
+          <div className="mb-5 flex justify-between md:gap-30">
+            <RoomSearchFilter search={search} setSearch={setSearch} />
+            <div className="flex gap-3">
+              <button
+                className="btn hidden rounded-sm border-none bg-[#2C3038] shadow-none hover:bg-black md:block"
+                onClick={handleCreateClick}
+              >
+                <div className="flex items-center gap-1">
+                  <Plus size={17} color="#FFF" />
+                  <span className="text-sm font-semibold">Create Room</span>
+                </div>
+              </button>
+              {/* floating create payment */}
+              <CreatePaymentAction />
+            </div>
+          </div>
+          {/* floating create room */}
+          <button
+            className="fixed right-10 bottom-10 z-999 block h-15 w-15 rounded-full bg-[#2C3038] hover:bg-black md:hidden"
+            onClick={handleCreateClick}
+          >
+            <div className="flex h-auto items-center justify-center gap-2">
+              <HousePlus size={30} color="#FFF" />
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <div className="min-h-0 flex-1">
+        <RoomTable
+          filteredRooms={filteredRooms}
+          statusColor={statusColor}
+          handleEditClick={handleEditClick}
+          handleDeleteClick={handleDeleteClick}
+          isFetchLoading={isFetchLoading}
+          handleStatusRoomChange={handleStatusRoomChange}
+        />
+      </div>
+      <AddRoomModal
+        isCreateLoading={isCreateLoading}
+        handleSubmitCreateRoom={handleSubmitCreateRoom}
+        createFormData={createFormData}
+        handleCreateChange={handleCreateChange}
+        tenants={tenants}
+        clearCreateButtonWhenClose={clearCreateButtonWhenClose}
+      />
+      <EditRoomModal
+        handleSubmitEdit={handleSubmitEdit}
+        editFormData={editFormData}
+        handleEditChange={handleEditChange}
+        tenants={tenants}
+        isUpdateLoading={isUpdateLoading}
+      />
+      <DeleteRoomModal
+        handleSubmitDelete={handleSubmitDelete}
+        isDeleteLoading={isDeleteLoading}
+      />
+    </div>
+  );
+}
+export default RentPage;
