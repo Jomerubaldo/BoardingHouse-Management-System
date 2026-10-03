@@ -1,10 +1,12 @@
+// 4. Process and Logic
+
 import bcrypt from 'bcryptjs';
 import db from '../config/db.js';
 
 export const adminAuth = async (req, res) => {
   const { username, password } = req.body;
 
-  const sql = 'SELECT username, password FROM admin WHERE username = ?';
+  const sql = 'SELECT username, password FROM tblAdmin WHERE username = ?';
 
   db.query(sql, [username], async (err, result) => {
     if (err) {

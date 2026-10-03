@@ -1,3 +1,5 @@
+// 4. Process and Logic
+
 import db from '../config/db.js';
 
 // create payment

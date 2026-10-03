@@ -1,3 +1,47 @@
+-- New Schema
+
+CREATE TABLE tblTenant(
+tenantID INT AUTO_INCREMENT PRIMARY KEY,
+firstName VARCHAR(50) NOT NULL,
+lastName VARCHAR(50) NOT NULL,
+phoneNumber VARCHAR(11) NOT NULL
+);
+
+CREATE TABLE tblRoom(
+roomID INT AUTO_INCREMENT PRIMARY KEY,
+roomNumber VARCHAR(29) NOT NULL UNIQUE,
+amountRent DECIMAL(10,2) NOT NULL,
+roomStatus ENUM('Available', 'Occupied', 'Reparing') DEFAULT 'Available'
+);
+
+CREATE TABLE tblRent(
+rentID INT AUTO_INCREMENT PRIMARY KEY,
+tenantID INT NOT NULL,
+roomID INT NOT NULL,
+startDate DATE NOT NULL DEFAULT (CURRENT_DATE),
+endData DATE NULL,
+rentStatus ENUM('Active', 'Ended') DEFAULT 'Active',
+FOREIGN KEY(tenantID) REFERENCES tblTenat(tenantID),
+FOREIGN KEY(roomID) REFERENCES tblRoom(roomID)
+);
+
+CREATE TABLE tblPayment(
+paymentID INT AUTO_INCREMENT PRIMARY KEY,
+rentID INT NOT NULL,
+datePayment DATE DEFAULT (CURRENT_DATE),
+amountPayment DECIMAL(10,2),
+FOREIGN KEY(rentID) REFERENCES tblRent(rentID)
+);
+
+CREATE TABLE tblAdmin(
+adminID INT AUTO_INCREMENT PRIMARY KEY,
+username VARCHAR(50) NOT NULL UNIQUE,
+password VARCHAR(255) NOT NULL
+);
+
+
+-- Old Schema
+
 CREATE TABLE tblTenant(
 tenantID INT AUTO_INCREMENT PRIMARY KEY,
 firstName VARCHAR(50) NOT NULL,

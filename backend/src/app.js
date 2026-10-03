@@ -1,3 +1,5 @@
+// 1. Entry Point
+
 import express from 'express';
 import tenantRoutes from './routes/tenantRoutes.js';
 import roomRoutes from './routes/roomRoutes.js';
