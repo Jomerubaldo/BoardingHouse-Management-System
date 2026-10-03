@@ -1,6 +1,5 @@
 // 3. Traffic Cop
 
-import express from 'express';
 import {
   createPayment,
   dashboardChart,
@@ -8,6 +7,7 @@ import {
   totalRevenue,
 } from '../controllers/paymentController.js';
 
+import express from 'express';
 const router = express.Router();
 
 router.post('/', createPayment);

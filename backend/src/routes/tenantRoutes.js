@@ -1,6 +1,5 @@
 // 3. Traffic Cop
 
-import express from 'express';
 import {
   createTenant,
   getTenants,
@@ -8,6 +7,7 @@ import {
   deleteTenant,
 } from '../controllers/tenantController.js';
 
+import express from 'express';
 const router = express.Router();
 
 router.post('/', createTenant);

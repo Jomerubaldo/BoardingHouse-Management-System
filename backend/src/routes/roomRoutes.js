@@ -1,6 +1,5 @@
 // 3. Traffic Cop
 
-import express from 'express';
 import {
   createRoom,
   getRooms,
@@ -11,6 +10,7 @@ import {
   updateStatusRoom,
 } from '../controllers/roomController.js';
 
+import express from 'express'; // import para magamit ang routes sa express
 const router = express.Router();
 
 router.post('/', createRoom);

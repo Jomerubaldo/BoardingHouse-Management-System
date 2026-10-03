@@ -26,3 +26,5 @@ const seedAdmin = async () => {
 };
 
 seedAdmin();
+
+// one time lang e rurun para lang sa temporary authentication but naka has na password dito
