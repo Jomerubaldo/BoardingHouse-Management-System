@@ -1,7 +1,7 @@
 import { adminAuth } from "../../api/adminApi";
 import LoginImageHouse from "../../assets/download.jpg";
 import { useState } from "react";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../context/useAuth";
 import { Navigate, useNavigate } from "react-router-dom";
 
 function LoginPage() {
@@ -19,7 +19,7 @@ function LoginPage() {
     setData({ ...data, [e.target.name]: e.target.value });
 
     // check lang dito kung less na sa 1 ang string or delete
-    // is mag empty string na mawawala na erro message
+    // is mag empty string na mawawala na error message
     if (
       (e.target.name === "username" && e.target.value.length === 0) ||
       (e.target.name === "password" && e.target.value.length === 0)

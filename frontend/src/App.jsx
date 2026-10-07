@@ -8,7 +8,7 @@ import MainLayout from "./components/layouts/MainLayout";
 import NotFoundPage from "./pages/notfound/NotFoundPage";
 import LoginPage from "./pages/login/LoginPage";
 import ProtectedRoutes from "./utils/ProtectedRoutes";
-import { AuthProvider } from "./context/AuthContext";
+import { AuthProvider } from "./context/AuthProvider";
 
 function App() {
   return (

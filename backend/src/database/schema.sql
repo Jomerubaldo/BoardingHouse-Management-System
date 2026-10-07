@@ -15,7 +15,7 @@ roomStatus ENUM('Available', 'Occupied', 'Reparing') DEFAULT 'Available'
 );
 
 CREATE TABLE tblRent(
-rentID INT AUTO_INCREMENT PRIMARY KEY,
+rentID INT AUTO_INCRE   MENT PRIMARY KEY,
 tenantID INT NOT NULL,
 roomID INT NOT NULL,
 startDate DATE NOT NULL DEFAULT (CURRENT_DATE),
