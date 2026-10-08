@@ -82,7 +82,7 @@ export const deleteTenant = (req, res) => {
 
   const sql = 'DELETE FROM tblTenant WHERE tenantID = ?';
 
-  db.query(sql, [tenantID], (err, result) => {
+  db.query(sql, [tenantID], (err) => {
     if (err) {
       console.error(err);
       return res.status(500).json({ error: err.message, code: err.code });

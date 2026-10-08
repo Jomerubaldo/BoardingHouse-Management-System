@@ -1,3 +1,5 @@
+// 4. Process and Logic
+
 import db from '../config/db.js';
 
 // add
@@ -38,5 +40,33 @@ export const updateRent = (req, res) => {
       success: true,
       message: 'Update successfully!',
     });
+  });
+};
+
+// delete
+export const deleteRent = (req, res) => {
+  const { rentID } = req.params;
+
+  const sql = `DELETE FROM tblRent WHERE rentID = ?`;
+
+  db.query(sql, [rentID], (err) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ err: err.message, code: err.code });
+    }
+    res.json({ success: true, message: 'Deleted rent successfully!' });
+  });
+};
+
+// view
+export const getRent = (req, res) => {
+  const sql = `SELECT * FROM tblRent`;
+
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ err: err.message, code: err.code });
+    }
+    res.json(result);
   });
 };

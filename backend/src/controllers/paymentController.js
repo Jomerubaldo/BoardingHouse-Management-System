@@ -27,7 +27,7 @@ export const createPayment = (req, res) => {
 };
 
 // getAllHistory
-export const getAllPaymentHistory = (req, res) => {
+export const getAllPaymentHistory = (res) => {
   const sql =
     'SELECT datePayment, amountPayment, tenantName, roomNumber, datePayment FROM tblPayment ORDER BY paymentID DESC';
 
@@ -42,7 +42,7 @@ export const getAllPaymentHistory = (req, res) => {
 };
 
 // totalSales
-export const totalRevenue = (req, res) => {
+export const totalRevenue = (res) => {
   const sql = 'SELECT SUM(amountPayment) AS totalRevenue FROM tblPayment;';
 
   db.query(sql, (err, result) => {
@@ -57,7 +57,7 @@ export const totalRevenue = (req, res) => {
 };
 
 //dashboard chart
-export const dashboardChart = (req, res) => {
+export const dashboardChart = (res) => {
   const sql =
     "SELECT DATE_FORMAT(datePayment, '%Y-%m') AS month, SUM(amountPayment) AS total FROM tblPayment GROUP BY month ORDER BY month ASC;";
 
