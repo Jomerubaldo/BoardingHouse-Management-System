@@ -43,7 +43,7 @@ export const createTenant = (req, res) => {
 };
 
 // view specific
-export const getTenants = (req, res) => {
+export const getTenants = (_req, res) => {
   const sql =
     'SELECT tenantID, firstName, lastName, phoneNumber FROM tblTenant ORDER BY tenantID DESC';
 

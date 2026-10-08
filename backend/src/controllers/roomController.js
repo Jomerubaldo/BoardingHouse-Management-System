@@ -51,7 +51,7 @@ export const createRoom = (req, res) => {
 };
 
 // view
-export const getRooms = (req, res) => {
+export const getRooms = (_req, res) => {
   // to access tablelist tenantName remember AS tenantFullName this is an property to access in map method to render into tablelist
   const sql = `SELECT
     r.roomID,
@@ -80,7 +80,7 @@ export const updateStatusRoom = (req, res) => {
 
   const sql = 'UPDATE tblRoom SET roomStatus = ? WHERE roomID = ?';
 
-  db.query(sql, [roomStatus, roomID], (err, result) => {
+  db.query(sql, [roomStatus, roomID], (err) => {
     if (err) {
       console.error(err);
       return res.status(500).json({ error: err.message });
@@ -125,7 +125,7 @@ export const deleteRoom = (req, res) => {
 };
 
 // totalRoom
-export const totalRoom = (req, res) => {
+export const totalRoom = (_req, res) => { // need ng _req para hindi e ignored ni vscode ang argu
   const sql = 'SELECT COUNT(roomNumber) AS totalRoom FROM tblRoom';
 
   db.query(sql, (err, result) => {
@@ -138,7 +138,7 @@ export const totalRoom = (req, res) => {
 };
 
 // totalRepairing room
-export const totalRepairRoom = (req, res) => {
+export const totalRepairRoom = (_req, res) => {
   const sql =
     "SELECT COUNT(roomStatus) AS totalRepairingRoom FROM tblRoom WHERE roomStatus = 'Repairing';";
 

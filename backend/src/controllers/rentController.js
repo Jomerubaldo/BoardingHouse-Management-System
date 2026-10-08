@@ -59,7 +59,7 @@ export const deleteRent = (req, res) => {
 };
 
 // view
-export const getRent = (req, res) => {
+export const getRent = (_req, res) => {
   const sql = `SELECT * FROM tblRent`;
 
   db.query(sql, (err, result) => {
